@@ -158,31 +158,31 @@ const headCells: readonly HeadCell[] = [
     id: 'name',
     numeric: false,
     disablePadding: true,
-    label: 'Dessert (100g serving)',
+    label: 'Code project',
   },
   {
     id: 'calories',
     numeric: true,
     disablePadding: false,
-    label: 'Calories',
+    label: 'Project name',
   },
   {
     id: 'fat',
     numeric: true,
     disablePadding: false,
-    label: 'Fat (g)',
+    label: 'Location',
   },
   {
     id: 'carbs',
     numeric: true,
     disablePadding: false,
-    label: 'Carbs (g)',
+    label: 'Time',
   },
   {
     id: 'protein',
     numeric: true,
     disablePadding: false,
-    label: 'Protein (g)',
+    label: 'Another',
   },
 ];
 
@@ -366,7 +366,7 @@ export default function TestTable() {
     <Box sx={{ width: '100%' }}>
       <Paper sx={{ width: '100%', mb: 2 }}>
         <EnhancedTableToolbar numSelected={selected.length} />
-        <TableContainer>
+        <TableContainer sx={{ maxHeight: 580 }}>
           <Table
             stickyHeader
             sx={{ minWidth: 750 }}
