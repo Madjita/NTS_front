@@ -52,7 +52,7 @@ let tabs = createTabs(title ? title:'');
       <AppBar color="primary" position="sticky" elevation={0} sx={{justifyContent: 'center'}} >
         <Toolbar>
           <Grid container spacing={1} alignItems="center">
-            <Grid sx={{ display: { sm: 'none', xs: 'block' } }} item>
+            <Grid sx={{ display: { sm: 'sm', xs: 'block' } }} item>
               <IconButton
                 color="inherit"
                 aria-label="open drawer"

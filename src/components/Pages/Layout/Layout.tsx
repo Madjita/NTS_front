@@ -203,21 +203,34 @@ const Layout:  React.FC<Props> = ({children,title}) => {
           <CssBaseline />
           <Box
             component="nav"
-            sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+            sx={{ width: { sm: 0 }, flexShrink: { sm: 0 } }}
           >
-            {isSmUp ? null : (
+          
+            <NavBar
+                title={title}
+                PaperProps={{ style: { width: drawerWidth } }}
+                variant="temporary"
+                open={mobileOpen}
+                onClose={handleDrawerToggle}
+              />
+            {/*
+
+             {isSmUp ? null : (
               <NavBar
+                title={title}
                 PaperProps={{ style: { width: drawerWidth } }}
                 variant="temporary"
                 open={mobileOpen}
                 onClose={handleDrawerToggle}
               />
             )}
-            <NavBar
+              <NavBar
               title={title}
               PaperProps={{ style: { width: drawerWidth } }}
               sx={{ display: { sm: 'block', xs: 'none' } }}
-            />
+            />*/
+            }
+          
           </Box>
           <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
             <Header2 onDrawerToggle={handleDrawerToggle} title={title} value={value} handleChange={handleChange} />
