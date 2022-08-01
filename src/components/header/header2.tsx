@@ -15,6 +15,7 @@ import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import AccountMenu from './headerAccountMenu/headerAccountMenu';
 
+import label from "../../img/____1_1.webp"
 
 const lightColor = 'rgba(255, 255, 255, 0.7)';
 
@@ -52,7 +53,16 @@ let tabs = createTabs(title ? title:'');
       <AppBar color="primary" position="sticky" elevation={0} sx={{justifyContent: 'center'}} >
         <Toolbar>
           <Grid container spacing={1} alignItems="center">
-            <Grid sx={{ display: { sm: 'sm', xs: 'block' } }} item>
+            <Grid>
+            <img
+              style={{ width: '100px', display: 'block'}}
+              src={label}
+              srcSet={label}
+              alt='NTS'
+              loading="lazy"
+            />
+            </Grid>
+            <Grid sx={{ display: { sm: 'sm', xs: 'block', marginLeft:'10px' } }} item>
               <IconButton
                 color="inherit"
                 aria-label="open drawer"
