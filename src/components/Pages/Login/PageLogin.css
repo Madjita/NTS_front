@@ -1,0 +1,203 @@
+
+div {
+    display: block;
+    scrollbar-width: thin;
+    scrollbar-color: #dbe2eb transparent;
+}
+
+@media screen and (max-width: 5320px)
+{
+div.logo {
+    z-index: 3;
+}
+
+div.logo {
+    position: fixed;
+    left: 50px;
+    top: 0;
+    width: 60px;
+    height: 64px;
+    background: url(https://secure.zervant.com/login/99e542e….png);
+}
+
+#menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    padding-right: 100px;
+}
+}
+
+@media screen and (max-width: 5320px)
+{
+#menu {
+    /*background-color: #00b4c2;*/
+    background-color:#172a41;
+}
+
+#menu a, #menu span.a {
+   /* display: inline-block;*/
+    float: right;
+    font-size: 16px;
+    padding-left: 16px;
+    line-height: 64px;
+}
+
+#menu a, span.a {
+    text-decoration: none;
+    color: #fff;
+    cursor: pointer;
+}
+
+#menu a span.triangle, #menu span.a span.triangle {
+    width: 0;
+    height: 0;
+    margin-left: 6px;
+    padding-bottom: 2px;
+    display: inline-block;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #fff;
+}
+
+#menu a div.menu, #menu span.a div.menu {
+    position: absolute;
+    display: none;
+    background: #fff;
+    border-radius: 4px;
+}
+
+#menu a div.menu a, #menu span.a div.menu a {
+    display: block;
+    line-height: 50px;
+    padding: 0 18px;
+    float: none;
+    color: #00b4c2;
+}
+
+div.Content {
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    box-sizing: border-box;
+}
+
+div.Content div.ContentBox {
+    width: 380px;
+    position: relative;
+    background: #fff;
+    left: 50%;
+    transform: translate(-50%, 0);
+    border-radius: 4px;
+    padding: 60px;
+    box-shadow: 0 0 2px rgb(0 0 0 / 40%);
+}
+
+div.Content div.ContentBox h1 {
+    font-weight: normal;
+    font-size: 24px;
+    color: #3b3c3c;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 40px;
+}
+
+h1 {
+    display: block;
+    font-size: 2em;
+    margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+}
+
+div.Content div.ContentBox label {
+    font-size: 16px;
+    color: #3b3c3c;
+    padding-bottom: 8px;
+    font-weight: 500;
+}
+
+div.Content div.ContentBox button, div.Content div.ContentBox label, div.Content div.ContentBox input {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+label {
+    cursor: default;
+}
+
+div.Content div.ContentBox input {
+    font-family: inherit;
+    margin: 0 0 24px 0;
+    border: 1px solid #dddfdf;
+    background-color: #fff;
+    padding: 12px;
+    border-radius: 2px;
+    font-size: 16px;
+}
+
+div.Content div.ContentBox button, div.Content div.ContentBox label, div.Content div.ContentBox input {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+div.Content div.ContentBox label {
+    font-size: 16px;
+    color: #3b3c3c;
+    padding-bottom: 8px;
+    font-weight: 500;
+}
+
+div.Content div.ContentBox button, div.Content div.ContentBox label, div.Content div.ContentBox input {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+div.Content div.ContentBox input {
+    font-family: inherit;
+    margin: 0 0 24px 0;
+    border: 1px solid #dddfdf;
+    background-color: #fff;
+    padding: 12px;
+    border-radius: 2px;
+    font-size: 16px;
+}
+
+div.Content div.ContentBox button, div.Content div.ContentBox label, div.Content div.ContentBox input {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+button.Button {
+    position: relative;
+    margin: 40px 0 0 0;
+    border-radius: 4px;
+    background: #83cd20;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    padding: 20px;
+    cursor: pointer;
+    transition: background-color 0.4s linear;
+    box-shadow: 0 0 2px rgb(0 0 0 / 40%);
+    text-align: center;
+}
+
+div.Content a.hint, div.Content div.hint {
+    margin-top: 20px;
+    display: block;
+    width: 100%;
+    text-align: center;
+    color: rgba(255,255,255,0.9);
+}
+}

@@ -1,0 +1,63 @@
+{
+  "name": "my-app",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@date-io/date-fns": "1.x",
+    "@emotion/react": "^11.9.3",
+    "@emotion/styled": "^11.9.3",
+    "@mui/icons-material": "^5.8.3",
+    "@mui/material": "^5.8.5",
+    "@mui/x-date-pickers": "*",
+    "@mui/x-date-pickers-pro": "^5.0.0-alpha.7",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.3.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.5.2",
+    "@types/node": "^16.11.38",
+    "@types/react": "^18.0.11",
+    "@types/react-dom": "^18.0.5",
+    "axios": "^0.27.2",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
+    "react-redux": "^8.0.2",
+    "react-router-dom": "^6.3.0",
+    "react-scripts": "5.0.1",
+    "redux": "^4.2.0",
+    "redux-thunk": "^2.4.1",
+    "typescript": "^4.7.3",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "HTTPS=true  HOST=0.0.0.0  SSL_CRT_FILE=localhost.pem SSL_KEY_FILE=localhost-key.pem  react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "postinstall": "sh ./scripts/generate-dev-ssl-cert.sh"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.15",
+    "@types/react-dom": "^18.0.6",
+    "@typescript-eslint/eslint-plugin": "^5.30.5",
+    "react-apexcharts": "^1.4.0",
+    "react-spinners": "^0.13.3"
+  }
+}

@@ -1,0 +1,18 @@
+
+.controlledLayout {
+    padding: 48px 16px 0 48px !important;
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+    height: unset !important;
+  }
+
+  div.controlledLayout.Layout {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    position: relative;
+    height: 100%;
+  }

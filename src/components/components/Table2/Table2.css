@@ -1,0 +1,83 @@
+.market-overview__table-events .table-events__table-wrapper {
+    height: calc(100% - 56px);
+    overflow-y: auto;
+  }
+  .table-events__table-wrapper {
+    height: calc(100% - 56px);
+    padding: 0 8px;
+    overflow-y: auto;
+  }
+
+  .table-events__table-wrapper table {
+    width: 100%;
+  }
+  table {
+    border-collapse: collapse;
+  }
+  *, ::after, ::before {
+    box-sizing: border-box;
+  }
+
+
+  .table-events__table-wrapper table th {
+    position: sticky;
+    top: 0;
+    z-index: 44;
+    padding-left: 15px;
+    padding-right: 15px;
+    height: 40px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 20px;
+    color: #687D96;
+    vertical-align: middle;
+  }
+  th {
+    text-align: inherit;
+    text-align: -webkit-match-parent;
+  }
+
+
+
+  .table-events__table-wrapper  table .company {
+    min-width: 150px;
+    width: 150px;
+    max-width: 150px;
+  }
+
+  .table-events__table-wrapper table .date {
+    white-space: nowrap;
+  }
+
+  .table-events__table-wrapper  table td {
+    position: relative;
+    z-index: 2;
+    padding: 8px 15px;
+    font-size: 13px;
+    font-family: "Roboto", sans-serif;
+    font-weight: normal;
+    vertical-align: middle;
+  }
+
+  .table-events__table-wrapper table tr {
+    border-bottom: 1px solid #dddfdf;
+  }
+
+  .table-events__table-wrapper table tr:last-child{
+    border-bottom: none;
+  }
+
+  .small-logo {
+    width: 100%;
+    text-align: left;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .small-logo__inner {
+    display: inline-flex;
+    align-items: center;
+    width: 100%;
+    text-decoration: none;
+  }

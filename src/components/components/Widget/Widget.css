@@ -1,0 +1,58 @@
+  .widget {
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 3px 3px 10px rgba(21,39,103,.04);
+  }
+
+  .widget .body{
+
+  display: inline-table;
+  width: 100%;
+  height: 100%;
+  }
+
+
+ .widget .header .title
+ {
+    padding: .5rem 1rem;
+    margin-bottom: 0;
+    background-color: rgba(0,0,0,.03);
+    border-bottom: 1px solid rgba(0,0,0,.125);
+ }
+ .widget .header .title,
+ .widget .header h3 {
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 10px;
+    color: #172a41;
+  }
+
+  .widget.dividend-history .header {
+    padding-bottom: 20px;
+  }
+     .widget .header {
+        padding: .75rem 1.25rem;
+        margin-bottom: 0;
+        background-color: rgba(0,0,0,.03);
+        border-bottom: 1px solid rgba(0,0,0,.125);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+
+  .widget .toolbar {
+    display: flex;
+    justify-content: inherit;
+    width: 100%;
+    align-items: center;
+  }
+
+.widget .toolbar .settings {
+    align-items: center;
+    display: flex;
+    gap: 5px;
+
+}

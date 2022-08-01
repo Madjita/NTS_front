@@ -1,0 +1,13 @@
+body {
+  /*background-color: #00b4c2;*/
+  background-color:#172a41;
+  background-size: cover;
+  font-family: "Graphik Web", "museo-sans", sans-serif;
+  min-height: 740px;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  position: absolute;
+  margin: 0;
+}
+

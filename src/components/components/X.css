@@ -1,0 +1,73 @@
+.top-sales-graph__heading {
+    color: #3b3c3c;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+
+  .top-sales-graph.initial .top-sales-graph__last-12-months, .top-sales-graph.initial .top-sales-graph__graph {
+    opacity: .5;
+  }
+  .top-sales-graph__last-12-months {
+    color: #889492;
+    width: 200px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+  }
+
+  .top-sales-graph.initial .top-sales-graph__last-12-months, .top-sales-graph.initial .top-sales-graph__graph {
+    opacity: .5;
+  }
+  .top-sales-graph__graph {
+    width: 100%;
+  }
+
+  .resize-triggers, .resize-triggers > div, .contract-trigger::before {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    z-index: -1;
+  }
+
+  .resize-triggers > div {
+    background: #eee;
+    overflow: auto;
+  }
+  .resize-triggers, .resize-triggers > div, .contract-trigger::before {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    z-index: -1;
+  }
+  .resize-triggers {
+    visibility: hidden;
+  }
+
+  .resize-triggers > div {
+    background: #eee;
+    overflow: auto;
+  }
+  .resize-triggers, .resize-triggers > div, .contract-trigger::before {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    z-index: -1;
+  }
+  .resize-triggers {
+    visibility: hidden;
+  }

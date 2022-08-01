@@ -1,0 +1,23 @@
+
+.App{
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  min-height: 40px;
+  max-height: 100vh;
+  background-color: #dee5df;
+  z-index: 100;
+}
+
+
+
+div.MainBody{
+  display: flex;
+  min-height: 100vh
+}
+
+div.MainBody .mainContiner{
+  flex: 1;
+  flex-direction: column;
+}

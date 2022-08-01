@@ -1,0 +1,20 @@
+.PromoCarousel {
+    margin-bottom: -15px;
+}
+
+.PromoCarousel .carouselSingle {
+    text-align: center;
+}
+
+.PromoCarousel .CarouselItem__header {
+    font-size: 16px;
+    font-weight: bold;
+    color: #3b3c3c;
+    margin-bottom: 12px;
+}
+
+.PromoCarousel .CarouselItem__text {
+    font-size: 14px;
+    color: #889492;
+    margin-bottom: 12px;
+  }

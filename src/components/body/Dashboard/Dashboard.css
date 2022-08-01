@@ -1,0 +1,17 @@
+
+.Dashboard {
+    background-color: #f4f8f8;
+    min-height: 100%;
+}
+
+.Dashboard > .layoutPanel {
+    padding: 8px 48px;
+}
+
+.Dashboard .Layout {
+    padding: 48px 16px 0 48px !important;
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+    height: unset !important;
+  }

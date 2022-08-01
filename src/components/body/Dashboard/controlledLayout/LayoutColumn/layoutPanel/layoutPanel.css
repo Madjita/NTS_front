@@ -1,0 +1,11 @@
+.LayoutPanel {
+    padding: 32px 32px;
+    background-color: #fff;
+    -webkit-box-shadow: 1px 1px 6px 0 rgba(0,0,0,.12);
+    box-shadow: 1px 1px 6px 0 rgba(0,0,0,.12);
+    border-radius: 4px;
+  }
+
+  .Dashboard .controlledLayout .LayoutColumn .LayoutPanel {
+    margin: 0 32px 32px 0;
+  }

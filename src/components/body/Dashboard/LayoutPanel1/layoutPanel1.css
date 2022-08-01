@@ -1,0 +1,193 @@
+.LayoutPanel {
+    padding: 32px 32px;
+    background-color: #fff;
+    -webkit-box-shadow: 1px 1px 6px 0 rgba(0,0,0,.12);
+    box-shadow: 1px 1px 6px 0 rgba(0,0,0,.12);
+    border-radius: 4px;
+}
+
+.DashboardCompanyInfo {
+    max-width: 1240px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.DashboardCompanyInfo .CompanyInfoContainer {
+    display: inline-block;
+}
+
+.DashboardCompanyInfo .companyLogo.link {
+    cursor: pointer;
+  }
+
+  .DashboardCompanyInfo .companyLogo {
+    display: inline-block;
+    width: 62px;
+    height: 62px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+
+  .DashboardCompanyInfo .companyInfoEmptyState {
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 20px;
+    margin-top: 20px;
+  }
+
+
+  div.Button.link {
+    background: none;
+    color: #13b5c1;
+    border: none;
+    padding: 0;
+  }
+
+  div.Button {
+    display: inline-block;
+    border: none;
+    background-color: #13b5c1;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 16px 16px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border-radius: 2px;
+    -webkit-transition: background-color .3s;
+    transition: background-color .3s;
+  }
+
+
+
+  /* Button right */
+
+  .DashboardCompanyInfo .actionButton {
+    float: right;
+    margin-top: 8px;
+  }
+
+  .DashboardCompanyInfo .actionButton .button-menu-div {
+    position: relative;
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    line-height: 16px;
+    padding: 0;
+  }
+
+  .DashboardCompanyInfo .actionButton .Button {
+    padding: 12px;
+    white-space: nowrap;
+    font-size: 16px;
+  }
+
+  div.Button.accept {
+    background-color: #6bc733;
+  }
+
+
+
+  .DashboardCompanyInfo .actionButton .button-menu-div .menu-base {
+    padding: 16px 24px;
+  }
+  div.button-menu-div > .menu-base {
+    border-right: 0;
+    display: inline-block;
+    padding: 16px;
+  }
+  div.button-menu-div > .menu-base {
+    border-right: 0;
+    display: inline-block;
+    padding: 16px;
+  }
+  .DashboardCompanyInfo .actionButton .button-menu-div {
+    line-height: 16px;
+  }
+  .DashboardCompanyInfo .actionButton .Button {
+    white-space: nowrap;
+    font-size: 16px;
+  }
+  div.Button {
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+
+  DashboardCompanyInfo .actionButton .button-menu-div .dropdown {
+    padding: 16px 20px;
+    border-left: 1px solid rgba(0,0,0,.08);
+  }
+  div.button-menu-div.accept .dropdown {
+    border-left: 1px solid #508c50;
+    background: #6bc733 url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjI4ODUuOSAyMDAuMyAxMCA2Ij4KICA8ZGVmcz4KICAgIDxzdHlsZT4KICAgICAgLmNscy0xIHsKICAgICAgICBmaWxsOiAjRkZGRkZGOwogICAgICB9CiAgICA8L3N0eWxlPgogIDwvZGVmcz4KICA8ZyBpZD0iaW52b2ljZS1lZGl0b3ItZHJvcGRvd24td2hpdGUiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDIzMzIgLTMyOSkiPgogICAgPHBhdGggaWQ9IlBhdGhfOTEiIGRhdGEtbmFtZT0iUGF0aCA5MSIgY2xhc3M9ImNscy0xIiBkPSJNNDA0LjksMjM0LjdsLTUtNmgxMFoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDE1NCAzMDAuNikiLz4KICA8L2c+Cjwvc3ZnPgo=) no-repeat center;
+      background-size: auto;
+    background-size: 12px;
+    -webkit-transition: background-color .3s;
+    transition: background-color .3s;
+  }
+  div.button-menu-div.accept .dropdown {
+    border-left: 1px solid #508c50;
+    background: #6bc733 url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjI4ODUuOSAyMDAuMyAxMCA2Ij4KICA8ZGVmcz4KICAgIDxzdHlsZT4KICAgICAgLmNscy0xIHsKICAgICAgICBmaWxsOiAjRkZGRkZGOwogICAgICB9CiAgICA8L3N0eWxlPgogIDwvZGVmcz4KICA8ZyBpZD0iaW52b2ljZS1lZGl0b3ItZHJvcGRvd24td2hpdGUiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDIzMzIgLTMyOSkiPgogICAgPHBhdGggaWQ9IlBhdGhfOTEiIGRhdGEtbmFtZT0iUGF0aCA5MSIgY2xhc3M9ImNscy0xIiBkPSJNNDA0LjksMjM0LjdsLTUtNmgxMFoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDE1NCAzMDAuNikiLz4KICA8L2c+Cjwvc3ZnPgo=) no-repeat center;
+    background-size: 12px;
+    -webkit-transition: background-color .3s;
+    transition: background-color .3s;
+  }
+  div.button-menu-div .dropdown {
+    border-left: 1px solid #0f9faf;
+    border-radius: 0 3px 3px 0;
+    background: #13b5c1 url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjI4ODUuOSAyMDAuMyAxMCA2Ij4KICA8ZGVmcz4KICAgIDxzdHlsZT4KICAgICAgLmNscy0xIHsKICAgICAgICBmaWxsOiAjRkZGRkZGOwogICAgICB9CiAgICA8L3N0eWxlPgogIDwvZGVmcz4KICA8ZyBpZD0iaW52b2ljZS1lZGl0b3ItZHJvcGRvd24td2hpdGUiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDIzMzIgLTMyOSkiPgogICAgPHBhdGggaWQ9IlBhdGhfOTEiIGRhdGEtbmFtZT0iUGF0aCA5MSIgY2xhc3M9ImNscy0xIiBkPSJNNDA0LjksMjM0LjdsLTUtNmgxMFoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDE1NCAzMDAuNikiLz4KICA8L2c+Cjwvc3ZnPgo=) no-repeat center;
+    background-size: 12px;
+    padding: 16px 20px;
+    display: inline;
+    -webkit-transition: background-color .3s;
+    transition: background-color .3s;
+  }
+  div.button-menu-div .dropdown {
+    border-left: 1px solid #0f9faf;
+    border-radius: 0 3px 3px 0;
+    background: #13b5c1 url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjI4ODUuOSAyMDAuMyAxMCA2Ij4KICA8ZGVmcz4KICAgIDxzdHlsZT4KICAgICAgLmNscy0xIHsKICAgICAgICBmaWxsOiAjRkZGRkZGOwogICAgICB9CiAgICA8L3N0eWxlPgogIDwvZGVmcz4KICA8ZyBpZD0iaW52b2ljZS1lZGl0b3ItZHJvcGRvd24td2hpdGUiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDIzMzIgLTMyOSkiPgogICAgPHBhdGggaWQ9IlBhdGhfOTEiIGRhdGEtbmFtZT0iUGF0aCA5MSIgY2xhc3M9ImNscy0xIiBkPSJNNDA0LjksMjM0LjdsLTUtNmgxMFoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDE1NCAzMDAuNikiLz4KICA8L2c+Cjwvc3ZnPgo=) no-repeat center;
+    background-size: 12px;
+    padding: 16px 20px;
+    display: inline;
+    -webkit-transition: background-color .3s;
+    transition: background-color .3s;
+  }
+  .DashboardCompanyInfo .actionButton .button-menu-div {
+    line-height: 16px;
+  }
+  .DashboardCompanyInfo .actionButton .Button {
+    white-space: nowrap;
+    font-size: 16px;
+  }
+
+
+  /* span */
+
+  div.button-menu-div.accept > .menu-base:hover {
+    background-color: #85d857;
+  }
+
+  .DashboardCompanyInfo .actionButton .button-menu-div span {
+    white-space: nowrap;
+  }
+  .DashboardCompanyInfo .actionButton .button-menu-div {
+    line-height: 16px;
+  }
+  .DashboardCompanyInfo .actionButton .Button {
+    white-space: nowrap;
+    font-size: 16px;
+  }
+  div.Button {
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+  }

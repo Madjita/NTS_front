@@ -1,0 +1,21 @@
+
+div.wrapper {
+    background-color: #f1f4f8;
+    height: calc(100vh - 40px);
+    margin-top: 40px;
+}
+
+
+div.enginer{
+    padding: 30px 20px;
+}
+
+
+div.enginer .grid-widgets {
+    grid-template-columns: 2fr 1fr;
+  }
+div.enginer .grid-widgets, .enginer .vertical-grid-widgets {
+    display: grid;
+    grid-column-gap: 30px;
+    grid-row-gap: 30px;
+  }
