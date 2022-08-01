@@ -22,17 +22,17 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 
 interface Data {
-  calories: number;
+  calories: string;
   carbs: number;
-  fat: number;
+  fat: string;
   name: string;
   protein: number;
 }
 
 function createData(
   name: string,
-  calories: number,
-  fat: number,
+  calories: string,
+  fat: string,
   carbs: number,
   protein: number,
 ): Data {
@@ -46,25 +46,67 @@ function createData(
 }
 
 const rows = [
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Donut', 452, 25.0, 51, 4.9),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-  createData('Honeycomb', 408, 3.2, 87, 6.5),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Jelly Bean', 375, 0.0, 94, 0.0),
-  createData('KitKat', 518, 26.0, 65, 7.0),
-  createData('Lollipop', 392, 0.2, 98, 0.0),
-  createData('Marshmallow', 318, 0, 81, 2.0),
-  createData('Nougat', 360, 19.0, 9, 37.0),
-  createData('Oreo', 437, 18.0, 63, 4.0),
+  createData('204366', 'KYVO3', '', 67, 4.3),
+  createData('206232', 'Crane', 'Folignio', 51, 4.9),
+  createData('260287', 'KPP', 'Porvoo', 24, 6.0),
+  createData('260400', 'Boilers', 'Kipas', 24, 4.0),
+  createData('260407', 'HSPM2', 'Spremberg', 49, 3.9),
+  createData('260416', 'Rosenberg', '-', 87, 6.5),
+  createData('260418', 'Burgo', '', 37, 4.3),
+  createData('TI625151.10', 'PM9', 'Segezha', 94, 0.0),
+  createData('110381', 'Lava-EURE', '-', 65, 7.0),
+  createData('DSME', '1 Scrubber', 'Korea', 98, 0.0),
+  createData('DSME', '2 Scrubber', 'Korea', 98, 0.0),
+  createData('260423', 'Lava EURE Esmeraldas', 'Singapore', 81, 2.0),
+  createData('260420', 'Lava-E Marstal', '-', 9, 37.0),
+  createData('260422', 'Lava EDI Essen', 'Singapore', 63, 4.0),
+  createData('260435', 'Lava 19K Madrid', '-', 63, 4.0),
+  createData('260446', 'Lava 19K Maastricht', 'Taiwan', 63, 4.0),
+  createData('260422', 'Lava EDI Elba', 'Taiwan', 63, 4.0),
+  createData('260422.07', 'Lava EDI Essex', 'Taiwan', 63, 4.0),
+  createData('260435', 'Lava-19K Manchester', 'Taiwan', 63, 4.0),
+  createData('260422.08', 'Lava EDI Evora', 'Taiwan', 63, 4.0),
+  createData('260422', 'Lava EDI Eindhoven', 'Taiwan', 63, 4.0),
+  createData('260449', 'Klabin', 'Brasil', 63, 4.0),
+  createData('206254', 'LTH Baas WDR', '-', 63, 4.0),
+  createData('260462', 'OCO', 'Finland', 63, 4.0),
+  createData('260405', 'PM National Security Ventures', 'Egypt', 63, 4.0),
+  createData('206254', 'LTH Baas WDR', 'Singapore', 63, 4.0),
+  createData('260453', 'CMA CGM APL DANUBE', '-', 63, 4.0),
+  createData('260500', 'Lila TM4', 'Turkey', 63, 4.0),
+  createData('260491', 'Hayat TM9', 'Russia', 63, 4.0),
+  createData('260424', 'CMA A.LINKOLN', 'Spain', 63, 4.0),
+  createData('260453_030', 'CMA COLUMBIA', 'COLUMBIA', 63, 4.0),
+  createData('260453_021', 'CMA RHONE', 'RHONE', 63, 4.0),
+  createData('U1065AAA1', 'NSL3', 'Tampere', 63, 4.0),
+  createData('210217', 'SWE VANQUISH TM5', '-', 63, 4.0),
+  createData('TX025AAH1', 'LSZZ PM3', '-', 63, 4.0),
+  createData('260489', 'Beta Centauri TM8', 'Poland', 63, 4.0),
+  createData('K61156', 'K61156', 'Brasil', 63, 4.0),
+  createData('260513', 'ND Jingzhou China', 'New RB', 63, 4.0),
+  createData('318009', 'Kruger Brompton', 'QC via Valmet THU - Blue Jay Project', 63, 4.0),
+  createData('S2021-RFQ493 ', 'Netherlands Scrubber service work', '-', 63, 4.0),
+  createData('110443 ', 'SojitsMS N1220 MSB commissioning ship 1&2', '-', 63, 4.0),
+  createData('110419 ', 'APL DANUBE', '-', 63, 4.0),
+  createData('200665 ', 'Turkey Paper Machine IO test', 'Turkey', 63, 4.0),
+  createData('110386 ', 'GDR', 'Hong Kong', 63, 4.0),
+  createData('STX L34 ', 'STX L34', 'France', 63, 4.0),
+  createData('206288 ', 'NB516', '-', 63, 4.0),
+  createData('268047 ', 'ND DG', 'China', 63, 4.0),
+  createData('268046 ', 'ND CQ', 'China', 63, 4.0),
+  createData('CMA CGM Jules Verne ', 'CMA CGM Jules Verne', 'Malaysia', 63, 4.0),
+  createData('U2003A', 'Portugal Hydro powerplant', '', 63, 4.0),
+  createData('W1002A', 'PUMA - MP28', 'Brazil', 63, 4.0),
+  createData('-', 'Slovakia', 'Slovakia', 63, 4.0),
+  createData('T1011A', 'ND Beihai CP10RB SRS', 'China', 63, 4.0),
+  createData('260453', 'CMA CGM APL DANUBE', '-', 63, 4.0),
 ];
 
 
+/*
 for (let i = 0; i < 1000; i++) { // выведет 0, затем 1, затем 2
     rows.push(createData(String(i), 305, 3.7, 67, 4.3))
-  }
+  }*/
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
