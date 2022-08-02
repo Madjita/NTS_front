@@ -33,10 +33,11 @@ type Props = {
     className?: string,
     child?: any
     title?: string,
+    projectName?:string,
     handleAdd?: any;
 }
 
-const HoursAddDialog:  React.FC<Props> = ({title,handleAdd}) =>
+const HoursAddDialog:  React.FC<Props> = ({title,handleAdd,projectName}) =>
 {
   const [locale, setLocale] = React.useState<keyof typeof localeMap>('ru');
 
@@ -148,7 +149,7 @@ const HoursAddDialog:  React.FC<Props> = ({title,handleAdd}) =>
         {title}
       </Button>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Добавить почасовку</DialogTitle>
+        <DialogTitle>Добавить почасовку к проекту : {projectName}</DialogTitle>
         <DialogContent>
           <DialogContentText>
            Выбирите неделю на которой хотите добавить часы

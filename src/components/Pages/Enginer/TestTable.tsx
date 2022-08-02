@@ -23,17 +23,20 @@ import { IWeek } from '../../IDataInterface/IDataInterface';
 import { GetSesstionToken } from '../../../settings/settings';
 
 interface Data {
+  id: number,
   codeProject: string;
   nameProject: string;
   descriptions: string;
 }
 
 function createData(
+  id: number,
   codeProject: string,
   nameProject: string,
   descriptions: string,
 ): Data {
   return {
+    id,
     codeProject,
     nameProject,
     descriptions,
@@ -41,60 +44,60 @@ function createData(
 }
 
 const rows = [
-  createData('204366', 'KYVO3', ''),
-  createData('206232', 'Crane', 'Folignio'),
-  createData('260287', 'KPP', 'Porvoo'),
-  createData('260400', 'Boilers', 'Kipas'),
-  createData('260407', 'HSPM2', 'Spremberg'),
-  createData('260416', 'Rosenberg', '-'),
-  createData('260418', 'Burgo', ''),
-  createData('TI625151.10', 'PM9', 'Segezha'),
-  createData('110381', 'Lava-EURE', '-'),
-  createData('DSME', '1 Scrubber', 'Korea'),
-  createData('DSME', '2 Scrubber', 'Korea'),
-  createData('260423', 'Lava EURE Esmeraldas', 'Singapore'),
-  createData('260420', 'Lava-E Marstal', '-'),
-  createData('260422', 'Lava EDI Essen', 'Singapore'),
-  createData('260435', 'Lava 19K Madrid', '-'),
-  createData('260446', 'Lava 19K Maastricht', 'Taiwan'),
-  createData('260422', 'Lava EDI Elba', 'Taiwan'),
-  createData('260422.07', 'Lava EDI Essex', 'Taiwan'),
-  createData('260435', 'Lava-19K Manchester', 'Taiwan'),
-  createData('260422.08', 'Lava EDI Evora', 'Taiwan'),
-  createData('260422', 'Lava EDI Eindhoven', 'Taiwan'),
-  createData('260449', 'Klabin', 'Brasil'),
-  createData('206254', 'LTH Baas WDR', '-'),
-  createData('260462', 'OCO', 'Finland'),
-  createData('260405', 'PM National Security Ventures', 'Egypt'),
-  createData('206254', 'LTH Baas WDR', 'Singapore'),
-  createData('260453', 'CMA CGM APL DANUBE', '-'),
-  createData('260500', 'Lila TM4', 'Turkey'),
-  createData('260491', 'Hayat TM9', 'Russia'),
-  createData('260424', 'CMA A.LINKOLN', 'Spain'),
-  createData('260453_030', 'CMA COLUMBIA', 'COLUMBIA'),
-  createData('260453_021', 'CMA RHONE', 'RHONE'),
-  createData('U1065AAA1', 'NSL3', 'Tampere'),
-  createData('210217', 'SWE VANQUISH TM5', '-'),
-  createData('TX025AAH1', 'LSZZ PM3', '-'),
-  createData('260489', 'Beta Centauri TM8', 'Poland'),
-  createData('K61156', 'K61156', 'Brasil'),
-  createData('260513', 'ND Jingzhou China', 'New RB'),
-  createData('318009', 'Kruger Brompton', 'QC via Valmet THU - Blue Jay Project'),
-  createData('S2021-RFQ493 ', 'Netherlands Scrubber service work', '-'),
-  createData('110443 ', 'SojitsMS N1220 MSB commissioning ship 1&2', '-'),
-  createData('110419 ', 'APL DANUBE', '-'),
-  createData('200665 ', 'Turkey Paper Machine IO test', 'Turkey'),
-  createData('110386 ', 'GDR', 'Hong Kong'),
-  createData('STX L34 ', 'STX L34', 'France'),
-  createData('206288 ', 'NB516', '-'),
-  createData('268047 ', 'ND DG', 'China'),
-  createData('268046 ', 'ND CQ', 'China'),
-  createData('-', 'CMA CGM Jules Verne', 'Malaysia'),
-  createData('U2003A', 'Portugal Hydro powerplant', ''),
-  createData('W1002A', 'PUMA - MP28', 'Brazil'),
-  createData('-', 'Slovakia', 'Slovakia'),
-  createData('T1011A', 'ND Beihai CP10RB SRS', 'China'),
-  createData('260453', 'CMA CGM APL DANUBE', '-'),
+  createData(1,'204366', 'KYVO3', ''),
+  createData(2,'206232', 'Crane', 'Folignio'),
+  createData(3,'260287', 'KPP', 'Porvoo'),
+  createData(4,'260400', 'Boilers', 'Kipas'),
+  createData(5,'260407', 'HSPM2', 'Spremberg'),
+  createData(6,'260416', 'Rosenberg', '-'),
+  createData(7,'260418', 'Burgo', ''),
+  createData(8,'TI625151.10', 'PM9', 'Segezha'),
+  createData(9,'110381', 'Lava-EURE', '-'),
+  createData(10,'DSME', '1 Scrubber', 'Korea'),
+  createData(11,'DSME', '2 Scrubber', 'Korea'),
+  createData(12,'260423', 'Lava EURE Esmeraldas', 'Singapore'),
+  createData(13,'260420', 'Lava-E Marstal', '-'),
+  createData(14,'260422', 'Lava EDI Essen', 'Singapore'),
+  createData(15,'260435', 'Lava 19K Madrid', '-'),
+  createData(16,'260446', 'Lava 19K Maastricht', 'Taiwan'),
+  createData(17,'260422', 'Lava EDI Elba', 'Taiwan'),
+  createData(18,'260422.07', 'Lava EDI Essex', 'Taiwan'),
+  createData(19,'260435', 'Lava-19K Manchester', 'Taiwan'),
+  createData(20,'260422.08', 'Lava EDI Evora', 'Taiwan'),
+  createData(21,'260422', 'Lava EDI Eindhoven', 'Taiwan'),
+  createData(22,'260449', 'Klabin', 'Brasil'),
+  createData(23,'206254', 'LTH Baas WDR', '-'),
+  createData(24,'260462', 'OCO', 'Finland'),
+  createData(25,'260405', 'PM National Security Ventures', 'Egypt'),
+  createData(26,'206254', 'LTH Baas WDR', 'Singapore'),
+  createData(27,'260453', 'CMA CGM APL DANUBE', '-'),
+  createData(28,'260500', 'Lila TM4', 'Turkey'),
+  createData(29,'260491', 'Hayat TM9', 'Russia'),
+  createData(30,'260424', 'CMA A.LINKOLN', 'Spain'),
+  createData(31,'260453_030', 'CMA COLUMBIA', 'COLUMBIA'),
+  createData(32,'260453_021', 'CMA RHONE', 'RHONE'),
+  createData(33,'U1065AAA1', 'NSL3', 'Tampere'),
+  createData(34,'210217', 'SWE VANQUISH TM5', '-'),
+  createData(35,'TX025AAH1', 'LSZZ PM3', '-'),
+  createData(36,'260489', 'Beta Centauri TM8', 'Poland'),
+  createData(37,'K61156', 'K61156', 'Brasil'),
+  createData(38,'260513', 'ND Jingzhou China', 'New RB'),
+  createData(39,'318009', 'Kruger Brompton', 'QC via Valmet THU - Blue Jay Project'),
+  createData(40,'S2021-RFQ493 ', 'Netherlands Scrubber service work', '-'),
+  createData(41,'110443 ', 'SojitsMS N1220 MSB commissioning ship 1&2', '-'),
+  createData(42,'110419 ', 'APL DANUBE', '-'),
+  createData(43,'200665 ', 'Turkey Paper Machine IO test', 'Turkey'),
+  createData(44,'110386 ', 'GDR', 'Hong Kong'),
+  createData(45,'STX L34 ', 'STX L34', 'France'),
+  createData(46,'206288 ', 'NB516', '-'),
+  createData(47,'268047 ', 'ND DG', 'China'),
+  createData(48,'268046 ', 'ND CQ', 'China'),
+  createData(49,'-', 'CMA CGM Jules Verne', 'Malaysia'),
+  createData(50,'U2003A', 'Portugal Hydro powerplant', ''),
+  createData(51,'W1002A', 'PUMA - MP28', 'Brazil'),
+  createData(52,'-', 'Slovakia', 'Slovakia'),
+  createData(53,'T1011A', 'ND Beihai CP10RB SRS', 'China'),
+  createData(54,'260453', 'CMA CGM APL DANUBE', '-'),
 ];
 
 
@@ -150,6 +153,12 @@ interface HeadCell {
 
 const headCells: readonly HeadCell[] = [
   {
+    id: 'id',
+    numeric: false,
+    disablePadding: true,
+    label: 'Id',
+  },
+  {
     id: 'codeProject',
     numeric: false,
     disablePadding: true,
@@ -165,7 +174,7 @@ const headCells: readonly HeadCell[] = [
     id: 'descriptions',
     numeric: true,
     disablePadding: false,
-    label: 'Discription',
+    label: 'Descriptions',
   },
   {
     id: 'descriptions',
@@ -266,7 +275,6 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
           id="tableTitle"
           component="div"
         >
-          Nutrition
         </Typography>
       )}
       {numSelected > 0 ? (
@@ -286,26 +294,28 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
   );
 };
 
-export default function TestTable() {
-  const [order, setOrder] = React.useState<Order>('asc');
-  const [orderBy, setOrderBy] = React.useState<keyof Data>('codeProject');
+
+export default function TableTest() {
+  const [order, setOrder] = React.useState<Order>("asc");
+  const [orderBy, setOrderBy] = React.useState<keyof Data>("id");
   const [selected, setSelected] = React.useState<readonly string[]>([]);
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(50);
+  const [dense, setDense] = React.useState(true);
+  const [rowsPerPage, setRowsPerPage] = React.useState(14);
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
-    property: keyof Data,
+    property: keyof Data
   ) => {
-    const isAsc = orderBy === property && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
+    const isAsc = orderBy === property && order === "asc";
+    setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
   };
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.codeProject);
-      setSelected(newSelecteds);
+      const newSelected = rows.map((n) => n.id);
+      //setSelected(newSelected);
       return;
     }
     setSelected([]);
@@ -324,7 +334,7 @@ export default function TestTable() {
     } else if (selectedIndex > 0) {
       newSelected = newSelected.concat(
         selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1),
+        selected.slice(selectedIndex + 1)
       );
     }
 
@@ -335,11 +345,16 @@ export default function TestTable() {
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
 
+  const handleChangeDense = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setDense(event.target.checked);
+  };
 
   const isSelected = (name: string) => selected.indexOf(name) !== -1;
 
@@ -348,8 +363,7 @@ export default function TestTable() {
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
 
-
-    const handleAddHours = async (newObject: IWeek) => {
+  const handleAddHours = async (newObject: IWeek) => {
       let sessionToken =  GetSesstionToken()
       if(newObject != null)
       {
@@ -358,16 +372,15 @@ export default function TestTable() {
       }   
     }
 
+
   return (
-    <Box sx={{ width: '100%' }}>
-      <Paper sx={{ width: '100%', mb: 2 }}>
+    <Box sx={{ width: "100%" }}>
+      <Paper sx={{ width: "100%", mb: 2 }}>
         <EnhancedTableToolbar numSelected={selected.length} />
-        <TableContainer sx={{ maxHeight: '600px' }}>
+        <TableContainer>
           <Table
-            stickyHeader
-            sx={{ minWidth: 750 }}
             aria-labelledby="tableTitle"
-            size={'small'}
+            size={dense ? "small" : "medium"}
           >
             <EnhancedTableHead
               numSelected={selected.length}
@@ -383,40 +396,38 @@ export default function TestTable() {
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.codeProject);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
                     <TableRow
                       hover
-                      //onClick={(event) => handleClick(event, row.codeProject)}
-                      //role="checkbox"
-                      aria-checked={isItemSelected}
+                      role="checkbox"
                       tabIndex={-1}
-                      key={row.codeProject}
-                      selected={isItemSelected}
+                      key={row.id}
                     >
                       <TableCell padding="checkbox">
                         <Checkbox
                           color="primary"
-                          checked={isItemSelected}
                           inputProps={{
-                            'aria-labelledby': labelId,
+                            "aria-labelledby": labelId
                           }}
                         />
                       </TableCell>
                       <TableCell
-                        component="th"
-                        id={labelId}
-                        scope="row"
-                        padding="none"
-                      >
+                       component="th"
+                       id={labelId}
+                       scope="row"
+                       padding="none"
+                       >
+                        {row.id}
+                       </TableCell>
+                      <TableCell >
                         {row.codeProject}
                       </TableCell>
                       <TableCell align="right">{row.nameProject}</TableCell>
                       <TableCell align="right">{row.descriptions}</TableCell>
                       <TableCell align="right">
-                        <HoursAddDialog title='Добавить почасовку' handleAdd={handleAddHours}/>
+                        <HoursAddDialog title='Добавить почасовку' handleAdd={handleAddHours} projectName={row.codeProject +" - "+ row.nameProject}/>
                       </TableCell>
                     </TableRow>
                   );
@@ -424,7 +435,7 @@ export default function TestTable() {
               {emptyRows > 0 && (
                 <TableRow
                   style={{
-                    height: 33 * emptyRows,
+                    height: (dense ? 43 : 63) * emptyRows
                   }}
                 >
                   <TableCell colSpan={6} />
@@ -434,7 +445,7 @@ export default function TestTable() {
           </Table>
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[5, 10, 25,50]}
+          rowsPerPageOptions={[14]}
           component="div"
           count={rows.length}
           rowsPerPage={rowsPerPage}
