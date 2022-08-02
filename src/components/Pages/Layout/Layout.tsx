@@ -234,7 +234,7 @@ const Layout:  React.FC<Props> = ({children,title}) => {
           </Box>
           <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
             <Header2 onDrawerToggle={handleDrawerToggle} title={title} value={value} handleChange={handleChange} />
-            <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: '#eaeff1' }}>
+            <Box component="main" sx={{ flex: 1, py: 1, px: 1, bgcolor: '#eaeff1' }}>
                {newChildernWithTabPosition}
             </Box>
             <Box component="footer" sx={{ p: 2, bgcolor: '#eaeff1' }}>

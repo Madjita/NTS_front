@@ -15,91 +15,86 @@ import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
+import HoursAddDialog from '../../components/HoursComponents/HoursAddDialog';
+import { IWeek } from '../../IDataInterface/IDataInterface';
+import { GetSesstionToken } from '../../../settings/settings';
 
 interface Data {
-  calories: string;
-  carbs: number;
-  fat: string;
-  name: string;
-  protein: number;
+  codeProject: string;
+  nameProject: string;
+  descriptions: string;
 }
 
 function createData(
-  name: string,
-  calories: string,
-  fat: string,
-  carbs: number,
-  protein: number,
+  codeProject: string,
+  nameProject: string,
+  descriptions: string,
 ): Data {
   return {
-    name,
-    calories,
-    fat,
-    carbs,
-    protein,
+    codeProject,
+    nameProject,
+    descriptions,
   };
 }
 
 const rows = [
-  createData('204366', 'KYVO3', '', 67, 4.3),
-  createData('206232', 'Crane', 'Folignio', 51, 4.9),
-  createData('260287', 'KPP', 'Porvoo', 24, 6.0),
-  createData('260400', 'Boilers', 'Kipas', 24, 4.0),
-  createData('260407', 'HSPM2', 'Spremberg', 49, 3.9),
-  createData('260416', 'Rosenberg', '-', 87, 6.5),
-  createData('260418', 'Burgo', '', 37, 4.3),
-  createData('TI625151.10', 'PM9', 'Segezha', 94, 0.0),
-  createData('110381', 'Lava-EURE', '-', 65, 7.0),
-  createData('DSME', '1 Scrubber', 'Korea', 98, 0.0),
-  createData('DSME', '2 Scrubber', 'Korea', 98, 0.0),
-  createData('260423', 'Lava EURE Esmeraldas', 'Singapore', 81, 2.0),
-  createData('260420', 'Lava-E Marstal', '-', 9, 37.0),
-  createData('260422', 'Lava EDI Essen', 'Singapore', 63, 4.0),
-  createData('260435', 'Lava 19K Madrid', '-', 63, 4.0),
-  createData('260446', 'Lava 19K Maastricht', 'Taiwan', 63, 4.0),
-  createData('260422', 'Lava EDI Elba', 'Taiwan', 63, 4.0),
-  createData('260422.07', 'Lava EDI Essex', 'Taiwan', 63, 4.0),
-  createData('260435', 'Lava-19K Manchester', 'Taiwan', 63, 4.0),
-  createData('260422.08', 'Lava EDI Evora', 'Taiwan', 63, 4.0),
-  createData('260422', 'Lava EDI Eindhoven', 'Taiwan', 63, 4.0),
-  createData('260449', 'Klabin', 'Brasil', 63, 4.0),
-  createData('206254', 'LTH Baas WDR', '-', 63, 4.0),
-  createData('260462', 'OCO', 'Finland', 63, 4.0),
-  createData('260405', 'PM National Security Ventures', 'Egypt', 63, 4.0),
-  createData('206254', 'LTH Baas WDR', 'Singapore', 63, 4.0),
-  createData('260453', 'CMA CGM APL DANUBE', '-', 63, 4.0),
-  createData('260500', 'Lila TM4', 'Turkey', 63, 4.0),
-  createData('260491', 'Hayat TM9', 'Russia', 63, 4.0),
-  createData('260424', 'CMA A.LINKOLN', 'Spain', 63, 4.0),
-  createData('260453_030', 'CMA COLUMBIA', 'COLUMBIA', 63, 4.0),
-  createData('260453_021', 'CMA RHONE', 'RHONE', 63, 4.0),
-  createData('U1065AAA1', 'NSL3', 'Tampere', 63, 4.0),
-  createData('210217', 'SWE VANQUISH TM5', '-', 63, 4.0),
-  createData('TX025AAH1', 'LSZZ PM3', '-', 63, 4.0),
-  createData('260489', 'Beta Centauri TM8', 'Poland', 63, 4.0),
-  createData('K61156', 'K61156', 'Brasil', 63, 4.0),
-  createData('260513', 'ND Jingzhou China', 'New RB', 63, 4.0),
-  createData('318009', 'Kruger Brompton', 'QC via Valmet THU - Blue Jay Project', 63, 4.0),
-  createData('S2021-RFQ493 ', 'Netherlands Scrubber service work', '-', 63, 4.0),
-  createData('110443 ', 'SojitsMS N1220 MSB commissioning ship 1&2', '-', 63, 4.0),
-  createData('110419 ', 'APL DANUBE', '-', 63, 4.0),
-  createData('200665 ', 'Turkey Paper Machine IO test', 'Turkey', 63, 4.0),
-  createData('110386 ', 'GDR', 'Hong Kong', 63, 4.0),
-  createData('STX L34 ', 'STX L34', 'France', 63, 4.0),
-  createData('206288 ', 'NB516', '-', 63, 4.0),
-  createData('268047 ', 'ND DG', 'China', 63, 4.0),
-  createData('268046 ', 'ND CQ', 'China', 63, 4.0),
-  createData('CMA CGM Jules Verne ', 'CMA CGM Jules Verne', 'Malaysia', 63, 4.0),
-  createData('U2003A', 'Portugal Hydro powerplant', '', 63, 4.0),
-  createData('W1002A', 'PUMA - MP28', 'Brazil', 63, 4.0),
-  createData('-', 'Slovakia', 'Slovakia', 63, 4.0),
-  createData('T1011A', 'ND Beihai CP10RB SRS', 'China', 63, 4.0),
-  createData('260453', 'CMA CGM APL DANUBE', '-', 63, 4.0),
+  createData('204366', 'KYVO3', ''),
+  createData('206232', 'Crane', 'Folignio'),
+  createData('260287', 'KPP', 'Porvoo'),
+  createData('260400', 'Boilers', 'Kipas'),
+  createData('260407', 'HSPM2', 'Spremberg'),
+  createData('260416', 'Rosenberg', '-'),
+  createData('260418', 'Burgo', ''),
+  createData('TI625151.10', 'PM9', 'Segezha'),
+  createData('110381', 'Lava-EURE', '-'),
+  createData('DSME', '1 Scrubber', 'Korea'),
+  createData('DSME', '2 Scrubber', 'Korea'),
+  createData('260423', 'Lava EURE Esmeraldas', 'Singapore'),
+  createData('260420', 'Lava-E Marstal', '-'),
+  createData('260422', 'Lava EDI Essen', 'Singapore'),
+  createData('260435', 'Lava 19K Madrid', '-'),
+  createData('260446', 'Lava 19K Maastricht', 'Taiwan'),
+  createData('260422', 'Lava EDI Elba', 'Taiwan'),
+  createData('260422.07', 'Lava EDI Essex', 'Taiwan'),
+  createData('260435', 'Lava-19K Manchester', 'Taiwan'),
+  createData('260422.08', 'Lava EDI Evora', 'Taiwan'),
+  createData('260422', 'Lava EDI Eindhoven', 'Taiwan'),
+  createData('260449', 'Klabin', 'Brasil'),
+  createData('206254', 'LTH Baas WDR', '-'),
+  createData('260462', 'OCO', 'Finland'),
+  createData('260405', 'PM National Security Ventures', 'Egypt'),
+  createData('206254', 'LTH Baas WDR', 'Singapore'),
+  createData('260453', 'CMA CGM APL DANUBE', '-'),
+  createData('260500', 'Lila TM4', 'Turkey'),
+  createData('260491', 'Hayat TM9', 'Russia'),
+  createData('260424', 'CMA A.LINKOLN', 'Spain'),
+  createData('260453_030', 'CMA COLUMBIA', 'COLUMBIA'),
+  createData('260453_021', 'CMA RHONE', 'RHONE'),
+  createData('U1065AAA1', 'NSL3', 'Tampere'),
+  createData('210217', 'SWE VANQUISH TM5', '-'),
+  createData('TX025AAH1', 'LSZZ PM3', '-'),
+  createData('260489', 'Beta Centauri TM8', 'Poland'),
+  createData('K61156', 'K61156', 'Brasil'),
+  createData('260513', 'ND Jingzhou China', 'New RB'),
+  createData('318009', 'Kruger Brompton', 'QC via Valmet THU - Blue Jay Project'),
+  createData('S2021-RFQ493 ', 'Netherlands Scrubber service work', '-'),
+  createData('110443 ', 'SojitsMS N1220 MSB commissioning ship 1&2', '-'),
+  createData('110419 ', 'APL DANUBE', '-'),
+  createData('200665 ', 'Turkey Paper Machine IO test', 'Turkey'),
+  createData('110386 ', 'GDR', 'Hong Kong'),
+  createData('STX L34 ', 'STX L34', 'France'),
+  createData('206288 ', 'NB516', '-'),
+  createData('268047 ', 'ND DG', 'China'),
+  createData('268046 ', 'ND CQ', 'China'),
+  createData('-', 'CMA CGM Jules Verne', 'Malaysia'),
+  createData('U2003A', 'Portugal Hydro powerplant', ''),
+  createData('W1002A', 'PUMA - MP28', 'Brazil'),
+  createData('-', 'Slovakia', 'Slovakia'),
+  createData('T1011A', 'ND Beihai CP10RB SRS', 'China'),
+  createData('260453', 'CMA CGM APL DANUBE', '-'),
 ];
 
 
@@ -155,34 +150,28 @@ interface HeadCell {
 
 const headCells: readonly HeadCell[] = [
   {
-    id: 'name',
+    id: 'codeProject',
     numeric: false,
     disablePadding: true,
     label: 'Code project',
   },
   {
-    id: 'calories',
+    id: 'nameProject',
     numeric: true,
     disablePadding: false,
     label: 'Project name',
   },
   {
-    id: 'fat',
+    id: 'descriptions',
     numeric: true,
     disablePadding: false,
-    label: 'Location',
+    label: 'Discription',
   },
   {
-    id: 'carbs',
+    id: 'descriptions',
     numeric: true,
     disablePadding: false,
-    label: 'Time',
-  },
-  {
-    id: 'protein',
-    numeric: true,
-    disablePadding: false,
-    label: 'Another',
+    label: 'Add hours',
   },
 ];
 
@@ -299,10 +288,9 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
 
 export default function TestTable() {
   const [order, setOrder] = React.useState<Order>('asc');
-  const [orderBy, setOrderBy] = React.useState<keyof Data>('calories');
+  const [orderBy, setOrderBy] = React.useState<keyof Data>('codeProject');
   const [selected, setSelected] = React.useState<readonly string[]>([]);
   const [page, setPage] = React.useState(0);
-  const [dense, setDense] = React.useState(true);
   const [rowsPerPage, setRowsPerPage] = React.useState(50);
 
   const handleRequestSort = (
@@ -316,7 +304,7 @@ export default function TestTable() {
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.name);
+      const newSelecteds = rows.map((n) => n.codeProject);
       setSelected(newSelecteds);
       return;
     }
@@ -352,9 +340,6 @@ export default function TestTable() {
     setPage(0);
   };
 
-  const handleChangeDense = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setDense(event.target.checked);
-  };
 
   const isSelected = (name: string) => selected.indexOf(name) !== -1;
 
@@ -362,16 +347,27 @@ export default function TestTable() {
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
+
+
+    const handleAddHours = async (newObject: IWeek) => {
+      let sessionToken =  GetSesstionToken()
+      if(newObject != null)
+      {
+        console.log("Add hours = ",newObject)
+         // let responce =   addCompany(sessionToken,newCompany);
+      }   
+    }
+
   return (
     <Box sx={{ width: '100%' }}>
       <Paper sx={{ width: '100%', mb: 2 }}>
         <EnhancedTableToolbar numSelected={selected.length} />
-        <TableContainer sx={{ maxHeight: 580 }}>
+        <TableContainer sx={{ maxHeight: '600px' }}>
           <Table
             stickyHeader
             sx={{ minWidth: 750 }}
             aria-labelledby="tableTitle"
-            size={dense ? 'small' : 'medium'}
+            size={'small'}
           >
             <EnhancedTableHead
               numSelected={selected.length}
@@ -387,17 +383,17 @@ export default function TestTable() {
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.name);
+                  const isItemSelected = isSelected(row.codeProject);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.name)}
-                      role="checkbox"
+                      //onClick={(event) => handleClick(event, row.codeProject)}
+                      //role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.name}
+                      key={row.codeProject}
                       selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">
@@ -415,19 +411,20 @@ export default function TestTable() {
                         scope="row"
                         padding="none"
                       >
-                        {row.name}
+                        {row.codeProject}
                       </TableCell>
-                      <TableCell align="right">{row.calories}</TableCell>
-                      <TableCell align="right">{row.fat}</TableCell>
-                      <TableCell align="right">{row.carbs}</TableCell>
-                      <TableCell align="right">{row.protein}</TableCell>
+                      <TableCell align="right">{row.nameProject}</TableCell>
+                      <TableCell align="right">{row.descriptions}</TableCell>
+                      <TableCell align="right">
+                        <HoursAddDialog title='Добавить почасовку' handleAdd={handleAddHours}/>
+                      </TableCell>
                     </TableRow>
                   );
                 })}
               {emptyRows > 0 && (
                 <TableRow
                   style={{
-                    height: (dense ? 33 : 53) * emptyRows,
+                    height: 33 * emptyRows,
                   }}
                 >
                   <TableCell colSpan={6} />
@@ -446,10 +443,6 @@ export default function TestTable() {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Paper>
-      <FormControlLabel
-        control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense padding"
-      />
     </Box>
   );
 }
