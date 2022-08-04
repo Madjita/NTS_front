@@ -36,7 +36,7 @@ const ProjectCardComponent:  React.FC<Props> = ({projectProps}) => {
 
 
   //const {projects, error, loading} = useTypedSelector(state => state.project)
-  //const {findUsersInProject} = useActions()
+  const {} = useActions()
 
 
   const handleAddHours = async (newObject: IWeek) => {

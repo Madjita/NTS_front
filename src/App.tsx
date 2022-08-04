@@ -122,6 +122,7 @@ function App() {
           :
           <Layout title="Панель администратора" children={<Admin/>}/>
       }/>
+      <Route  path="/test" element={  <Home/> }/>
       <Route  path="*" element={<NotFound/>}/>
     </Routes>
   );

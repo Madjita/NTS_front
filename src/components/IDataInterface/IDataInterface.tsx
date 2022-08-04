@@ -14,11 +14,13 @@ export interface Register{
 
 export interface IProject{
     title : string,
+    number : string,
     actualHours: string,
     maxHour: number,
     dateStart: string,
     dateStop: string,
-    status: string
+    status: string,
+    description: string,
     users: Array<IUser>,
 }
 

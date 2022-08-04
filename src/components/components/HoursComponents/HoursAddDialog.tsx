@@ -18,6 +18,12 @@ import ruLocale from 'date-fns/locale/ru';
 import deLocale from 'date-fns/locale/de';
 import enLocale from 'date-fns/locale/en-US';
 import arSaLocale from 'date-fns/locale/ar-SA';
+import { MenuItem, Tab, Tabs } from '@mui/material';
+import { TabPanel } from '../../Pages/Enginer/Enginer';
+import HoursCode from './HoursCode';
+import { useActions } from '../../../redux/hooks/userActions';
+import { useTypedSelector } from '../../../redux/hooks/useTypedSelector';
+import { GetSesstionToken } from '../../../settings/settings';
 
 const localeMap = {
   en: enLocale,
@@ -44,20 +50,34 @@ const HoursAddDialog:  React.FC<Props> = ({title,handleAdd,projectName}) =>
   const [open, setOpen] = React.useState(false);
 
   const [dataValue, setDataValue] = React.useState<Date | null>(new Date());
-  const [newWeek, setNewWeek] = React.useState<IWeek>({
-    year: dataValue?.getFullYear() as number,
-    month: dataValue?.getMonth() as number,
-    numberWeek: WeekInit(),
-    moHour: new Object as IDocHour,
-    tuHour: new Object as IDocHour,
-    weHour: new Object as IDocHour,
-    thHour: new Object as IDocHour,
-    frHour: new Object as IDocHour,
-    saHour: new Object as IDocHour,
-    suHour: new Object as IDocHour,
-    sumHour: 0 as number,
+  const [newWeek, setNewWeek] = React.useState<IWeek>(()=>{
 
-   });
+   let init =  {
+      year: dataValue?.getFullYear() as number,
+      month: dataValue?.getMonth() as number,
+      numberWeek: WeekInit(),
+      moHour: new Object as IDocHour,
+      tuHour: new Object as IDocHour,
+      weHour: new Object as IDocHour,
+      thHour: new Object as IDocHour,
+      frHour: new Object as IDocHour,
+      saHour: new Object as IDocHour,
+      suHour: new Object as IDocHour,
+      sumHour: 0 as number,
+  
+     }
+
+     init.moHour.activityCode = 'AACD'
+     init.tuHour.activityCode = 'AACD'
+     init.weHour.activityCode = 'AACD'
+     init.thHour.activityCode = 'AACD'
+     init.frHour.activityCode = 'AACD'
+     init.saHour.activityCode = 'AACD'
+     init.suHour.activityCode = 'AACD'
+  
+     return init;
+
+  });
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -143,6 +163,33 @@ const HoursAddDialog:  React.FC<Props> = ({title,handleAdd,projectName}) =>
   }
 
 
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+      setValue(newValue);
+
+      if(newValue === 0 )
+      {
+        newWeek.tuHour!.activityCode! = newWeek.moHour!.activityCode!;
+        newWeek.weHour!.activityCode! = newWeek.moHour!.activityCode!;
+        newWeek.thHour!.activityCode! = newWeek.moHour!.activityCode!;
+        newWeek.frHour!.activityCode! = newWeek.moHour!.activityCode!;
+        newWeek.saHour!.activityCode! = newWeek.moHour!.activityCode!;
+        newWeek.suHour!.activityCode! = newWeek.moHour!.activityCode!;
+        setNewWeek({...newWeek})
+      }
+    };
+
+   // const {users, error, loading} = useTypedSelector(state => state.user)
+    //const {fetchUsers} = useActions()
+
+
+    React.useEffect(()=>{
+
+     // fetchUsers(GetSesstionToken());
+    },[])
+    
+
   return (
     <React.Fragment>
       <Button size="small" variant="outlined" onClick={handleClickOpen}>
@@ -154,7 +201,10 @@ const HoursAddDialog:  React.FC<Props> = ({title,handleAdd,projectName}) =>
           <DialogContentText>
            Выбирите неделю на которой хотите добавить часы
           </DialogContentText>
-          <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={localeMap[locale]}>
+         {
+          /*
+
+           <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={localeMap[locale]}>
               <DesktopDatePicker
               label="Текущая дата"
               value={dataValue}
@@ -167,6 +217,34 @@ const HoursAddDialog:  React.FC<Props> = ({title,handleAdd,projectName}) =>
               }}
             />
           </LocalizationProvider>
+
+          */
+         }
+
+
+          <TextField
+              autoFocus
+              select
+              fullWidth
+              margin="dense"
+              id="select"
+              label="Инженер"
+              type="select"
+              variant="standard"
+              value={newWeek.moHour?.activityCode}
+              inputProps={{ style: { textAlign: 'center' }}} 
+              onChange={e =>{
+                setNewWeek({...newWeek})
+              }}
+              >
+                <MenuItem value={'None'}>
+                  <em>None</em>
+                </MenuItem>
+                <MenuItem value={'AACD'}>AACD</MenuItem>
+                <MenuItem value={'AACF'}>AACF</MenuItem>
+                <MenuItem value={'AACE'}>AACE</MenuItem>
+                <MenuItem value={'AADE'}>AADE</MenuItem>
+          </TextField>
 
           <TextField
             autoFocus
@@ -183,23 +261,66 @@ const HoursAddDialog:  React.FC<Props> = ({title,handleAdd,projectName}) =>
               setNewWeek({...newWeek})
           }}
           />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Понедельник"
-            type="name"
-            fullWidth
-            variant="standard"
-            value={newWeek.moHour!.workingTime!}
-            inputProps={{ style: { textAlign: 'center' }}} 
-            onChange={e =>{
 
-              sumHours(newWeek,e,1);
-              newWeek.moHour!.workingTime! = e.target.value;
-              setNewWeek({...newWeek})
-          }}
+
+        <Tabs value={value} onChange={handleChange} textColor="inherit">
+          <Tab style={{flex: '1'}}  label={"Общий код"} />
+          <Tab style={{flex: '1'}}  label={"Код по каждому"} />
+        </Tabs>
+
+        <TabPanel value={value} index={0}>
+
+        <TextField
+              autoFocus
+              select
+              fullWidth
+              margin="dense"
+              id="select"
+              label="Код"
+              type="select"
+              variant="standard"
+              value={newWeek.moHour?.activityCode}
+              inputProps={{ style: { textAlign: 'center' }}} 
+              onChange={e =>{
+
+                newWeek.moHour!.activityCode! = e.target.value;
+                newWeek.tuHour!.activityCode! = e.target.value;
+                newWeek.weHour!.activityCode! = e.target.value;
+                newWeek.thHour!.activityCode! = e.target.value;
+                newWeek.frHour!.activityCode! = e.target.value;
+                newWeek.saHour!.activityCode! = e.target.value;
+                newWeek.suHour!.activityCode! = e.target.value;
+
+                setNewWeek({...newWeek})
+              }}
+              >
+                <MenuItem value={'None'}>
+                  <em>None</em>
+                </MenuItem>
+                <MenuItem value={'AACD'}>AACD</MenuItem>
+                <MenuItem value={'AACF'}>AACF</MenuItem>
+                <MenuItem value={'AACE'}>AACE</MenuItem>
+                <MenuItem value={'AADE'}>AADE</MenuItem>
+          </TextField>
+
+          <TextField
+              autoFocus
+              margin="dense"
+              id="name"
+              label="Понедельник"
+              type="name"
+              fullWidth
+              variant="standard"
+              value={newWeek.moHour!.workingTime!}
+              inputProps={{ style: { textAlign: 'center' }}} 
+              onChange={e =>{
+
+                sumHours(newWeek,e,1);
+                newWeek.moHour!.workingTime! = e.target.value;
+                setNewWeek({...newWeek})
+              }}
           />
+
            <TextField
             autoFocus
             margin="dense"
@@ -304,6 +425,12 @@ const HoursAddDialog:  React.FC<Props> = ({title,handleAdd,projectName}) =>
               setNewWeek({...newWeek})
           }}
           />
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+                    <HoursCode setNewWeek={setNewWeek} newWeek={newWeek} sumHours={sumHours} />
+        </TabPanel>
+                  
+
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Отменить</Button>

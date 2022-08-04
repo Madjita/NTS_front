@@ -19,8 +19,17 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 import HoursAddDialog from '../../components/HoursComponents/HoursAddDialog';
-import { IWeek } from '../../IDataInterface/IDataInterface';
-import { GetSesstionToken } from '../../../settings/settings';
+import { IProject, IWeek } from '../../IDataInterface/IDataInterface';
+import { GetSessionEmail, GetSesstionToken } from '../../../settings/settings';
+import { Button, Collapse } from '@mui/material';
+import ProjectAddDialog, { IProjectSendApi } from '../../components/ProjectComponents/ProjectAddDialog';
+import { useActions } from '../../../redux/hooks/userActions';
+import { useTypedSelector } from '../../../redux/hooks/useTypedSelector';
+import SettingsIcon from '@mui/icons-material/Settings';
+import IconDelete from '@mui/icons-material/Delete'
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+
 
 interface Data {
   id: number,
@@ -43,62 +52,7 @@ function createData(
   };
 }
 
-const rows = [
-  createData(1,'204366', 'KYVO3', ''),
-  createData(2,'206232', 'Crane', 'Folignio'),
-  createData(3,'260287', 'KPP', 'Porvoo'),
-  createData(4,'260400', 'Boilers', 'Kipas'),
-  createData(5,'260407', 'HSPM2', 'Spremberg'),
-  createData(6,'260416', 'Rosenberg', '-'),
-  createData(7,'260418', 'Burgo', ''),
-  createData(8,'TI625151.10', 'PM9', 'Segezha'),
-  createData(9,'110381', 'Lava-EURE', '-'),
-  createData(10,'DSME', '1 Scrubber', 'Korea'),
-  createData(11,'DSME', '2 Scrubber', 'Korea'),
-  createData(12,'260423', 'Lava EURE Esmeraldas', 'Singapore'),
-  createData(13,'260420', 'Lava-E Marstal', '-'),
-  createData(14,'260422', 'Lava EDI Essen', 'Singapore'),
-  createData(15,'260435', 'Lava 19K Madrid', '-'),
-  createData(16,'260446', 'Lava 19K Maastricht', 'Taiwan'),
-  createData(17,'260422', 'Lava EDI Elba', 'Taiwan'),
-  createData(18,'260422.07', 'Lava EDI Essex', 'Taiwan'),
-  createData(19,'260435', 'Lava-19K Manchester', 'Taiwan'),
-  createData(20,'260422.08', 'Lava EDI Evora', 'Taiwan'),
-  createData(21,'260422', 'Lava EDI Eindhoven', 'Taiwan'),
-  createData(22,'260449', 'Klabin', 'Brasil'),
-  createData(23,'206254', 'LTH Baas WDR', '-'),
-  createData(24,'260462', 'OCO', 'Finland'),
-  createData(25,'260405', 'PM National Security Ventures', 'Egypt'),
-  createData(26,'206254', 'LTH Baas WDR', 'Singapore'),
-  createData(27,'260453', 'CMA CGM APL DANUBE', '-'),
-  createData(28,'260500', 'Lila TM4', 'Turkey'),
-  createData(29,'260491', 'Hayat TM9', 'Russia'),
-  createData(30,'260424', 'CMA A.LINKOLN', 'Spain'),
-  createData(31,'260453_030', 'CMA COLUMBIA', 'COLUMBIA'),
-  createData(32,'260453_021', 'CMA RHONE', 'RHONE'),
-  createData(33,'U1065AAA1', 'NSL3', 'Tampere'),
-  createData(34,'210217', 'SWE VANQUISH TM5', '-'),
-  createData(35,'TX025AAH1', 'LSZZ PM3', '-'),
-  createData(36,'260489', 'Beta Centauri TM8', 'Poland'),
-  createData(37,'K61156', 'K61156', 'Brasil'),
-  createData(38,'260513', 'ND Jingzhou China', 'New RB'),
-  createData(39,'318009', 'Kruger Brompton', 'QC via Valmet THU - Blue Jay Project'),
-  createData(40,'S2021-RFQ493 ', 'Netherlands Scrubber service work', '-'),
-  createData(41,'110443 ', 'SojitsMS N1220 MSB commissioning ship 1&2', '-'),
-  createData(42,'110419 ', 'APL DANUBE', '-'),
-  createData(43,'200665 ', 'Turkey Paper Machine IO test', 'Turkey'),
-  createData(44,'110386 ', 'GDR', 'Hong Kong'),
-  createData(45,'STX L34 ', 'STX L34', 'France'),
-  createData(46,'206288 ', 'NB516', '-'),
-  createData(47,'268047 ', 'ND DG', 'China'),
-  createData(48,'268046 ', 'ND CQ', 'China'),
-  createData(49,'-', 'CMA CGM Jules Verne', 'Malaysia'),
-  createData(50,'U2003A', 'Portugal Hydro powerplant', ''),
-  createData(51,'W1002A', 'PUMA - MP28', 'Brazil'),
-  createData(52,'-', 'Slovakia', 'Slovakia'),
-  createData(53,'T1011A', 'ND Beihai CP10RB SRS', 'China'),
-  createData(54,'260453', 'CMA CGM APL DANUBE', '-'),
-];
+
 
 
 /*
@@ -156,31 +110,25 @@ const headCells: readonly HeadCell[] = [
     id: 'id',
     numeric: false,
     disablePadding: true,
-    label: 'Id',
+    label: '№',
   },
   {
     id: 'codeProject',
     numeric: false,
     disablePadding: true,
-    label: 'Code project',
+    label: 'Код проекта',
   },
   {
     id: 'nameProject',
     numeric: true,
     disablePadding: false,
-    label: 'Project name',
+    label: 'Название проекта',
   },
   {
     id: 'descriptions',
     numeric: true,
     disablePadding: false,
-    label: 'Descriptions',
-  },
-  {
-    id: 'descriptions',
-    numeric: true,
-    disablePadding: false,
-    label: 'Add hours',
+    label: 'Описание',
   },
 ];
 
@@ -191,10 +139,11 @@ interface EnhancedTableProps {
   order: Order;
   orderBy: string;
   rowCount: number;
+  TableEventually: any;
 }
 
 function EnhancedTableHead(props: EnhancedTableProps) {
-  const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } =
+  const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort,TableEventually } =
     props;
   const createSortHandler =
     (property: keyof Data) => (event: React.MouseEvent<unknown>) => {
@@ -204,16 +153,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
   return (
     <TableHead>
       <TableRow>
-        <TableCell padding="checkbox">
-          <Checkbox
-            color="primary"
-            indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === rowCount}
-            onChange={onSelectAllClick}
-            inputProps={{
-              'aria-label': 'select all desserts',
-            }}
-          />
+        <TableCell>
         </TableCell>
         {headCells.map((headCell) => (
           <TableCell
@@ -236,6 +176,8 @@ function EnhancedTableHead(props: EnhancedTableProps) {
             </TableSortLabel>
           </TableCell>
         ))}
+        <TableCell align="right">Добавить часы</TableCell>
+        {TableEventually ? <TableCell align="center">Удалить</TableCell>:null}
       </TableRow>
     </TableHead>
   );
@@ -243,56 +185,110 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 
 interface EnhancedTableToolbarProps {
   numSelected: number;
+  handleAddProject: any;
+
+  TableEventually: any;
+  setTableEventually: any;
 }
 
 const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
-  const { numSelected } = props;
+  const { numSelected,handleAddProject,TableEventually, setTableEventually} = props;
 
   return (
     <Toolbar
       sx={{
         pl: { sm: 2 },
-        pr: { xs: 1, sm: 1 },
-        ...(numSelected > 0 && {
-          bgcolor: (theme) =>
-            alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
-        }),
+        float: 'right',
       }}
     >
-      {numSelected > 0 ? (
-        <Typography
-          sx={{ flex: '1 1 100%' }}
-          color="inherit"
-          variant="subtitle1"
-          component="div"
-        >
-          {numSelected} selected
-        </Typography>
-      ) : (
-        <Typography
-          sx={{ flex: '1 1 100%' }}
-          variant="h6"
-          id="tableTitle"
-          component="div"
-        >
-        </Typography>
-      )}
-      {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton>
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
-      ) : (
-        <Tooltip title="Filter list">
-          <IconButton>
-            <FilterListIcon />
-          </IconButton>
-        </Tooltip>
-      )}
+
+    <ProjectAddDialog title='Добавить проект' handleAdd={handleAddProject}/>
+      <Tooltip title="Settings">
+                    <IconButton style={{color: TableEventually? 'green': ''}}  onClick={() => setTableEventually(!TableEventually)} >
+                        <SettingsIcon color="inherit" sx={{ display: 'block' }} />
+                    </IconButton>
+      </Tooltip>
     </Toolbar>
   );
 };
+
+
+
+
+function Row(props: { row: ReturnType<typeof createData>, labelId: any,handleAddHours: any,handleRemove:any ,TableEventually:any,rowsPerPage:any,page:any,index:any,rowsCount:any,order:any}) {
+  const { row,labelId,handleAddHours,handleRemove,TableEventually,rowsPerPage,page,index,rowsCount,order } = props;
+  const [open, setOpen] = React.useState(false);
+
+  return (
+    <React.Fragment>
+      <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
+      <TableCell padding="checkbox">
+      <IconButton
+            aria-label="expand row"
+            size="small"
+            onClick={() => setOpen(!open)}
+          >
+            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+          </IconButton>
+                      </TableCell>
+                      <TableCell
+                       component="th"
+                       id={labelId}
+                       scope="row"
+                       padding="none"
+                       >
+                        {row.id}
+                       </TableCell>
+                      <TableCell >
+                        {row.codeProject}
+                      </TableCell>
+                      <TableCell align="right">{row.nameProject}</TableCell>
+                      <TableCell align="right">{row.descriptions}</TableCell>
+                      <TableCell align="right">
+                        <HoursAddDialog title='Добавить почасовку' handleAdd={handleAddHours} projectName={row.codeProject +" - "+ row.nameProject}/>
+                      </TableCell>
+                      {
+                      TableEventually ? 
+                      <TableCell align="center">
+                        <IconDelete onClick={()=>{
+                        let indexNormal = index+(page * rowsPerPage)
+                        let index_with_order = order === 'asc' ? indexNormal : rowsCount-indexNormal-1
+
+                        console.log(order,indexNormal,index_with_order)
+                        handleRemove(index_with_order)
+
+                        }}/>
+                      </TableCell>
+                      :null
+                      }
+      </TableRow>
+      <TableRow>
+        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+          <Collapse in={open} timeout="auto" unmountOnExit>
+            <Box sx={{ margin: 1 }}>
+              <Typography variant="h6" gutterBottom component="div">
+                Почасовки
+              </Typography>
+              <Table size="small" aria-label="purchases">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Инженер</TableCell>
+                    <TableCell>Количество часов</TableCell>
+                    <TableCell align="right">Amount</TableCell>
+                    <TableCell align="right">Total price ($)</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                
+                </TableBody>
+              </Table>
+            </Box>
+          </Collapse>
+        </TableCell>
+      </TableRow>
+    </React.Fragment>
+  );
+}
 
 
 export default function TableTest() {
@@ -302,6 +298,65 @@ export default function TableTest() {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(true);
   const [rowsPerPage, setRowsPerPage] = React.useState(14);
+
+  const [rows, setRows] = React.useState([
+  createData(1,'204366', 'KYVO3', ''),
+  createData(2,'206232', 'Crane', 'Folignio'),
+  createData(3,'260287', 'KPP', 'Porvoo'),
+  createData(4,'260400', 'Boilers', 'Kipas'),
+  createData(5,'260407', 'HSPM2', 'Spremberg'),
+  createData(6,'260416', 'Rosenberg', '-'),
+  createData(7,'260418', 'Burgo', ''),
+  createData(8,'TI625151.10', 'PM9', 'Segezha'),
+  createData(9,'110381', 'Lava-EURE', '-'),
+  createData(10,'DSME', '1 Scrubber', 'Korea'),
+  createData(11,'DSME', '2 Scrubber', 'Korea'),
+  createData(12,'260423', 'Lava EURE Esmeraldas', 'Singapore'),
+  createData(13,'260420', 'Lava-E Marstal', '-'),
+  createData(14,'260422', 'Lava EDI Essen', 'Singapore'),
+  createData(15,'260435', 'Lava 19K Madrid', '-'),
+  createData(16,'260446', 'Lava 19K Maastricht', 'Taiwan'),
+  createData(17,'260422', 'Lava EDI Elba', 'Taiwan'),
+  createData(18,'260422.07', 'Lava EDI Essex', 'Taiwan'),
+  createData(19,'260435', 'Lava-19K Manchester', 'Taiwan'),
+  createData(20,'260422.08', 'Lava EDI Evora', 'Taiwan'),
+  createData(21,'260422', 'Lava EDI Eindhoven', 'Taiwan'),
+  createData(22,'260449', 'Klabin', 'Brasil'),
+  createData(23,'206254', 'LTH Baas WDR', '-'),
+  createData(24,'260462', 'OCO', 'Finland'),
+  createData(25,'260405', 'PM National Security Ventures', 'Egypt'),
+  createData(26,'206254', 'LTH Baas WDR', 'Singapore'),
+  createData(27,'260453', 'CMA CGM APL DANUBE', '-'),
+  createData(28,'260500', 'Lila TM4', 'Turkey'),
+  createData(29,'260491', 'Hayat TM9', 'Russia'),
+  createData(30,'260424', 'CMA A.LINKOLN', 'Spain'),
+  createData(31,'260453_030', 'CMA COLUMBIA', 'COLUMBIA'),
+  createData(32,'260453_021', 'CMA RHONE', 'RHONE'),
+  createData(33,'U1065AAA1', 'NSL3', 'Tampere'),
+  createData(34,'210217', 'SWE VANQUISH TM5', '-'),
+  createData(35,'TX025AAH1', 'LSZZ PM3', '-'),
+  createData(36,'260489', 'Beta Centauri TM8', 'Poland'),
+  createData(37,'K61156', 'K61156', 'Brasil'),
+  createData(38,'260513', 'ND Jingzhou China', 'New RB'),
+  createData(39,'318009', 'Kruger Brompton', 'QC via Valmet THU - Blue Jay Project'),
+  createData(40,'S2021-RFQ493 ', 'Netherlands Scrubber service work', '-'),
+  createData(41,'110443 ', 'SojitsMS N1220 MSB commissioning ship 1&2', '-'),
+  createData(42,'110419 ', 'APL DANUBE', '-'),
+  createData(43,'200665 ', 'Turkey Paper Machine IO test', 'Turkey'),
+  createData(44,'110386 ', 'GDR', 'Hong Kong'),
+  createData(45,'STX L34 ', 'STX L34', 'France'),
+  createData(46,'206288 ', 'NB516', '-'),
+  createData(47,'268047 ', 'ND DG', 'China'),
+  createData(48,'268046 ', 'ND CQ', 'China'),
+  createData(49,'-', 'CMA CGM Jules Verne', 'Malaysia'),
+  createData(50,'U2003A', 'Portugal Hydro powerplant', ''),
+  createData(51,'W1002A', 'PUMA - MP28', 'Brazil'),
+  createData(52,'-', 'Slovakia', 'Slovakia'),
+  createData(53,'T1011A', 'ND Beihai CP10RB SRS', 'China'),
+  createData(54,'260453', 'CMA CGM APL DANUBE', '-'),
+]);
+
+const [TableEventually, setTableEventually] = React.useState<boolean>(false);
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
@@ -372,11 +427,42 @@ export default function TableTest() {
       }   
     }
 
+  
+  const handleAddProject = async (newObject: IProjectSendApi) => {
+      let sessionEmail =  GetSessionEmail()
+      let sessionToken =  GetSesstionToken()
+      if(newObject != null)
+      {
+        newObject.enginerCreater = sessionEmail;
+        console.log("Add handleAddProject = ",newObject)
+         // let responce =   addCompany(sessionToken,newCompany);
+        
+       // let newRows = rows.slice();
+        //newRows.push( createData(rows.length+1,newObject.code, newObject.nameProject, newObject.descriptirons))
+        let newRow = [
+          ...rows,
+          createData(rows.length+1,newObject.code, newObject.nameProject, newObject.descriptirons)
+        ]
+        setRows(newRow)
+      }   
+  }
+
+  const handleRemove = async (index: number) =>
+    {    
+      console.log("index =",index)
+      let newRow = rows.filter((value, indexValue) => indexValue !== index);
+      setRows(newRow)
+    }
+    
+  //const {companies, error, loading} = useTypedSelector(state => state.company)
+  //const {fetchCompanies,removeCompany, addCompany  } = useActions()
+  
+  
 
   return (
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar numSelected={selected.length}  handleAddProject={handleAddProject} TableEventually={TableEventually} setTableEventually={setTableEventually}/>
         <TableContainer>
           <Table
             aria-labelledby="tableTitle"
@@ -389,6 +475,7 @@ export default function TableTest() {
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
               rowCount={rows.length}
+              TableEventually={TableEventually}
             />
             <TableBody>
               {/* if you don't need to support IE11, you can replace the `stableSort` call with:
@@ -399,37 +486,20 @@ export default function TableTest() {
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
-                    <TableRow
-                      hover
-                      role="checkbox"
-                      tabIndex={-1}
-                      key={row.id}
-                    >
-                      <TableCell padding="checkbox">
-                        <Checkbox
-                          color="primary"
-                          inputProps={{
-                            "aria-labelledby": labelId
-                          }}
-                        />
-                      </TableCell>
-                      <TableCell
-                       component="th"
-                       id={labelId}
-                       scope="row"
-                       padding="none"
-                       >
-                        {row.id}
-                       </TableCell>
-                      <TableCell >
-                        {row.codeProject}
-                      </TableCell>
-                      <TableCell align="right">{row.nameProject}</TableCell>
-                      <TableCell align="right">{row.descriptions}</TableCell>
-                      <TableCell align="right">
-                        <HoursAddDialog title='Добавить почасовку' handleAdd={handleAddHours} projectName={row.codeProject +" - "+ row.nameProject}/>
-                      </TableCell>
-                    </TableRow>
+                    <React.Fragment>
+                      <Row key={index} 
+                        page={page}
+                        rowsPerPage={rowsPerPage}
+                        index={index}
+                        row={row}
+                        labelId={labelId}
+                        handleAddHours={handleAddHours} 
+                        handleRemove={handleRemove}
+                        TableEventually={TableEventually}
+                        rowsCount={rows.length}
+                        order={order} />
+                    </React.Fragment>
+                    
                   );
                 })}
               {emptyRows > 0 && (
