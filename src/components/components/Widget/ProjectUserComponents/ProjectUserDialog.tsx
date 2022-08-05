@@ -82,7 +82,7 @@ function SimpleDialog(props: SimpleDialogProps) {
   };
 
 
-  const {users, error, loading} = useTypedSelector(state => state.user)
+  const {users, error, loading} = useTypedSelector(state => state.users)
   const {fetchUsers} = useActions()
 
   useEffect(() => {
@@ -93,7 +93,7 @@ function SimpleDialog(props: SimpleDialogProps) {
         fetchUsers(sessionToken)
     }
 
-}, [])
+  }, [])
 
   let filterUser = users?.filter((item)=>  props.project.users?.filter((userProject)=> userProject.email === item.email).length === 0);
   let list = filterUser.map((user,i)=>{

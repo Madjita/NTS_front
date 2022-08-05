@@ -2,26 +2,26 @@ import {IUser} from '../../components/IDataInterface/IDataInterface'
 
 export interface UserLoginState {
     userLogin: null | IUser;
-    loading: boolean;
-    error: null | string;
+    loadingLogin: boolean;
+    errorLogin: null | string;
 }
 export enum UserLoginActionTypes {
-    FETCH_USER = 'FETCH_USERS',
-    FETCH_USER_FIND_SUCCESS = 'FETCH_USER_FIND_SUCCESS',
-    FETCH_USER_ERROR = 'FETCH_USER_FETCH_USERS_ERROR',
+    FETCH_USERLOGIN = 'FETCH_USERLOGIN',
+    FETCH_USERLOGIN_FIND_SUCCESS = 'FETCH_USERLOGIN_FIND_SUCCESS',
+    FETCH_USERLOGIN_ERROR = 'FETCH_USERLOGIN_ERROR',
 
 }
 interface FetchUserAction {
-    type: UserLoginActionTypes.FETCH_USER;
+    type: UserLoginActionTypes.FETCH_USERLOGIN;
 }
 
 interface FetchUserFindSuccessAction {
-    type: UserLoginActionTypes.FETCH_USER_FIND_SUCCESS;
+    type: UserLoginActionTypes.FETCH_USERLOGIN_FIND_SUCCESS;
     payload: IUser;
 }
 
 interface FetchUsersErrorAction {
-    type: UserLoginActionTypes.FETCH_USER_ERROR;
+    type: UserLoginActionTypes.FETCH_USERLOGIN_ERROR;
     payload: string;
 }
 

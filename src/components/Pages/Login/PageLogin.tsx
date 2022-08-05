@@ -24,7 +24,7 @@ const PageLogin:  React.FC<Props> = ({setRole,setUser}) => {
   const [signup, setSignup] = useState<boolean>(false);
   const navigate = useNavigate();
 
-  const {userLogin, error, loading} = useTypedSelector(state => state.userLogin)
+  const {userLogin, errorLogin, loadingLogin} = useTypedSelector(state => state.userLogin)
   const {findUser} = useActions()
 
   const handleSubmit = async (e:any) => {

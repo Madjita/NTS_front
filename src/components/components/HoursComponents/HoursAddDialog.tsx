@@ -6,7 +6,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { ICompany, IWeek,IDocHour } from '../../IDataInterface/IDataInterface';
+import { ICompany, IWeek,IDocHour, IUser } from '../../IDataInterface/IDataInterface';
 import {WeekInit} from './currentWeek'
 
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
@@ -45,13 +45,17 @@ type Props = {
 
 const HoursAddDialog:  React.FC<Props> = ({title,handleAdd,projectName}) =>
 {
+
+  const {users} = useTypedSelector(state => state.users)
+  const {userLogin,} = useTypedSelector(state => state.userLogin)
+
+  
   const [locale, setLocale] = React.useState<keyof typeof localeMap>('ru');
 
   const [open, setOpen] = React.useState(false);
 
   const [dataValue, setDataValue] = React.useState<Date | null>(new Date());
   const [newWeek, setNewWeek] = React.useState<IWeek>(()=>{
-
    let init =  {
       year: dataValue?.getFullYear() as number,
       month: dataValue?.getMonth() as number,
@@ -64,7 +68,7 @@ const HoursAddDialog:  React.FC<Props> = ({title,handleAdd,projectName}) =>
       saHour: new Object as IDocHour,
       suHour: new Object as IDocHour,
       sumHour: 0 as number,
-  
+      userSetWeek: new Object as IUser
      }
 
      init.moHour.activityCode = 'AACD'
@@ -74,6 +78,13 @@ const HoursAddDialog:  React.FC<Props> = ({title,handleAdd,projectName}) =>
      init.frHour.activityCode = 'AACD'
      init.saHour.activityCode = 'AACD'
      init.suHour.activityCode = 'AACD'
+
+    if(users != undefined)
+     {
+      if(users.length > 0 )
+        init.userSetWeek = users.filter(x=> x.email === userLogin?.email)[0]
+     }
+      
   
      return init;
 
@@ -180,16 +191,6 @@ const HoursAddDialog:  React.FC<Props> = ({title,handleAdd,projectName}) =>
       }
     };
 
-   // const {users, error, loading} = useTypedSelector(state => state.user)
-    //const {fetchUsers} = useActions()
-
-
-    React.useEffect(()=>{
-
-     // fetchUsers(GetSesstionToken());
-    },[])
-    
-
   return (
     <React.Fragment>
       <Button size="small" variant="outlined" onClick={handleClickOpen}>
@@ -228,22 +229,37 @@ const HoursAddDialog:  React.FC<Props> = ({title,handleAdd,projectName}) =>
               fullWidth
               margin="dense"
               id="select"
-              label="Инженер"
+              label="Инженер кто добавлет"
               type="select"
               variant="standard"
-              value={newWeek.moHour?.activityCode}
+              value={newWeek!.userSetWeek?.email}
               inputProps={{ style: { textAlign: 'center' }}} 
               onChange={e =>{
-                setNewWeek({...newWeek})
+                if(e.target.value === '-1')
+                {
+                  newWeek.userSetWeek = undefined;
+                  setNewWeek({...newWeek,userSetWeek:undefined})
+                }
+                else
+                {
+                  newWeek.userSetWeek = users.filter(x=>x.email === e.target.value)[0]
+                  setNewWeek({...newWeek})
+                }
               }}
               >
-                <MenuItem value={'None'}>
+                <MenuItem value={-1} id={'-1'}>
                   <em>None</em>
                 </MenuItem>
-                <MenuItem value={'AACD'}>AACD</MenuItem>
-                <MenuItem value={'AACF'}>AACF</MenuItem>
-                <MenuItem value={'AACE'}>AACE</MenuItem>
-                <MenuItem value={'AADE'}>AADE</MenuItem>
+                {users.map((item,index)=>{
+                    return (
+                      <MenuItem key={index} value={item.email}>
+                      <div style={{display: 'flex',width:'100%'}}>
+                        <span style={{flex: '1 1 auto'}}>{item.firstName + " "+item.secondName}</span>
+                        <span style={{flex: '1 1 auto'}}>{item.email}</span>
+                      </div>
+                    </MenuItem>
+                    )
+                })}
           </TextField>
 
           <TextField

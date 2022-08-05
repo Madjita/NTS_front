@@ -53,27 +53,31 @@ const Enginer:  React.FC<Props> = ({value}) => {
    // const [loading, setLoadding] = useState<boolean>()
     let [color, setColor] = useState("black");
 
-    const {userLogin, error, loading} = useTypedSelector(state => state.userLogin)
-    const {findUser} = useActions()
+    const {userLogin, errorLogin, loadingLogin} = useTypedSelector(state => state.userLogin)
+    const {findUser,fetchUsers,fetchProject,addProject} = useActions()
 
     useEffect(()=>{
         let sessionToken =  GetSesstionToken()
         let sessionEmail =  GetSessionEmail()
-        if(sessionToken != null && sessionEmail != null)
+        if(sessionToken != null && sessionEmail != null && userLogin === null)
         {
+            console.log("findUser")
             findUser(sessionToken,sessionEmail)
+            fetchUsers(sessionToken)
+            fetchProject(sessionToken)
+            
         }
-    },[])
+    },[value])
 
 
 
-    console.log("Enginer ",userLogin,"Value = ",value)
+    console.log("Enginer ",userLogin,"Value = ",value,loadingLogin)
     return(
 
-            loading ? 
+            loadingLogin ? 
             <div className='MainDiv'>
                 <div style={{marginLeft: '-250px'}}>
-                    <PacmanLoader color={color} loading={loading}  cssOverride={override as React.CSSProperties} size={50} />
+                    <PacmanLoader color={color} loading={loadingLogin}  cssOverride={override as React.CSSProperties} size={50} />
                 </div>
             </div>
             :
@@ -97,7 +101,7 @@ const Enginer:  React.FC<Props> = ({value}) => {
                     </Grid>
                 </TabPanel>
                 <TabPanel value={value} index={1}>
-                    <TestTable/>
+                    <TestTable addProject={addProject}/>
                 </TabPanel>
                 <TabPanel value={value} index={2}>
                     Почасовки

@@ -215,7 +215,7 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
 
 
 
-function Row(props: { row: ReturnType<typeof createData>, labelId: any,handleAddHours: any,handleRemove:any ,TableEventually:any,rowsPerPage:any,page:any,index:any,rowsCount:any,order:any}) {
+function Row(props: { row: IProject, labelId: any,handleAddHours: any,handleRemove:any ,TableEventually:any,rowsPerPage:any,page:any,index:any,rowsCount:any,order:any}) {
   const { row,labelId,handleAddHours,handleRemove,TableEventually,rowsPerPage,page,index,rowsCount,order } = props;
   const [open, setOpen] = React.useState(false);
 
@@ -237,15 +237,15 @@ function Row(props: { row: ReturnType<typeof createData>, labelId: any,handleAdd
                        scope="row"
                        padding="none"
                        >
-                        {row.id}
+                        {row.number}
                        </TableCell>
                       <TableCell >
-                        {row.codeProject}
+                        {row.code}
                       </TableCell>
-                      <TableCell align="right">{row.nameProject}</TableCell>
-                      <TableCell align="right">{row.descriptions}</TableCell>
+                      <TableCell align="right">{row.title}</TableCell>
+                      <TableCell align="right">{row.description}</TableCell>
                       <TableCell align="right">
-                        <HoursAddDialog title='Добавить почасовку' handleAdd={handleAddHours} projectName={row.codeProject +" - "+ row.nameProject}/>
+                        <HoursAddDialog title='Добавить почасовку' handleAdd={handleAddHours} projectName={row.code +" - "+ row.title}/>
                       </TableCell>
                       {
                       TableEventually ? 
@@ -290,8 +290,14 @@ function Row(props: { row: ReturnType<typeof createData>, labelId: any,handleAdd
   );
 }
 
+type Props = {
+  className?: string,
+  child?: any
+  addProject?: (sessionToken: any,project: IProject) => {}
+}
 
-export default function TableTest() {
+
+const TableTest:  React.FC<Props> = ({addProject}) => {
   const [order, setOrder] = React.useState<Order>("asc");
   const [orderBy, setOrderBy] = React.useState<keyof Data>("id");
   const [selected, setSelected] = React.useState<readonly string[]>([]);
@@ -414,8 +420,7 @@ const [TableEventually, setTableEventually] = React.useState<boolean>(false);
   const isSelected = (name: string) => selected.indexOf(name) !== -1;
 
   // Avoid a layout jump when reaching the last page with empty rows.
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
 
   const handleAddHours = async (newObject: IWeek) => {
@@ -427,7 +432,9 @@ const [TableEventually, setTableEventually] = React.useState<boolean>(false);
       }   
     }
 
-  
+  const {userLogin} = useTypedSelector(state => state.userLogin)
+  const {projects} = useTypedSelector(state => state.project)
+
   const handleAddProject = async (newObject: IProjectSendApi) => {
       let sessionEmail =  GetSessionEmail()
       let sessionToken =  GetSesstionToken()
@@ -435,7 +442,24 @@ const [TableEventually, setTableEventually] = React.useState<boolean>(false);
       {
         newObject.enginerCreater = sessionEmail;
         console.log("Add handleAddProject = ",newObject)
-         // let responce =   addCompany(sessionToken,newCompany);
+
+
+        let newProject = new Object as IProject
+
+        newProject.dateStart = newObject.dateStart
+        newProject.dateStop = newObject.dateStop
+        newProject.maxHour = newObject.maxHours
+        newProject.status = newObject.status
+        newProject.code = newObject.code
+        newProject.title = newObject.nameProject
+        newProject.description = newObject.descriptirons
+
+        if(userLogin!= undefined)
+          newProject.enginerCreater = userLogin
+
+
+        if( newProject != undefined && sessionToken != undefined && addProject != undefined)
+          addProject(sessionToken,newProject)
         
        // let newRows = rows.slice();
         //newRows.push( createData(rows.length+1,newObject.code, newObject.nameProject, newObject.descriptirons))
@@ -454,10 +478,10 @@ const [TableEventually, setTableEventually] = React.useState<boolean>(false);
       setRows(newRow)
     }
     
-  //const {companies, error, loading} = useTypedSelector(state => state.company)
-  //const {fetchCompanies,removeCompany, addCompany  } = useActions()
   
-  
+
+ 
+  console.log("projects = ",projects)
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -480,7 +504,8 @@ const [TableEventually, setTableEventually] = React.useState<boolean>(false);
             <TableBody>
               {/* if you don't need to support IE11, you can replace the `stableSort` call with:
               rows.slice().sort(getComparator(order, orderBy)) */}
-              {stableSort(rows, getComparator(order, orderBy))
+              { //stableSort(rows, getComparator(order, orderBy))
+                projects
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
                   const labelId = `enhanced-table-checkbox-${index}`;
@@ -496,7 +521,7 @@ const [TableEventually, setTableEventually] = React.useState<boolean>(false);
                         handleAddHours={handleAddHours} 
                         handleRemove={handleRemove}
                         TableEventually={TableEventually}
-                        rowsCount={rows.length}
+                        rowsCount={projects.length}
                         order={order} />
                     </React.Fragment>
                     
@@ -527,3 +552,7 @@ const [TableEventually, setTableEventually] = React.useState<boolean>(false);
     </Box>
   );
 }
+
+
+
+export default TableTest;

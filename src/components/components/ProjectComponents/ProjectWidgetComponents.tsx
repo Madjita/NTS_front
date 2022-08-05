@@ -8,7 +8,7 @@ import Widget from '../Widget/Widget';
 import {override,colorWidget} from '../../Pages/Loading/loadingData'
 import Dialog from '../Dialog/Dialog';
 import ProjectComponentsTable from './ProjectComponentsTable';
-import { IProject } from '../../IDataInterface/IDataInterface';
+import { IProject, IUser } from '../../IDataInterface/IDataInterface';
 
 
 import AppBar from '@mui/material/AppBar';
@@ -55,7 +55,7 @@ const ProjectWidgetComponents:  React.FC<Props> = (props) => {
     const [TableEventually, setTableEventually] = useState<boolean>(false);
 
     const [dialogAddCompanyIsOpen, setDialogAddCompanyIsOpen] = useState<boolean>();
-    const [newProject,setNewProject] = useState<IProject>({title: '',number: '',actualHours: '',maxHour: 0,dateStart:'',dateStop:'' ,status:'',description: '',users: []});
+    const [newProject,setNewProject] = useState<IProject>({enginerCreater: new Object as IUser,code:'',title: '',number: '',actualHours: '',maxHour: 0,dateStart:'',dateStop:'' ,status:'',description: '',users: []});
    
   
     const [alignment, setAlignment] = React.useState('left');

@@ -35,6 +35,7 @@ export const removeProject = (sessionToken: any,name: string) => {
             formData.append('Name', name);
 
 
+
             axios.defaults.headers.common['Authorization'] = sessionToken;
             const response = await (await axios.delete(GetConnectionString()+'/Project/projects',
                                                 { headers: {
@@ -62,15 +63,20 @@ export const addProject = (sessionToken: any,project: IProject) => {
         try {
             dispatch({type: ProjectActionTypes.FETCH_PROJECT_ADD, payload: project.title})
 
-            console.log("addProject")
+            console.log("addProject = ", project)
             const formData  = new FormData();
-            formData.append('Name', project.title);
-            formData.append('MaxHour', project.maxHour.toString());
+            formData.append('Code', project.code);
+            formData.append('NameProject', project.title);
+            formData.append('MaxHours', project.maxHour.toString());
             formData.append('DateStart', project.dateStart);
             formData.append('DateStop', project.dateStop);
+            formData.append('Description', project.description);
+            formData.append('Status', project.status);
+            formData.append('EnginerCreaterEmail', project.enginerCreater.email);
+
 
             axios.defaults.headers.common['Authorization'] = sessionToken;
-            const response = await (await axios.post(GetConnectionString()+'/Project/projects',formData))
+            const response = await (await axios.post(GetConnectionString()+'/Project/addProject',formData))
 
             setTimeout(() => {
                 dispatch({type: ProjectActionTypes.FETCH_PROJECT_ADD_SUCCESS, payload: response.data})

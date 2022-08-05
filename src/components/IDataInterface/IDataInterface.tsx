@@ -13,6 +13,7 @@ export interface Register{
 }
 
 export interface IProject{
+    code: string,
     title : string,
     number : string,
     actualHours: string,
@@ -22,6 +23,7 @@ export interface IProject{
     status: string,
     description: string,
     users: Array<IUser>,
+    enginerCreater: IUser
 }
 
 
@@ -73,6 +75,7 @@ export interface IWeek{
     saHour?: IDocHour
     suHour?: IDocHour
     userProject?: IUserProject[]
+    userSetWeek?: IUser
 }
 
 

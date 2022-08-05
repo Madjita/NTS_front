@@ -56,7 +56,7 @@ const UserWidgetComponents:  React.FC<Props> = (props) => {
     };
 
 
-    const {users, error, loading} = useTypedSelector(state => state.user)
+    const {users, error, loading} = useTypedSelector(state => state.users)
     const {fetchUsers,removeUser} = useActions()
 
 

@@ -9,12 +9,15 @@ export const fetchUsers = (sessionToken: any) => {
             dispatch({type: UserActionTypes.FETCH_USERS})
 
 
-            const response = await (await axios.get(GetConnectionString()+'/Authorize/users',
+            const newLocal = '/Authorize/users';
+            const response = await (await axios.get(GetConnectionString()+newLocal,
                                                 { headers: {
                                                         'Content-Type': 'application/json',
                                                         'Authorization': sessionToken
                                                     }
                                                 }))
+
+            console.log("Response OK =",response.data)
 
 
             setTimeout(() => {

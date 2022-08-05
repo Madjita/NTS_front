@@ -62,8 +62,8 @@ const ProjectAddDialog:  React.FC<Props> = ({title,handleAdd,projectName,user}) 
     code : '',
     nameProject: '',
     maxHours: 0,
-    dateStart: '',
-    dateStop: '',
+    dateStart: dataStart!.toISOString(),
+    dateStop: dataStop!.toISOString(),
     status: 'plan',
     enginerCreater: '',
     descriptirons: ''
@@ -195,12 +195,12 @@ const ProjectAddDialog:  React.FC<Props> = ({title,handleAdd,projectName,user}) 
               setNewProject({...newProject,status: e.target.value})
           }}
           >
-            <MenuItem value={1}>
+            <MenuItem value={'none'}>
               <em>None</em>
             </MenuItem>
-            <MenuItem value={2}>plan</MenuItem>
-            <MenuItem value={3}>work</MenuItem>
-            <MenuItem value={4}>archive</MenuItem>
+            <MenuItem value={'plan'}>plan</MenuItem>
+            <MenuItem value={'work'}>work</MenuItem>
+            <MenuItem value={'archive'}>archive</MenuItem>
           </TextField>
 
           <TextField
