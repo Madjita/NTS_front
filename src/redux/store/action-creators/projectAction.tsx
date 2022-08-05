@@ -25,14 +25,14 @@ export const fetchProject = (sessionToken: any) => {
 }
 
 
-export const removeProject = (sessionToken: any,name: string) => {
+export const removeProject = (sessionToken: any,object: string) => {
 
     return async (dispatch: Dispatch<ProjectAction>,payload: any) => {
         try {
-            dispatch({type: ProjectActionTypes.FETCH_PROJECT_REMOVE, name: name})
+            dispatch({type: ProjectActionTypes.FETCH_PROJECT_REMOVE, name: object})
 
             const formData  = new FormData();
-            formData.append('Name', name);
+            formData.append('Code', object);
 
 
 

@@ -14,10 +14,11 @@ export const projectReducer = (state = initialState, action: ProjectAction): Pro
             return {loading: false, error: null, projects: action.payload}
         case ProjectActionTypes.FETCH_PROJECT_ERROR:
             return {loading: false, error: action.payload, projects: []}
-        case ProjectActionTypes.FETCH_PROJECT_ERROR:
-            return {loading: true, error: null, projects: state.projects.filter((item,index) => item.title !== action.payload)}
+       /* case ProjectActionTypes.FETCH_PROJECT_ERROR:
+            return {loading: true, error: null, projects: state.projects.filter((item,index) => item.title !== action.payload)}*/
         case ProjectActionTypes.FETCH_PROJECT_REMOVE_SUCCESS:
-            return {loading: false, error: null, projects: state.projects}
+            console.log("ProjectActionTypes.FETCH_PROJECT_REMOVE_SUCCES")
+            return {loading: false, error: null, projects: action.payload}
         
         case ProjectActionTypes.FETCH_PROJECT_ADD:
             return {loading: true, error: null, projects: []}

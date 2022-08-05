@@ -15,7 +15,7 @@ export interface Register{
 export interface IProject{
     code: string,
     title : string,
-    number : string,
+    indexAdd : string,
     actualHours: string,
     maxHour: number,
     dateStart: string,

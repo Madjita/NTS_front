@@ -86,7 +86,7 @@ function getComparator<Key extends keyof any>(
 
 // This method is created for cross-browser compatibility, if you don't
 // need to support IE11, you can use Array.prototype.sort() directly
-function stableSort<T>(array: readonly T[], comparator: (a: T, b: T) => number) {
+function stableSort<T>(array:  T[], comparator: (a: T, b: T) => number) {
   const stabilizedThis = array.map((el, index) => [el, index] as [T, number]);
   stabilizedThis.sort((a, b) => {
     const order = comparator(a[0], b[0]);
@@ -100,32 +100,45 @@ function stableSort<T>(array: readonly T[], comparator: (a: T, b: T) => number) 
 
 interface HeadCell {
   disablePadding: boolean;
-  id: keyof Data;
+  id: keyof IProject;
   label: string;
   numeric: boolean;
 }
 
-const headCells: readonly HeadCell[] = [
+
+const headCells:  HeadCell[] = [
   {
-    id: 'id',
+    id: 'indexAdd',
     numeric: false,
     disablePadding: true,
     label: '№',
   },
   {
-    id: 'codeProject',
+    id: 'code',
     numeric: false,
     disablePadding: true,
     label: 'Код проекта',
   },
   {
-    id: 'nameProject',
+    id: 'title',
     numeric: true,
     disablePadding: false,
     label: 'Название проекта',
   },
   {
-    id: 'descriptions',
+    id: 'dateStart',
+    numeric: true,
+    disablePadding: false,
+    label: 'Дата начала',
+  },
+  {
+    id: 'dateStop',
+    numeric: true,
+    disablePadding: false,
+    label: 'Дата завершения',
+  },
+  {
+    id: 'description',
     numeric: true,
     disablePadding: false,
     label: 'Описание',
@@ -134,7 +147,7 @@ const headCells: readonly HeadCell[] = [
 
 interface EnhancedTableProps {
   numSelected: number;
-  onRequestSort: (event: React.MouseEvent<unknown>, property: keyof Data) => void;
+  onRequestSort: (event: React.MouseEvent<unknown>, property: keyof IProject) => void;
   onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
   order: Order;
   orderBy: string;
@@ -146,7 +159,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
   const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort,TableEventually } =
     props;
   const createSortHandler =
-    (property: keyof Data) => (event: React.MouseEvent<unknown>) => {
+    (property: keyof IProject) => (event: React.MouseEvent<unknown>) => {
       onRequestSort(event, property);
     };
 
@@ -219,6 +232,7 @@ function Row(props: { row: IProject, labelId: any,handleAddHours: any,handleRemo
   const { row,labelId,handleAddHours,handleRemove,TableEventually,rowsPerPage,page,index,rowsCount,order } = props;
   const [open, setOpen] = React.useState(false);
 
+
   return (
     <React.Fragment>
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
@@ -237,13 +251,15 @@ function Row(props: { row: IProject, labelId: any,handleAddHours: any,handleRemo
                        scope="row"
                        padding="none"
                        >
-                        {row.number}
+                        {row.indexAdd}
                        </TableCell>
                       <TableCell >
                         {row.code}
                       </TableCell>
                       <TableCell align="right">{row.title}</TableCell>
                       <TableCell align="right">{row.description}</TableCell>
+                      <TableCell align="right">{row.dateStart}</TableCell>
+                      <TableCell align="right">{row.dateStop}</TableCell>
                       <TableCell align="right">
                         <HoursAddDialog title='Добавить почасовку' handleAdd={handleAddHours} projectName={row.code +" - "+ row.title}/>
                       </TableCell>
@@ -294,12 +310,14 @@ type Props = {
   className?: string,
   child?: any
   addProject?: (sessionToken: any,project: IProject) => {}
+  removeProject?: (sessionToken: any,name: string) => {}
+  fetchProject?: any
 }
 
 
-const TableTest:  React.FC<Props> = ({addProject}) => {
+const TableTest:  React.FC<Props> = ({addProject,removeProject,fetchProject}) => {
   const [order, setOrder] = React.useState<Order>("asc");
-  const [orderBy, setOrderBy] = React.useState<keyof Data>("id");
+  const [orderBy, setOrderBy] = React.useState<keyof IProject>("indexAdd");
   const [selected, setSelected] = React.useState<readonly string[]>([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(true);
@@ -366,7 +384,7 @@ const [TableEventually, setTableEventually] = React.useState<boolean>(false);
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
-    property: keyof Data
+    property: keyof IProject
   ) => {
     const isAsc = orderBy === property && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
@@ -474,8 +492,13 @@ const [TableEventually, setTableEventually] = React.useState<boolean>(false);
   const handleRemove = async (index: number) =>
     {    
       console.log("index =",index)
-      let newRow = rows.filter((value, indexValue) => indexValue !== index);
-      setRows(newRow)
+      //let newRow = rows.filter((value, indexValue) => indexValue !== index);
+      //setRows(newRow)
+
+      if(removeProject != undefined)
+      {
+        removeProject(GetSesstionToken(),projects[index].code)
+      }
     }
     
   
@@ -484,8 +507,8 @@ const [TableEventually, setTableEventually] = React.useState<boolean>(false);
   console.log("projects = ",projects)
 
   return (
-    <Box sx={{ width: "100%" }}>
-      <Paper sx={{ width: "100%", mb: 2 }}>
+    <Box sx={{ width: "100%",maxHeight: '780px',overflow: 'auto' }}>
+      <Paper sx={{ width: "100%", mb: 2}}>
         <EnhancedTableToolbar numSelected={selected.length}  handleAddProject={handleAddProject} TableEventually={TableEventually} setTableEventually={setTableEventually}/>
         <TableContainer>
           <Table
@@ -504,8 +527,18 @@ const [TableEventually, setTableEventually] = React.useState<boolean>(false);
             <TableBody>
               {/* if you don't need to support IE11, you can replace the `stableSort` call with:
               rows.slice().sort(getComparator(order, orderBy)) */}
-              { //stableSort(rows, getComparator(order, orderBy))
-                projects
+              { stableSort(projects as any, getComparator(order, orderBy))
+                /*projects
+                .sort((a,b)=> {
+                  if (a.code > b.code) {
+                    return 1;
+                  }
+                  if (a.code < b.code) {
+                    return -1;
+                  }
+                  // a должно быть равным b
+                  return 0;
+                })*/
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
                   const labelId = `enhanced-table-checkbox-${index}`;
@@ -516,7 +549,7 @@ const [TableEventually, setTableEventually] = React.useState<boolean>(false);
                         page={page}
                         rowsPerPage={rowsPerPage}
                         index={index}
-                        row={row}
+                        row={row as any}
                         labelId={labelId}
                         handleAddHours={handleAddHours} 
                         handleRemove={handleRemove}

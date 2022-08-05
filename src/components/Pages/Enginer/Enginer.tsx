@@ -54,8 +54,8 @@ const Enginer:  React.FC<Props> = ({value}) => {
     let [color, setColor] = useState("black");
 
     const {userLogin, errorLogin, loadingLogin} = useTypedSelector(state => state.userLogin)
-    const {findUser,fetchUsers,fetchProject,addProject} = useActions()
-
+    const {findUser,fetchUsers,fetchProject,addProject,removeProject} = useActions()
+    
     useEffect(()=>{
         let sessionToken =  GetSesstionToken()
         let sessionEmail =  GetSessionEmail()
@@ -68,6 +68,7 @@ const Enginer:  React.FC<Props> = ({value}) => {
             
         }
     },[value])
+
 
 
 
@@ -101,7 +102,7 @@ const Enginer:  React.FC<Props> = ({value}) => {
                     </Grid>
                 </TabPanel>
                 <TabPanel value={value} index={1}>
-                    <TestTable addProject={addProject}/>
+                    <TestTable addProject={addProject} removeProject={removeProject} fetchProject={fetchProject}/>
                 </TabPanel>
                 <TabPanel value={value} index={2}>
                     Почасовки
