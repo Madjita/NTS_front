@@ -17,6 +17,7 @@ import deLocale from 'date-fns/locale/de';
 import enLocale from 'date-fns/locale/en-US';
 import arSaLocale from 'date-fns/locale/ar-SA';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import ModeEditIcon from '@mui/icons-material/ModeEdit';
 
 const localeMap = {
   en: enLocale,
@@ -34,8 +35,11 @@ type Props = {
     title?: string,
     projectName?:string,
     handleAdd?: any;
+    handleEdit?: any;
+    indexEdit?: any;
 
     user?: IUser
+    selectProject?: IProject
 }
 
 
@@ -47,10 +51,10 @@ export interface IProjectSendApi {
   dateStop: string,  // Дата завершения
   status: string,    // Статус проекта ( план, в работе, в архиве)
   enginerCreater?: string // Тот кто создал проект
-  descriptirons: string,
+  descriptiron: string,
 }
 
-const ProjectAddDialog:  React.FC<Props> = ({title,handleAdd,projectName,user}) =>
+const ProjectAddDialog:  React.FC<Props> = ({title,handleAdd,handleEdit,selectProject,projectName,user}) =>
 {
   const [locale, setLocale] = React.useState<keyof typeof localeMap>('ru');
 
@@ -59,14 +63,14 @@ const ProjectAddDialog:  React.FC<Props> = ({title,handleAdd,projectName,user}) 
   const [dataStart, setDataStart] = React.useState<Date | null>(new Date());
   const [dataStop,  setDataStop]  = React.useState<Date | null>(new Date());
   const [newProject, setNewProject] = React.useState<IProjectSendApi>({
-    code : '',
-    nameProject: '',
-    maxHours: 0,
-    dateStart: dataStart!.toISOString(),
-    dateStop: dataStop!.toISOString(),
-    status: 'plan',
+    code : selectProject ? selectProject.code : '',
+    nameProject: selectProject ? selectProject.title : '',
+    maxHours: selectProject ?  selectProject.maxHour : 0,
+    dateStart: selectProject ? selectProject.dateStart :  dataStart!.toISOString(),
+    dateStop: selectProject ? selectProject.dateStop : dataStop!.toISOString(),
+    status: selectProject ? selectProject.status : 'plan',
     enginerCreater: '',
-    descriptirons: ''
+    descriptiron: selectProject ? selectProject.description : ''
    });
 
   const handleClickOpen = () => {
@@ -75,7 +79,16 @@ const ProjectAddDialog:  React.FC<Props> = ({title,handleAdd,projectName,user}) 
 
   const handleClose = () => {
     setOpen(false);
-    //setNewWeek('')
+    setNewProject({
+      code : selectProject ? selectProject.code : '',
+      nameProject: selectProject ? selectProject.title : '',
+      maxHours: selectProject ?  selectProject.maxHour : 0,
+      dateStart: selectProject ? selectProject.dateStart :  dataStart!.toISOString(),
+      dateStop: selectProject ? selectProject.dateStop : dataStop!.toISOString(),
+      status: selectProject ? selectProject.status : 'plan',
+      enginerCreater: '',
+      descriptiron: selectProject ? selectProject.description : ''
+     });
   };
 
 
@@ -95,13 +108,52 @@ const ProjectAddDialog:  React.FC<Props> = ({title,handleAdd,projectName,user}) 
     
   };
 
+  const handleEditClose = () => {
+    
+    if(newProject != null)
+    {
+      setOpen(false);
+
+      let oldObject = new Object() as IProjectSendApi;
+      oldObject.code = selectProject!.code;
+      oldObject.nameProject = selectProject!.title
+      oldObject.dateStart =selectProject!.dateStart
+      oldObject.dateStop = selectProject!.dateStop
+      oldObject.descriptiron =selectProject!.description
+      oldObject.maxHours = selectProject!.maxHour
+      oldObject.status = selectProject!.status
+      oldObject.enginerCreater = selectProject!.enginerCreater.email
+
+      console.log("selectProject = ",selectProject)
+
+      handleEdit(oldObject,newProject);
+    }
+    else
+    {
+      alert("Вы ни чего не ввели")
+    }
+    
+  };
+
   return (
     <React.Fragment>
-      <Button size="small" variant="outlined" onClick={handleClickOpen}>
+
+      {handleEdit ? 
+        <ModeEditIcon  onClick={handleClickOpen}>
+        Редактировать
+        </ModeEditIcon>:
+        <Button size="small" variant="outlined" onClick={handleClickOpen}>
         {title}
-      </Button>
+        </Button> 
+      }
+
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Добавить проект</DialogTitle>
+
+      {handleEdit ? 
+          <DialogTitle>Редактировать проект</DialogTitle>:
+          <DialogTitle>Добавить проект</DialogTitle>
+      }
+        
         <DialogContent>
           <DialogContentText>
            Введите информацию о проекте
@@ -213,9 +265,9 @@ const ProjectAddDialog:  React.FC<Props> = ({title,handleAdd,projectName,user}) 
             type="name"
             
             rows={4}
-            value={newProject.descriptirons}
+            value={newProject.descriptiron}
             onChange={e =>{
-              setNewProject({...newProject,descriptirons: e.target.value})
+              setNewProject({...newProject,descriptiron: e.target.value})
           }}
           />
 
@@ -224,7 +276,13 @@ const ProjectAddDialog:  React.FC<Props> = ({title,handleAdd,projectName,user}) 
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Отменить</Button>
-          <Button onClick={handleAddClose}>Добавить</Button>
+          {
+            handleEdit ? 
+            <Button onClick={handleEditClose}>Изменить</Button>
+            :
+            <Button onClick={handleAddClose}>Добавить</Button>
+          }
+          
         </DialogActions>
       </Dialog>
     </React.Fragment>

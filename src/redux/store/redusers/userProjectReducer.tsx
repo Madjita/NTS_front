@@ -12,6 +12,7 @@ export const userProjectReducer = (state = initialState, action: UserProjectActi
             return {loading: true, error: null, userProjects: []}
         case UserProjectActionTypes.FETCH_USERProject_SUCCESS:
             return {loading: false, error: null, userProjects: action.payload}
+
         case UserProjectActionTypes.FETCH_USERProject_ERROR:
             return {loading: false, error: action.payload, userProjects: []}
         case UserProjectActionTypes.FETCH_USERProject_REMOVE_SUCCESS:

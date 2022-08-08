@@ -24,6 +24,12 @@ export const projectReducer = (state = initialState, action: ProjectAction): Pro
             return {loading: true, error: null, projects: []}
         case ProjectActionTypes.FETCH_PROJECT_ADD_SUCCESS:
             return {loading: false, error: null, projects: action.payload}
+
+        case ProjectActionTypes.FETCH_PROJECT_EDIT:
+            return {loading: true, error: null, projects: state.projects}
+        case ProjectActionTypes.FETCH_PROJECT_EDIT_SUCCESS:
+                return {loading: true, error: null, projects: action.payload}
+
         default:
             return state
     }

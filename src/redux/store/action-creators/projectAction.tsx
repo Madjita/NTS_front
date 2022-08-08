@@ -89,3 +89,36 @@ export const addProject = (sessionToken: any,project: IProject) => {
         }
     }
 }
+
+
+export const editProject = (sessionToken: any,oldProjectInfromation: any,newProjectInfromation: any) => {
+
+    return async (dispatch: Dispatch<ProjectAction>,payload: any) => {
+        try {
+            dispatch({type: ProjectActionTypes.FETCH_PROJECT_EDIT})
+
+            let test = {
+                OldProjectInfromation: oldProjectInfromation,
+                NewProjectInfromation: newProjectInfromation
+            }
+
+            const json = JSON.stringify(test);
+            const response = await (await axios.put(GetConnectionString()+'/Project/projects',json,
+                                                { headers: {
+                                                        'Content-Type': 'application/json',
+                                                        'Authorization': sessionToken,
+                                                        
+                                                    }
+                                                }))
+
+            setTimeout(() => {
+                dispatch({type: ProjectActionTypes.FETCH_PROJECT_EDIT_SUCCESS, payload: response.data})
+            }, sleepLoader)
+        } catch (e) {
+            dispatch({
+                type: ProjectActionTypes.FETCH_PROJECT_ERROR,
+                payload: 'Произошла ошибка при редактировании проекта'
+            })
+        }
+    }
+}

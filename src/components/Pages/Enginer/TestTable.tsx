@@ -29,7 +29,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import IconDelete from '@mui/icons-material/Delete'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-
+import ModeEditIcon from '@mui/icons-material/ModeEdit';
 
 interface Data {
   id: number,
@@ -171,9 +171,10 @@ function EnhancedTableHead(props: EnhancedTableProps) {
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
-            align={headCell.numeric ? 'right' : 'left'}
+            align={'center'}
             padding={headCell.disablePadding ? 'none' : 'normal'}
             sortDirection={orderBy === headCell.id ? order : false}
+
           >
             <TableSortLabel
               active={orderBy === headCell.id}
@@ -189,7 +190,8 @@ function EnhancedTableHead(props: EnhancedTableProps) {
             </TableSortLabel>
           </TableCell>
         ))}
-        <TableCell align="right">Добавить часы</TableCell>
+        <TableCell align="center">Добавить часы</TableCell>
+        {TableEventually ? <TableCell align="center">Редактировать</TableCell>:null}
         {TableEventually ? <TableCell align="center">Удалить</TableCell>:null}
       </TableRow>
     </TableHead>
@@ -228,8 +230,8 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
 
 
 
-function Row(props: { row: IProject, labelId: any,handleAddHours: any,handleRemove:any ,TableEventually:any,rowsPerPage:any,page:any,index:any,rowsCount:any,order:any}) {
-  const { row,labelId,handleAddHours,handleRemove,TableEventually,rowsPerPage,page,index,rowsCount,order } = props;
+function Row(props: { row: IProject, labelId: any,handleAddHours: any,handleRemove:any ,handleEdit:any,TableEventually:any,rowsPerPage:any,page:any,index:any,rowsCount:any,order:any}) {
+  const { row,labelId,handleAddHours,handleRemove,handleEdit,TableEventually,rowsPerPage,page,index,rowsCount,order } = props;
   const [open, setOpen] = React.useState(false);
 
 
@@ -250,31 +252,43 @@ function Row(props: { row: IProject, labelId: any,handleAddHours: any,handleRemo
                        id={labelId}
                        scope="row"
                        padding="none"
+                       align="center"
                        >
                         {row.indexAdd}
                        </TableCell>
-                      <TableCell >
+                      <TableCell align="center">
                         {row.code}
                       </TableCell>
-                      <TableCell align="right">{row.title}</TableCell>
-                      <TableCell align="right">{row.description}</TableCell>
-                      <TableCell align="right">{row.dateStart}</TableCell>
-                      <TableCell align="right">{row.dateStop}</TableCell>
-                      <TableCell align="right">
+                      <TableCell align="center">{row.title}</TableCell>
+                      <TableCell align="center">{row.dateStart}</TableCell>
+                      <TableCell align="center">{row.dateStop}</TableCell>
+                      <TableCell align="center">{row.description}</TableCell>
+                      <TableCell align="center">
                         <HoursAddDialog title='Добавить почасовку' handleAdd={handleAddHours} projectName={row.code +" - "+ row.title}/>
                       </TableCell>
                       {
                       TableEventually ? 
-                      <TableCell align="center">
-                        <IconDelete onClick={()=>{
-                        let indexNormal = index+(page * rowsPerPage)
-                        let index_with_order = order === 'asc' ? indexNormal : rowsCount-indexNormal-1
 
-                        console.log(order,indexNormal,index_with_order)
-                        handleRemove(index_with_order)
+                      <React.Fragment>
+                        <TableCell align="center">
+                          <ProjectAddDialog indexEdit={()=>{
+                             let indexNormal = index+(page * rowsPerPage)
+                             let index_with_order = order === 'asc' ? indexNormal : rowsCount-indexNormal-1
+                             return index_with_order;
+                          }}
+                          handleEdit={handleEdit}
+                          selectProject={row ? row : undefined}/>
+                        </TableCell>
+                        <TableCell align="center">
+                          <IconDelete onClick={()=>{
+                          let indexNormal = index+(page * rowsPerPage)
+                          let index_with_order = order === 'asc' ? indexNormal : rowsCount-indexNormal-1
+                          handleRemove(index_with_order)
 
-                        }}/>
-                      </TableCell>
+                          }}/>
+                        </TableCell>
+                      </React.Fragment>
+                     
                       :null
                       }
       </TableRow>
@@ -311,11 +325,12 @@ type Props = {
   child?: any
   addProject?: (sessionToken: any,project: IProject) => {}
   removeProject?: (sessionToken: any,name: string) => {}
+  editProject?:  (sessionToken: any,oldProjectInfromation: any,newProjectInfromation: any) => {}
   fetchProject?: any
 }
 
 
-const TableTest:  React.FC<Props> = ({addProject,removeProject,fetchProject}) => {
+const TableTest:  React.FC<Props> = ({addProject,removeProject,fetchProject,editProject}) => {
   const [order, setOrder] = React.useState<Order>("asc");
   const [orderBy, setOrderBy] = React.useState<keyof IProject>("indexAdd");
   const [selected, setSelected] = React.useState<readonly string[]>([]);
@@ -470,7 +485,7 @@ const [TableEventually, setTableEventually] = React.useState<boolean>(false);
         newProject.status = newObject.status
         newProject.code = newObject.code
         newProject.title = newObject.nameProject
-        newProject.description = newObject.descriptirons
+        newProject.description = newObject.descriptiron
 
         if(userLogin!= undefined)
           newProject.enginerCreater = userLogin
@@ -483,14 +498,14 @@ const [TableEventually, setTableEventually] = React.useState<boolean>(false);
         //newRows.push( createData(rows.length+1,newObject.code, newObject.nameProject, newObject.descriptirons))
         let newRow = [
           ...rows,
-          createData(rows.length+1,newObject.code, newObject.nameProject, newObject.descriptirons)
+          createData(rows.length+1,newObject.code, newObject.nameProject, newObject.descriptiron)
         ]
         setRows(newRow)
       }   
   }
 
   const handleRemove = async (index: number) =>
-    {    
+  {    
       console.log("index =",index)
       //let newRow = rows.filter((value, indexValue) => indexValue !== index);
       //setRows(newRow)
@@ -499,7 +514,16 @@ const [TableEventually, setTableEventually] = React.useState<boolean>(false);
       {
         removeProject(GetSesstionToken(),projects[index].code)
       }
+  }
+
+  const handleEdit = async (oldProjectInformation: any,newProjectInformation: any) =>
+  {
+    if(editProject != undefined)
+    {
+      console.log("oldProjectInformation = ",oldProjectInformation, "newProjectInformation  =",newProjectInformation)
+      editProject(GetSesstionToken(),oldProjectInformation,newProjectInformation)
     }
+  }
     
   
 
@@ -544,8 +568,8 @@ const [TableEventually, setTableEventually] = React.useState<boolean>(false);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
-                    <React.Fragment>
-                      <Row key={index} 
+                      <Row 
+                        key={index} 
                         page={page}
                         rowsPerPage={rowsPerPage}
                         index={index}
@@ -553,10 +577,10 @@ const [TableEventually, setTableEventually] = React.useState<boolean>(false);
                         labelId={labelId}
                         handleAddHours={handleAddHours} 
                         handleRemove={handleRemove}
+                        handleEdit={handleEdit}
                         TableEventually={TableEventually}
                         rowsCount={projects.length}
                         order={order} />
-                    </React.Fragment>
                     
                   );
                 })}
