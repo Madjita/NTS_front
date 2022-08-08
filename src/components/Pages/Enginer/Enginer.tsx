@@ -14,7 +14,7 @@ import { GetSesstionToken,GetSessionEmail } from '../../../settings/settings';
 import { Grid } from '@mui/material';
 import Content from '../../components/Content/Content';
 import ProjectCardComponent from '../../components/ProjectComponents/ProjectCardComponent';
-import TestTable from './TestTable';
+import TableMaterialUICollapsibleTable_AllProject from '../../components/TableMaterialUICollapsibleTable/TableMaterialUICollapsibleTable_AllProject';
 import Z from '../../components/Z';
 
 
@@ -102,7 +102,7 @@ const Enginer:  React.FC<Props> = ({value}) => {
                     </Grid>
                 </TabPanel>
                 <TabPanel value={value} index={1}>
-                    <TestTable addProject={addProject} removeProject={removeProject} fetchProject={fetchProject} editProject={editProject}/>
+                    <TableMaterialUICollapsibleTable_AllProject addProject={addProject} removeProject={removeProject} fetchProject={fetchProject} editProject={editProject}/>
                 </TabPanel>
                 <TabPanel value={value} index={2}>
                     Почасовки
