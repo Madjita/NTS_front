@@ -72,7 +72,7 @@ export const addProject = (sessionToken: any,project: IProject) => {
             formData.append('DateStop', project.dateStop);
             formData.append('Description', project.description);
             formData.append('Status', project.status);
-            formData.append('EnginerCreaterEmail', project.enginerCreater.email);
+            formData.append('EngineerCreaterEmail', project.enginerCreater.email);
 
 
             axios.defaults.headers.common['Authorization'] = sessionToken;

@@ -126,6 +126,12 @@ const headCells:  HeadCell[] = [
     label: 'Название проекта',
   },
   {
+    id: 'description',
+    numeric: true,
+    disablePadding: false,
+    label: 'Описание',
+  },
+  {
     id: 'dateStart',
     numeric: true,
     disablePadding: false,
@@ -138,11 +144,12 @@ const headCells:  HeadCell[] = [
     label: 'Дата завершения',
   },
   {
-    id: 'description',
+    id: 'actualHours',
     numeric: true,
     disablePadding: false,
-    label: 'Описание',
+    label: 'Затрачено',
   },
+  
 ];
 
 interface EnhancedTableProps {
@@ -235,6 +242,18 @@ function Row(props: { row: IProject, labelId: any,handleAddHours: any,handleRemo
   const [open, setOpen] = React.useState(false);
 
 
+  const dataString = (dataIoString:string) => {
+
+    let data = new Date(dataIoString)
+    return data.toLocaleDateString('en-GB');
+  }
+
+  const getActualHours = () =>{
+
+    let actual = row.actualHours ? row.actualHours: 0;
+    return actual + " / "+ row.maxHour;
+  }
+
   return (
     <React.Fragment>
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
@@ -260,9 +279,11 @@ function Row(props: { row: IProject, labelId: any,handleAddHours: any,handleRemo
                         {row.code}
                       </TableCell>
                       <TableCell align="center">{row.title}</TableCell>
-                      <TableCell align="center">{row.dateStart}</TableCell>
-                      <TableCell align="center">{row.dateStop}</TableCell>
                       <TableCell align="center">{row.description}</TableCell>
+                      <TableCell align="center">{dataString(row.dateStart)}</TableCell>
+                      <TableCell align="center">{dataString(row.dateStop)}</TableCell>
+                      <TableCell align="center">{getActualHours()}</TableCell>
+
                       <TableCell align="center">
                         <HoursAddDialog title='Добавить почасовку' handleAdd={handleAddHours} projectName={row.code +" - "+ row.title}/>
                       </TableCell>

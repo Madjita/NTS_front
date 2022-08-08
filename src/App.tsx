@@ -109,7 +109,7 @@ function App() {
      
       <Route  path="/register" element={  <PageRegister setRole={setRole} /> }/>
       <Route  path="/login" element={  <PageLogin setRole={setRole} setUser={setUser} /> }/>
-      <Route  path="/enginer" element={
+      <Route  path="/engineer" element={
           chekRoleForEnginer(sessionRole) ?
           <NotFound/>
           :

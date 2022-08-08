@@ -5,9 +5,9 @@ export const checkRole = (role: string) =>{
       return '/admin'
   }
 
-  if(role === 'enginer')
+  if(role === 'engineer')
   {
-      return '/enginer'
+      return '/engineer'
   } 
 
   if(role === 'guest')
@@ -19,7 +19,7 @@ export const checkRole = (role: string) =>{
 
 export const chekRoleForEnginer= (sessionRole: string | null) => {
 
-  if(sessionRole !== "\"enginer\"")
+  if(sessionRole !== "\"engineer\"")
   {
     if(sessionRole === "\"admin\"")
     {

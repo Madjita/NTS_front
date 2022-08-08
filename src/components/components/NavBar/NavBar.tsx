@@ -106,7 +106,7 @@ export default function NavBar(props: DrawerPropsMy) {
     icon: <PeopleIcon />,
     active: true,
     onClick: () => {
-      navigate('/enginer')
+      navigate('/engineer')
     }
   };
 

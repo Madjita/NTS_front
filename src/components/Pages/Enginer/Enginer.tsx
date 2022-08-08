@@ -72,7 +72,7 @@ const Enginer:  React.FC<Props> = ({value}) => {
 
 
 
-    console.log("Enginer ",userLogin,"Value = ",value,loadingLogin)
+    console.log("Engineer ",userLogin,"Value = ",value,loadingLogin)
     return(
 
             loadingLogin ? 
