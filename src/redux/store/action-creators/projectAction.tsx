@@ -76,7 +76,7 @@ export const addProject = (sessionToken: any,project: IProject) => {
 
 
             axios.defaults.headers.common['Authorization'] = sessionToken;
-            const response = await (await axios.post(GetConnectionString()+'/Project/addProject',formData))
+            const response = await (await axios.post(GetConnectionString()+'/Project/projects',formData))
 
             setTimeout(() => {
                 dispatch({type: ProjectActionTypes.FETCH_PROJECT_ADD_SUCCESS, payload: response.data})
