@@ -506,7 +506,7 @@ const [TableEventually, setTableEventually] = React.useState<boolean>(false);
         newProject.status = newObject.status
         newProject.code = newObject.code
         newProject.title = newObject.nameProject
-        newProject.description = newObject.descriptiron
+        newProject.description = newObject.description
 
         if(userLogin!= undefined)
           newProject.enginerCreater = userLogin
@@ -519,7 +519,7 @@ const [TableEventually, setTableEventually] = React.useState<boolean>(false);
         //newRows.push( createData(rows.length+1,newObject.code, newObject.nameProject, newObject.descriptirons))
         let newRow = [
           ...rows,
-          createData(rows.length+1,newObject.code, newObject.nameProject, newObject.descriptiron)
+          createData(rows.length+1,newObject.code, newObject.nameProject, newObject.description)
         ]
         setRows(newRow)
       }   
@@ -620,7 +620,7 @@ const [TableEventually, setTableEventually] = React.useState<boolean>(false);
         <TablePagination
           rowsPerPageOptions={[14]}
           component="div"
-          count={rows.length}
+          count={projects.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}

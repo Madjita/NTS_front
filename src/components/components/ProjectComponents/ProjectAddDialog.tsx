@@ -51,7 +51,7 @@ export interface IProjectSendApi {
   dateStop: string,  // Дата завершения
   status: string,    // Статус проекта ( план, в работе, в архиве)
   enginerCreater?: string // Тот кто создал проект
-  descriptiron: string,
+  description: string,
 }
 
 const ProjectAddDialog:  React.FC<Props> = ({title,handleAdd,handleEdit,selectProject,projectName,user}) =>
@@ -70,7 +70,7 @@ const ProjectAddDialog:  React.FC<Props> = ({title,handleAdd,handleEdit,selectPr
     dateStop: selectProject ? selectProject.dateStop : dataStop!.toISOString(),
     status: selectProject ? selectProject.status : 'plan',
     enginerCreater: '',
-    descriptiron: selectProject ? selectProject.description : ''
+    description: selectProject ? selectProject.description : ''
    });
 
   const handleClickOpen = () => {
@@ -87,7 +87,7 @@ const ProjectAddDialog:  React.FC<Props> = ({title,handleAdd,handleEdit,selectPr
       dateStop: selectProject ? selectProject.dateStop : dataStop!.toISOString(),
       status: selectProject ? selectProject.status : 'plan',
       enginerCreater: '',
-      descriptiron: selectProject ? selectProject.description : ''
+      description: selectProject ? selectProject.description : ''
      });
   };
 
@@ -119,7 +119,7 @@ const ProjectAddDialog:  React.FC<Props> = ({title,handleAdd,handleEdit,selectPr
       oldObject.nameProject = selectProject!.title
       oldObject.dateStart =selectProject!.dateStart
       oldObject.dateStop = selectProject!.dateStop
-      oldObject.descriptiron =selectProject!.description
+      oldObject.description =selectProject!.description
       oldObject.maxHours = selectProject!.maxHour
       oldObject.status = selectProject!.status
       oldObject.enginerCreater = selectProject!.enginerCreater.email
@@ -265,9 +265,9 @@ const ProjectAddDialog:  React.FC<Props> = ({title,handleAdd,handleEdit,selectPr
             type="name"
             
             rows={4}
-            value={newProject.descriptiron}
+            value={newProject.description}
             onChange={e =>{
-              setNewProject({...newProject,descriptiron: e.target.value})
+              setNewProject({...newProject,description: e.target.value})
           }}
           />
 
