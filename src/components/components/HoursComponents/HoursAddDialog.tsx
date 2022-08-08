@@ -70,7 +70,7 @@ const HoursAddDialog:  React.FC<Props> = ({title,handleAdd,selectProject}) =>
       suHour: new Object as IDocHour,
       sumHour: 0 as number,
       userSetWeek: new Object as IUser,
-      userProject: selectProject,
+      userProject: selectProject ? selectProject : undefined,
      }
 
      init.moHour.activityCode = 'AACD'
@@ -199,7 +199,13 @@ const HoursAddDialog:  React.FC<Props> = ({title,handleAdd,selectProject}) =>
         {title}
       </Button>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Добавить почасовку к проекту : {selectProject!.code +" - "+ selectProject!.title}</DialogTitle>
+        {
+          selectProject ? 
+          <DialogTitle>Добавить почасовку к проекту : {selectProject!.code +" - "+ selectProject!.title}</DialogTitle>
+          :
+          <DialogTitle>Не нашли проект</DialogTitle>
+        }
+       
         <DialogContent>
           <DialogContentText>
            Выбирите неделю на которой хотите добавить часы

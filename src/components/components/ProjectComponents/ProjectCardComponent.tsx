@@ -115,7 +115,7 @@ const ProjectCardComponent:  React.FC<Props> = ({projectProps}) => {
             <Grid item xs>
             </Grid>
             <Grid item>
-              <HoursAddDialog title='Добавить почасовку' handleAdd={handleAddHours}/>
+              <HoursAddDialog title='Добавить почасовку' handleAdd={handleAddHours} selectProject={projectProps?.project}/>
             </Grid>
         </Grid>
         </Toolbar>
