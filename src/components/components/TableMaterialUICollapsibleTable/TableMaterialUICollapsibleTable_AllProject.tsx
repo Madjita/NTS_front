@@ -18,11 +18,11 @@ import Tooltip from '@mui/material/Tooltip';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
-import HoursAddDialog from '../../components/HoursComponents/HoursAddDialog';
-import { IProject, IWeek } from '../../IDataInterface/IDataInterface';
+import HoursAddDialog from '../HoursComponents/HoursAddDialog';
+import { IProject, IUser, IUserProject, IWeek } from '../../IDataInterface/IDataInterface';
 import { GetSessionEmail, GetSesstionToken } from '../../../settings/settings';
 import { Button, Collapse } from '@mui/material';
-import ProjectAddDialog, { IProjectSendApi } from '../../components/ProjectComponents/ProjectAddDialog';
+import ProjectAddDialog, { IProjectSendApi } from '../ProjectComponents/ProjectAddDialog';
 import { useActions } from '../../../redux/hooks/userActions';
 import { useTypedSelector } from '../../../redux/hooks/useTypedSelector';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -285,7 +285,7 @@ function Row(props: { row: IProject, labelId: any,handleAddHours: any,handleRemo
                       <TableCell align="center">{getActualHours()}</TableCell>
 
                       <TableCell align="center">
-                        <HoursAddDialog title='Добавить почасовку' handleAdd={handleAddHours} projectName={row.code +" - "+ row.title}/>
+                        <HoursAddDialog title='Добавить почасовку' handleAdd={handleAddHours} selectProject={row}/>
                       </TableCell>
                       {
                       TableEventually ? 
@@ -347,11 +347,12 @@ type Props = {
   addProject?: (sessionToken: any,project: IProject) => {}
   removeProject?: (sessionToken: any,name: string) => {}
   editProject?:  (sessionToken: any,oldProjectInfromation: any,newProjectInfromation: any) => {}
+  addUserHoursProject?: (sessionToken: any,userProject: IUserProject) => {}
   fetchProject?: any
 }
 
 
-const TableTest:  React.FC<Props> = ({addProject,removeProject,fetchProject,editProject}) => {
+const TableMaterialUICollapsibleTable_AllProject:  React.FC<Props> = ({addProject,removeProject,fetchProject,editProject,addUserHoursProject}) => {
   const [order, setOrder] = React.useState<Order>("asc");
   const [orderBy, setOrderBy] = React.useState<keyof IProject>("indexAdd");
   const [selected, setSelected] = React.useState<readonly string[]>([]);
@@ -481,7 +482,28 @@ const [TableEventually, setTableEventually] = React.useState<boolean>(false);
       let sessionToken =  GetSesstionToken()
       if(newObject != null)
       {
-        console.log("Add hours = ",newObject)
+      
+
+        let object = new Object() as IUserProject
+        object.weeks = new Array() as IWeek[]
+
+        if(newObject.userProject != undefined)
+        {
+          object.project = newObject.userProject
+        }
+
+        if(newObject.userSetWeek != undefined)
+        {
+          object.user = newObject.userSetWeek
+        }
+    
+        object.weeks.push(newObject)
+
+        console.log("Add hours = ",object)
+
+        if(addUserHoursProject != undefined)
+          addUserHoursProject(sessionToken,object)
+        
          // let responce =   addCompany(sessionToken,newCompany);
       }   
     }
@@ -633,4 +655,4 @@ const [TableEventually, setTableEventually] = React.useState<boolean>(false);
 
 
 
-export default TableTest;
+export default TableMaterialUICollapsibleTable_AllProject;

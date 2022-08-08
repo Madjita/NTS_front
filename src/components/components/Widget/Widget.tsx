@@ -14,8 +14,8 @@ interface IProject{
 
 interface IUser {
     firstName: string,
-    lastName: string,
-    patronymic : string,
+    secondName: string,
+    middleName : string,
     email: string,
     projects: Array<IProject>,
     company: string

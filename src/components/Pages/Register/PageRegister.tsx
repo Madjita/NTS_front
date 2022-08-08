@@ -15,7 +15,7 @@ type Props = {
 
 
 const PageRegister:  React.FC<Props> = ({setRole}) => {
-  const [RegiserData, setRegisterData] = useState<Register>({email: '', password: '',company: '',firstName:'',lastName:'',patronymic:''});
+  const [RegiserData, setRegisterData] = useState<Register>({email: '', password: '',company: '',firstName:'',secondName:'',middleName:''});
   const [BadMessage,setBadMessage] = useState(null);
   const navigate = useNavigate();
 
@@ -93,16 +93,16 @@ const PageRegister:  React.FC<Props> = ({setRole}) => {
                                         }) as Register)}/>
 
 
-                                        <label htmlFor="LastName">LastName</label>
-                                        <input data-automation="lastName-input" id="LastName" type="LastName" onChange={e => setRegisterData((prevState)=> ({
+                                        <label htmlFor="SecondName">SecondName</label>
+                                        <input data-automation="secondName-input" id="SecondName" type="SecondName" onChange={e => setRegisterData((prevState)=> ({
                                             ...prevState,
-                                            lastName: e.target.value as any
+                                            secondName: e.target.value as any
                                         }) as Register)}/>
 
-                                        <label htmlFor="Patronymic">Patronymic</label>
-                                        <input data-automation="patronymic-input" id="Patronymic" type="Patronymic" onChange={e => setRegisterData((prevState)=> ({
+                                        <label htmlFor="Middle Name">Middle Name</label>
+                                        <input data-automation="middleName-input" id="middleName" type="middleName" onChange={e => setRegisterData((prevState)=> ({
                                             ...prevState,
-                                            patronymic: e.target.value as any
+                                            middleName: e.target.value as any
                                         }) as Register)}/>
 
                                         <button type="submit" className='Button'>

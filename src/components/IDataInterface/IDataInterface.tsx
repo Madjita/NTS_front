@@ -8,8 +8,8 @@ export interface Register{
     password: string
     company: string,
     firstName: string,
-    lastName: string,
-    patronymic: string,
+    secondName: string,
+    middleName: string,
 }
 
 export interface IProject{
@@ -74,7 +74,7 @@ export interface IWeek{
     frHour?: IDocHour
     saHour?: IDocHour
     suHour?: IDocHour
-    userProject?: IUserProject[]
+    userProject?: IProject
     userSetWeek?: IUser
 }
 

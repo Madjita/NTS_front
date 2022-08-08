@@ -45,8 +45,8 @@ export async function registerUser(credentials: Register) {
     formData.append('Email', credentials.email);
     formData.append('Password', credentials.password);
     formData.append('FirstName', credentials.firstName);
-    formData.append('LastName', credentials.lastName);
-    formData.append('Patronymic', credentials.patronymic);
+    formData.append('SecondName', credentials.secondName);
+    formData.append('MiddleName', credentials.middleName);
     formData.append('Company', credentials.company);
    
     return fetch(GetConnectionString()+'/Authorize/register', {

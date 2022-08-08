@@ -61,7 +61,7 @@ export const addUserProject= (sessionToken: any,userProject: Array<IUserProject>
 
             setTimeout(() => {
                 dispatch({type: UserProjectActionTypes.FETCH_USERProject_ADD_SUCCESS, payload: response.data})
-            }, 1000)
+            }, sleepLoader)
         } catch (e) {
             dispatch({
                 type: UserProjectActionTypes.FETCH_USERProject_ERROR,
@@ -71,16 +71,17 @@ export const addUserProject= (sessionToken: any,userProject: Array<IUserProject>
     }
 }
 
-/*
-export const addUserProject= (sessionToken: any,userProject: Array<IUserProject>) => {
+export const addUserHoursProject= (sessionToken: any,userProject: IUserProject) => {
 
     return async (dispatch: Dispatch<UserProjectAction>,payload: any) => {
         try {
-            dispatch({type: UserProjectActionTypes.FETCH_USERProject_ADD, payload: userProject})
+            dispatch({type: UserProjectActionTypes.FETCH_USERProject_ADD_HOURS, payload: userProject})
 
             const formData  = new FormData();
 
+            const json = JSON.stringify(userProject);
 
+/*
            let newObject = {'UserProjects': userProject.map((item,index)=>{
 
                 let object = {'Email': item.user.email, 'Project': item.project.title}
@@ -88,21 +89,27 @@ export const addUserProject= (sessionToken: any,userProject: Array<IUserProject>
 
                 return object
             })
-            }
+            }*/
           
 
-            axios.defaults.headers.common['Authorization'] = sessionToken;
-            const response = await (await axios.post(GetConnectionString()+'/Project/projects/user',newObject))
+            //axios.defaults.headers.common['Authorization'] = sessionToken;
+            const response = await (await axios.post(GetConnectionString()+'/Project/projects/user/hours',json,{ headers: {
+                'Content-Type': 'application/json',
+                'Authorization': sessionToken, 
+            }
+            }))
+            
 
             setTimeout(() => {
-                dispatch({type: UserProjectActionTypes.FETCH_USERProject_ADD_SUCCESS, payload: response.data})
-            }, 1000)
+                dispatch({type: UserProjectActionTypes.FETCH_USERProject_ADD_HOURS_SUCCESS, payload: response.data})
+            }, sleepLoader)
+
+            
         } catch (e) {
             dispatch({
                 type: UserProjectActionTypes.FETCH_USERProject_ERROR,
-                payload: 'Произошла ошибка при добавлении рабочего к проекту'
+                payload: 'Произошла ошибка при добавлении почасовки рабочего к проекту'
             })
         }
     }
 }
-*/

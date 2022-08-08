@@ -6,7 +6,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { ICompany, IWeek,IDocHour, IUser } from '../../IDataInterface/IDataInterface';
+import { ICompany, IWeek,IDocHour, IUser, IProject } from '../../IDataInterface/IDataInterface';
 import {WeekInit} from './currentWeek'
 
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
@@ -39,11 +39,11 @@ type Props = {
     className?: string,
     child?: any
     title?: string,
-    projectName?:string,
+    selectProject?:IProject,
     handleAdd?: any;
 }
 
-const HoursAddDialog:  React.FC<Props> = ({title,handleAdd,projectName}) =>
+const HoursAddDialog:  React.FC<Props> = ({title,handleAdd,selectProject}) =>
 {
 
   const {users} = useTypedSelector(state => state.users)
@@ -55,6 +55,7 @@ const HoursAddDialog:  React.FC<Props> = ({title,handleAdd,projectName}) =>
   const [open, setOpen] = React.useState(false);
 
   const [dataValue, setDataValue] = React.useState<Date | null>(new Date());
+
   const [newWeek, setNewWeek] = React.useState<IWeek>(()=>{
    let init =  {
       year: dataValue?.getFullYear() as number,
@@ -68,7 +69,8 @@ const HoursAddDialog:  React.FC<Props> = ({title,handleAdd,projectName}) =>
       saHour: new Object as IDocHour,
       suHour: new Object as IDocHour,
       sumHour: 0 as number,
-      userSetWeek: new Object as IUser
+      userSetWeek: new Object as IUser,
+      userProject: selectProject,
      }
 
      init.moHour.activityCode = 'AACD'
@@ -197,7 +199,7 @@ const HoursAddDialog:  React.FC<Props> = ({title,handleAdd,projectName}) =>
         {title}
       </Button>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Добавить почасовку к проекту : {projectName}</DialogTitle>
+        <DialogTitle>Добавить почасовку к проекту : {selectProject!.code +" - "+ selectProject!.title}</DialogTitle>
         <DialogContent>
           <DialogContentText>
            Выбирите неделю на которой хотите добавить часы

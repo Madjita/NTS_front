@@ -63,8 +63,8 @@ export default UsersComponents;
                 <div  style={{flex: '1 1 auto'}}>
                     <p>{user.role}</p>  
                     <p>{user.firstName}</p>
-                    <p>{user.lastName}</p> 
-                    <p>{user.patronymic}</p>  
+                    <p>{user.secondName}</p> 
+                    <p>{user.middleName}</p>  
                     <p>{user.email}</p>
                     <p>{user.company}</p>
                 </div>

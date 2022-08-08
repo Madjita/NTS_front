@@ -54,7 +54,7 @@ const Enginer:  React.FC<Props> = ({value}) => {
     let [color, setColor] = useState("black");
 
     const {userLogin, errorLogin, loadingLogin} = useTypedSelector(state => state.userLogin)
-    const {findUser,fetchUsers,fetchProject,addProject,removeProject,editProject} = useActions()
+    const {findUser,fetchUsers,fetchProject,addProject,removeProject,editProject,addUserHoursProject} = useActions()
     
     useEffect(()=>{
         let sessionToken =  GetSesstionToken()
@@ -101,8 +101,14 @@ const Enginer:  React.FC<Props> = ({value}) => {
                     }
                     </Grid>
                 </TabPanel>
-                <TabPanel value={value} index={1}>
-                    <TableMaterialUICollapsibleTable_AllProject addProject={addProject} removeProject={removeProject} fetchProject={fetchProject} editProject={editProject}/>
+                    <TabPanel value={value} index={1}>
+                        <TableMaterialUICollapsibleTable_AllProject 
+                        addProject={addProject} 
+                        removeProject={removeProject} 
+                        fetchProject={fetchProject} 
+                        editProject={editProject}
+                        addUserHoursProject={addUserHoursProject}
+                    />
                 </TabPanel>
                 <TabPanel value={value} index={2}>
                     Почасовки

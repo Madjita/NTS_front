@@ -19,7 +19,7 @@ type Props = {
 
 const PageLogin:  React.FC<Props> = ({setRole,setUser}) => {
   const [LoginData, setLoginData] = useState<Login>({email: '', password: ''});
-  const [RegiserData, setRegisterData] = useState<Register>({email: '', password: '',company: '',firstName:'',lastName:'',patronymic:''});
+  const [RegiserData, setRegisterData] = useState<Register>({email: '', password: '',company: '',firstName:'',secondName:'',middleName:''});
   const [BadMessage,setBadMessage] = useState(null);
   const [signup, setSignup] = useState<boolean>(false);
   const navigate = useNavigate();
