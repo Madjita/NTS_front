@@ -335,7 +335,7 @@ const HoursAddDialog:  React.FC<Props> = ({title,handleAdd,selectProject}) =>
               type="name"
               fullWidth
               variant="standard"
-              value={newWeek.moHour!.workingTime!}
+              value={newWeek.moHour!.workingTime!  || ""}
               inputProps={{ style: { textAlign: 'center' }}} 
               onChange={e =>{
 
@@ -353,7 +353,7 @@ const HoursAddDialog:  React.FC<Props> = ({title,handleAdd,selectProject}) =>
             type="name"
             fullWidth
             variant="standard"
-            value={newWeek.tuHour!.workingTime!}
+            value={newWeek.tuHour!.workingTime! || ""}
             inputProps={{ style: { textAlign: 'center' }}} 
             onChange={e =>{
 
@@ -370,7 +370,7 @@ const HoursAddDialog:  React.FC<Props> = ({title,handleAdd,selectProject}) =>
             type="name"
             fullWidth
             variant="standard"
-            value={newWeek.weHour!.workingTime!}
+            value={newWeek.weHour!.workingTime! || ""}
             inputProps={{ style: { textAlign: 'center' }}} 
             onChange={e =>{
 
@@ -388,7 +388,7 @@ const HoursAddDialog:  React.FC<Props> = ({title,handleAdd,selectProject}) =>
             type="name"
             fullWidth
             variant="standard"
-            value={newWeek.thHour!.workingTime!}
+            value={newWeek.thHour!.workingTime! || ""}
             inputProps={{ style: { textAlign: 'center' }}} 
             onChange={e =>{
 
@@ -406,7 +406,7 @@ const HoursAddDialog:  React.FC<Props> = ({title,handleAdd,selectProject}) =>
             type="name"
             fullWidth
             variant="standard"
-            value={newWeek.frHour!.workingTime!}
+            value={newWeek.frHour!.workingTime! || ""}
             inputProps={{ style: { textAlign: 'center' }}} 
             onChange={e =>{
 
@@ -423,7 +423,7 @@ const HoursAddDialog:  React.FC<Props> = ({title,handleAdd,selectProject}) =>
             type="name"
             fullWidth
             variant="standard"
-            value={newWeek.saHour!.workingTime!}
+            value={newWeek.saHour!.workingTime! || ""}
             inputProps={{ style: { textAlign: 'center' }}} 
             onChange={e =>{
 
@@ -440,7 +440,7 @@ const HoursAddDialog:  React.FC<Props> = ({title,handleAdd,selectProject}) =>
             type="name"
             fullWidth
             variant="standard"
-            value={newWeek.suHour!.workingTime!}
+            value={newWeek.suHour!.workingTime! || ""}
             inputProps={{ style: { textAlign: 'center' }}} 
             onChange={e =>{
 

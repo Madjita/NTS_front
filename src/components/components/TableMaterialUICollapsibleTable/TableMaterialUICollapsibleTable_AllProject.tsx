@@ -32,6 +32,8 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import ExpandCircleDownIcon from '@mui/icons-material/ExpandCircleDown';
+import AddIcon from '@mui/icons-material/Add';
+import ProjectUserDialog from '../Widget/ProjectUserComponents/ProjectUserDialog';
 
 interface Data {
   id: number,
@@ -304,6 +306,7 @@ function Row(props: { row: IProject, labelId: any,handleAddHours: any,handleRemo
   const { row,labelId,handleAddHours,handleRemove,handleEdit,TableEventually,rowsPerPage,page,index,rowsCount,order,accumCollapseUser } = props;
   const [open, setOpen] = React.useState(false);
 
+  const [reload,setReload] = React.useState(false);
 
   const dataString = (dataIoString:string) => {
 
@@ -342,42 +345,41 @@ function Row(props: { row: IProject, labelId: any,handleAddHours: any,handleRemo
         {row.indexAdd}
       </TableCell>
       <TableCell align="center">
-                        {row.code}
-                      </TableCell>
-                      <TableCell align="center">{row.title}</TableCell>
-                      <TableCell align="center">{row.description}</TableCell>
-                      <TableCell align="center">{dataString(row.dateStart)}</TableCell>
-                      <TableCell align="center">{dataString(row.dateStop)}</TableCell>
-                      <TableCell align="center">{getActualHours()}</TableCell>
-
-                      <TableCell align="center">
-                        <HoursAddDialog title='Добавить почасовку' handleAdd={handleAddHours} selectProject={row}/>
-                      </TableCell>
-                      {
-                      TableEventually ? 
-
-                      <React.Fragment>
-                        <TableCell align="center">
-                          <ProjectAddDialog indexEdit={()=>{
-                             let indexNormal = index+(page * rowsPerPage)
-                             let index_with_order = order === 'asc' ? indexNormal : rowsCount-indexNormal-1
-                             return index_with_order;
-                          }}
-                          handleEdit={handleEdit}
-                          selectProject={row ? row : undefined}/>
-                        </TableCell>
-                        <TableCell align="center">
-                          <IconDelete onClick={()=>{
-                          let indexNormal = index+(page * rowsPerPage)
-                          let index_with_order = order === 'asc' ? indexNormal : rowsCount-indexNormal-1
-                          handleRemove(index_with_order)
-
-                          }}/>
-                        </TableCell>
-                      </React.Fragment>
-                     
-                      :null
-                      }
+        {row.code}
+      </TableCell>
+      <TableCell align="center">{row.title}</TableCell>
+      <TableCell align="center">{row.description}</TableCell>
+      <TableCell align="center">{dataString(row.dateStart)}</TableCell>
+      <TableCell align="center">{dataString(row.dateStop)}</TableCell>
+      <TableCell align="center">{getActualHours()}</TableCell>
+      <TableCell align="center">
+        <HoursAddDialog title='Добавить почасовку' handleAdd={handleAddHours} selectProject={row}/>
+      </TableCell>
+      {
+        TableEventually ? 
+        <React.Fragment>
+          <TableCell align="center">
+            <ProjectUserDialog project={row}  reload={reload} setReload={setReload}/>
+          </TableCell>
+          <TableCell align="center">
+            <ProjectAddDialog indexEdit={()=>{
+                let indexNormal = index+(page * rowsPerPage)
+                let index_with_order = order === 'asc' ? indexNormal : rowsCount-indexNormal-1
+                return index_with_order;
+            }}
+            handleEdit={handleEdit}
+            selectProject={row ? row : undefined}/>
+          </TableCell>
+          <TableCell align="center">
+            <IconDelete onClick={()=>{
+            let indexNormal = index+(page * rowsPerPage)
+            let index_with_order = order === 'asc' ? indexNormal : rowsCount-indexNormal-1
+            handleRemove(index_with_order)
+            }}/>
+          </TableCell>
+        </React.Fragment>
+        :null
+      }
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={15}>
@@ -402,6 +404,7 @@ function Row(props: { row: IProject, labelId: any,handleAddHours: any,handleRemo
                     return (
 
                       <RowUsersCollapse
+                      key={index}
                       rowUserCollapse={itemUser}
                       indexUser={index}
                       />
@@ -415,7 +418,6 @@ function Row(props: { row: IProject, labelId: any,handleAddHours: any,handleRemo
           </Collapse>
         </TableCell>
       </TableRow>
-
     </React.Fragment>
   );
 }
@@ -605,9 +607,9 @@ const [TableEventually, setTableEventually] = React.useState<boolean>(false);
         console.log("Add hours = ",object)
 
         if(addUserHoursProject != undefined)
+        {
           addUserHoursProject(sessionToken,object)
-        
-         // let responce =   addCompany(sessionToken,newCompany);
+        }
       }   
     }
 
@@ -640,22 +642,12 @@ const [TableEventually, setTableEventually] = React.useState<boolean>(false);
         if( newProject != undefined && sessionToken != undefined && addProject != undefined)
           addProject(sessionToken,newProject)
         
-       // let newRows = rows.slice();
-        //newRows.push( createData(rows.length+1,newObject.code, newObject.nameProject, newObject.descriptirons))
-        let newRow = [
-          ...rows,
-          createData(rows.length+1,newObject.code, newObject.nameProject, newObject.description)
-        ]
-        setRows(newRow)
       }   
   }
 
   const handleRemove = async (index: number) =>
   {    
       console.log("index =",index)
-      //let newRow = rows.filter((value, indexValue) => indexValue !== index);
-      //setRows(newRow)
-
       if(removeProject != undefined)
       {
         removeProject(GetSesstionToken(),projects[index].code)
@@ -706,17 +698,6 @@ const [TableEventually, setTableEventually] = React.useState<boolean>(false);
               {/* if you don't need to support IE11, you can replace the `stableSort` call with:
               rows.slice().sort(getComparator(order, orderBy)) */}
               { stableSort(projects as any, getComparator(order, orderBy))
-                /*projects
-                .sort((a,b)=> {
-                  if (a.code > b.code) {
-                    return 1;
-                  }
-                  if (a.code < b.code) {
-                    return -1;
-                  }
-                  // a должно быть равным b
-                  return 0;
-                })*/
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
                   const labelId = `enhanced-table-checkbox-${index}`;

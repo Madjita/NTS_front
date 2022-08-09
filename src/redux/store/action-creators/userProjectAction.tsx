@@ -3,6 +3,7 @@ import {Dispatch} from "redux";
 import axios from "axios";
 import GetConnectionString, { sleepLoader } from "../../../settings/settings";
 import { IUserProject } from "../../../components/IDataInterface/IDataInterface";
+import { fetchProject } from "./projectAction";
 
 
 export const removeUserProject= (sessionToken: any,userProject: IUserProject) => {
