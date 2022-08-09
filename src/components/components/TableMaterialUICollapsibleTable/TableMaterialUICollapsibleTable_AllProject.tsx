@@ -15,13 +15,14 @@ import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
+import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 import HoursAddDialog from '../HoursComponents/HoursAddDialog';
 import { IProject, IUser, IUserProject, IWeek } from '../../IDataInterface/IDataInterface';
 import { GetSessionEmail, GetSesstionToken } from '../../../settings/settings';
-import { Button, Collapse } from '@mui/material';
+import { Collapse } from '@mui/material';
 import ProjectAddDialog, { IProjectSendApi } from '../ProjectComponents/ProjectAddDialog';
 import { useActions } from '../../../redux/hooks/userActions';
 import { useTypedSelector } from '../../../redux/hooks/useTypedSelector';
@@ -30,6 +31,7 @@ import IconDelete from '@mui/icons-material/Delete'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
+import ExpandCircleDownIcon from '@mui/icons-material/ExpandCircleDown';
 
 interface Data {
   id: number,
@@ -211,34 +213,95 @@ interface EnhancedTableToolbarProps {
 
   TableEventually: any;
   setTableEventually: any;
+  accumCollapseUser: any;
 }
 
 const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
-  const { numSelected,handleAddProject,TableEventually, setTableEventually} = props;
+  const { numSelected,handleAddProject,TableEventually, setTableEventually,accumCollapseUser} = props;
 
   return (
     <Toolbar
       sx={{
         pl: { sm: 2 },
-        float: 'right',
+       // width: '100%',
+        display: 'block',
       }}
     >
-
-    <ProjectAddDialog title='Добавить проект' handleAdd={handleAddProject}/>
-      <Tooltip title="Settings">
-                    <IconButton style={{color: TableEventually? 'green': ''}}  onClick={() => setTableEventually(!TableEventually)} >
-                        <SettingsIcon color="inherit" sx={{ display: 'block' }} />
-                    </IconButton>
+    <div style={{float: 'left'}}>
+      <Tooltip title="Закрыть все открытые таблицы пользователей">
+        <IconButton style={{color: TableEventually? 'green': ''}}  onClick={() => {
+          accumCollapseUser.funcitonClose()
+        }} >
+            <ExpandCircleDownIcon color="inherit" sx={{ display: 'block' }} />
+        </IconButton>
       </Tooltip>
+    </div>
+  
+    <div style={{float: 'right'}}>
+      <ProjectAddDialog title='Добавить проект' handleAdd={handleAddProject}/>
+      <Tooltip title="Settings">
+        <IconButton style={{color: TableEventually? 'green': ''}}  onClick={() => setTableEventually(!TableEventually)} >
+            <SettingsIcon color="inherit" sx={{ display: 'block' }} />
+        </IconButton>
+      </Tooltip>
+    </div>
+   
     </Toolbar>
   );
 };
 
+type PropsRowUsersCollapse = {
+  className?: string,
+  child?: any
+
+  addProject?: (sessionToken: any,project: IProject) => {}
+  removeProject?: (sessionToken: any,name: string) => {}
+  editProject?:  (sessionToken: any,oldProjectInfromation: any,newProjectInfromation: any) => {}
+  addUserHoursProject?: (sessionToken: any,userProject: IUserProject) => {}
+  rowUserCollapse?: IUser
+  indexUser?: number
+}
 
 
+//для вложенной таблицы строки
+const RowUsersCollapse:   React.FC<PropsRowUsersCollapse> = ({rowUserCollapse,indexUser}) => {
+  const [open, setOpen] = React.useState(false);
 
-function Row(props: { row: IProject, labelId: any,handleAddHours: any,handleRemove:any ,handleEdit:any,TableEventually:any,rowsPerPage:any,page:any,index:any,rowsCount:any,order:any}) {
-  const { row,labelId,handleAddHours,handleRemove,handleEdit,TableEventually,rowsPerPage,page,index,rowsCount,order } = props;
+  const getAllHours = () => {
+    let sumHour = 0;
+    if(rowUserCollapse?.weeks != undefined)
+    {
+      sumHour = rowUserCollapse?.weeks.reduce((accum,item) => accum + item.sumHour, 0)
+    }
+    return sumHour
+  }
+
+  return (
+    <React.Fragment>
+      <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
+        <TableCell padding="checkbox">
+          <IconButton
+                aria-label="expand row"
+                size="small"
+                onClick={() => setOpen(!open)}
+              >
+                {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+          </IconButton>
+        </TableCell>
+        <TableCell align="center">
+          {rowUserCollapse?.firstName}
+        </TableCell>
+        <TableCell align="center">{rowUserCollapse?.secondName}</TableCell>
+        <TableCell align="center">{rowUserCollapse?.email}</TableCell>
+        <TableCell align="center">{getAllHours()}</TableCell>
+      </TableRow>
+    </React.Fragment>
+  )
+}
+
+
+function Row(props: { row: IProject, labelId: any,handleAddHours: any,handleRemove:any ,handleEdit:any,TableEventually:any,rowsPerPage:any,page:any,index:any,rowsCount:any,order:any,accumCollapseUser:any}) {
+  const { row,labelId,handleAddHours,handleRemove,handleEdit,TableEventually,rowsPerPage,page,index,rowsCount,order,accumCollapseUser } = props;
   const [open, setOpen] = React.useState(false);
 
 
@@ -258,24 +321,27 @@ function Row(props: { row: IProject, labelId: any,handleAddHours: any,handleRemo
     <React.Fragment>
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
       <TableCell padding="checkbox">
-      <IconButton
-            aria-label="expand row"
-            size="small"
-            onClick={() => setOpen(!open)}
-          >
-            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-          </IconButton>
-                      </TableCell>
-                      <TableCell
-                       component="th"
-                       id={labelId}
-                       scope="row"
-                       padding="none"
-                       align="center"
-                       >
-                        {row.indexAdd}
-                       </TableCell>
-                      <TableCell align="center">
+        <IconButton
+              aria-label="expand row"
+              size="small"
+              onClick={() => {
+                setOpen(!open)
+                accumCollapseUser.functionAdd(open,setOpen)
+              }}
+            >
+              {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+        </IconButton>
+      </TableCell>
+      <TableCell
+        component="th"
+        id={labelId}
+        scope="row"
+        padding="none"
+        align="center"
+      >
+        {row.indexAdd}
+      </TableCell>
+      <TableCell align="center">
                         {row.code}
                       </TableCell>
                       <TableCell align="center">{row.title}</TableCell>
@@ -314,29 +380,42 @@ function Row(props: { row: IProject, labelId: any,handleAddHours: any,handleRemo
                       }
       </TableRow>
       <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={15}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
               <Typography variant="h6" gutterBottom component="div">
-                Почасовки
+                Инженеры участвующие в проекте
               </Typography>
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
-                    <TableCell>Инженер</TableCell>
-                    <TableCell>Количество часов</TableCell>
-                    <TableCell align="right">Amount</TableCell>
-                    <TableCell align="right">Total price ($)</TableCell>
+                    <TableCell></TableCell>
+                    <TableCell align="center">Фамилия</TableCell>
+                    <TableCell align="center">Имя</TableCell>
+                    <TableCell align="center">Почта</TableCell>
+                    <TableCell align="center">Общее количество часов по проекту</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                
+                {
+                  row.users.map((itemUser,index)=>{
+                    return (
+
+                      <RowUsersCollapse
+                      rowUserCollapse={itemUser}
+                      indexUser={index}
+                      />
+
+                    )
+                  })
+                }
                 </TableBody>
               </Table>
             </Box>
           </Collapse>
         </TableCell>
       </TableRow>
+
     </React.Fragment>
   );
 }
@@ -359,6 +438,30 @@ const TableMaterialUICollapsibleTable_AllProject:  React.FC<Props> = ({addProjec
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(true);
   const [rowsPerPage, setRowsPerPage] = React.useState(14);
+
+
+  type stateAccumCollapseUser = {
+    value: boolean,
+    setState: React.Dispatch<React.SetStateAction<boolean>>
+  }
+  //переменная для аккомуляции и сокрытия всех открытых вкладок
+  const [accumCollapseUser, setAccumCollapseUser] = React.useState({
+    functionAdd: (itemValue: any,itemState:any) => {
+      accumCollapseUser.accum.push({
+        value: itemValue,
+        setState: itemState
+      } as stateAccumCollapseUser);
+      setAccumCollapseUser({...accumCollapseUser,accum:accumCollapseUser.accum})
+    },
+    funcitonClose: () => {
+      accumCollapseUser.accum.map(itemAccum => {
+        itemAccum.setState(false);
+      })
+
+      accumCollapseUser.accum.length = 0; // обнуления массива без создания нового
+    },
+    accum: new Array<stateAccumCollapseUser>
+  })
 
   const [rows, setRows] = React.useState([
   createData(1,'204366', 'KYVO3', ''),
@@ -576,7 +679,15 @@ const [TableEventually, setTableEventually] = React.useState<boolean>(false);
   return (
     <Box sx={{ width: "100%",maxHeight: '780px',overflow: 'auto' }}>
       <Paper sx={{ width: "100%", mb: 2}}>
-        <EnhancedTableToolbar numSelected={selected.length}  handleAddProject={handleAddProject} TableEventually={TableEventually} setTableEventually={setTableEventually}/>
+
+        <EnhancedTableToolbar 
+        numSelected={selected.length}  
+        handleAddProject={handleAddProject} 
+        TableEventually={TableEventually} 
+        setTableEventually={setTableEventually}
+        accumCollapseUser={accumCollapseUser}/>
+
+
         <TableContainer>
           <Table
             aria-labelledby="tableTitle"
@@ -623,7 +734,8 @@ const [TableEventually, setTableEventually] = React.useState<boolean>(false);
                         handleEdit={handleEdit}
                         TableEventually={TableEventually}
                         rowsCount={projects.length}
-                        order={order} />
+                        order={order} 
+                        accumCollapseUser={accumCollapseUser}/>
                     
                   );
                 })}

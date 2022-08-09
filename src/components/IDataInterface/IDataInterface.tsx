@@ -66,7 +66,7 @@ export interface IWeek{
     month: number
     numberWeek: number
 
-    sumHour?: number
+    sumHour: number
     moHour?: IDocHour
     tuHour?: IDocHour
     weHour?: IDocHour
