@@ -55,7 +55,7 @@ const ProjectWidgetComponents:  React.FC<Props> = (props) => {
     const [TableEventually, setTableEventually] = useState<boolean>(false);
 
     const [dialogAddCompanyIsOpen, setDialogAddCompanyIsOpen] = useState<boolean>();
-    const [newProject,setNewProject] = useState<IProject>({enginerCreater: new Object as IUser,code:'',title: '',indexAdd: '',actualHours: '',maxHour: 0,dateStart:'',dateStop:'' ,status:'',description: '',users: []});
+    const [newProject,setNewProject] = useState<IProject>({enginerCreater: new Object as IUser,code:'',title: '',indexAdd: '',actualHour: '',maxHour: 0,dateStart:'',dateStop:'' ,status:'',description: '',users: []});
    
   
     const [alignment, setAlignment] = React.useState('left');

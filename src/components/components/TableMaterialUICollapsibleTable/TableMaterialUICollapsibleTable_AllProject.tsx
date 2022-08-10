@@ -148,7 +148,7 @@ const headCells:  HeadCell[] = [
     label: 'Дата завершения',
   },
   {
-    id: 'actualHours',
+    id: 'actualHour',
     numeric: true,
     disablePadding: false,
     label: 'Затрачено',
@@ -279,25 +279,25 @@ const RowUsersWeekCollapse: React.FC<PropsRowUsersWeekCollapseCollapse> =({rowUs
           {rowUserWeekCollapse?.numberWeek || "-"}
         </TableCell>
         <TableCell align="center">
-          {rowUserWeekCollapse?.moHour?.workingTime || "-"}
+          {rowUserWeekCollapse?.moHour?.wtHour || "-"}
         </TableCell>
         <TableCell align="center">
-          {rowUserWeekCollapse?.tuHour?.workingTime || "-"}
+          {rowUserWeekCollapse?.tuHour?.wtHour || "-"}
         </TableCell>
         <TableCell align="center">
-          {rowUserWeekCollapse?.weHour?.workingTime || "-"}
+          {rowUserWeekCollapse?.weHour?.wtHour || "-"}
         </TableCell>
         <TableCell align="center">
-          {rowUserWeekCollapse?.thHour?.workingTime || "-"}
+          {rowUserWeekCollapse?.thHour?.wtHour || "-"}
         </TableCell>
         <TableCell align="center">
-          {rowUserWeekCollapse?.frHour?.workingTime || "-"}
+          {rowUserWeekCollapse?.frHour?.wtHour || "-"}
         </TableCell>
         <TableCell align="center">
-          {rowUserWeekCollapse?.saHour?.workingTime || "-"}
+          {rowUserWeekCollapse?.saHour?.wtHour || "-"}
         </TableCell>
         <TableCell align="center">
-          {rowUserWeekCollapse?.suHour?.workingTime || "-"}
+          {rowUserWeekCollapse?.suHour?.wtHour || "-"}
         </TableCell>
         <TableCell align="center">
           {rowUserWeekCollapse?.sumHour || "-"}
@@ -357,7 +357,7 @@ const RowUsersCollapse:   React.FC<PropsRowUsersCollapse> = ({rowUserCollapse,in
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
               <Typography variant="h6" gutterBottom component="div">
-                Инженеры участвующие в проекте
+                Почасовки инженера
               </Typography>
               <Table size="small" aria-label="purchases">
                 <TableHead>
@@ -412,7 +412,7 @@ function Row(props: { row: IProject, labelId: any,handleAddHours: any,handleRemo
 
   const getActualHours = () =>{
 
-    let actual = row.actualHours ? row.actualHours: 0;
+    let actual = row.actualHour ? row.actualHour: 0;
     return actual + " / "+ row.maxHour;
   }
 

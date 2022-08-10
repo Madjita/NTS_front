@@ -61,7 +61,7 @@ const ProjectListComponent:  React.FC<Props> = ({projects,title}) => {
                 secondaryAction={
                     <IconButton aria-label="comment">
                     <CommentIcon />
-                    {value.project.actualHours}
+                    {value.project.actualHour}
                     </IconButton>
                 }
                 >

@@ -59,7 +59,7 @@ function Row(props: { index: number, row: IProject ,TableEventually : boolean,ha
         <TableCell align="center">{row.dateStart}</TableCell>
         <TableCell align="center">{row.dateStop}</TableCell>
         <TableCell align="center">{row.maxHour}</TableCell>
-        <TableCell align="center">{row.actualHours}</TableCell>
+        <TableCell align="center">{row.actualHour}</TableCell>
         <TableCell align="center">{row.users?.length}</TableCell>
         <TableCell align="center">{row.status}</TableCell>
 

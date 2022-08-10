@@ -73,7 +73,7 @@ function Row(props: { row: IUser }) {
                         {projectRow.project.title}
                       </TableCell>
                       <TableCell>{projectRow.project.maxHour}</TableCell>
-                      <TableCell align="center">{projectRow.project.actualHours}</TableCell>
+                      <TableCell align="center">{projectRow.project.actualHour}</TableCell>
                       <TableCell align="center">
                         {projectRow.project.status}
                       </TableCell>

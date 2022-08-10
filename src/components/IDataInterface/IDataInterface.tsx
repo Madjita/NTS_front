@@ -16,7 +16,7 @@ export interface IProject{
     code: string,
     title : string,
     indexAdd : string,
-    actualHours: string,
+    actualHour: string,
     maxHour: number,
     dateStart: string,
     dateStop: string,
@@ -51,7 +51,7 @@ export interface IDocHour {
     dateTime : string
     weekday : string
     travelTimeC: string
-    wTHour: string
+    wtHour: number
     workingTime: string;
     destination: string
     traverTimeG: string;
