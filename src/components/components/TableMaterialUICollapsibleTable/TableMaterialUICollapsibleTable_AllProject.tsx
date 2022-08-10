@@ -20,7 +20,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 import HoursAddDialog from '../HoursComponents/HoursAddDialog';
-import { IProject, IUser, IUserProject, IWeek } from '../../IDataInterface/IDataInterface';
+import { IDownloadProjectUserWeekExel, IProject, IUser, IUserProject, IWeek } from '../../IDataInterface/IDataInterface';
 import { GetSessionEmail, GetSesstionToken } from '../../../settings/settings';
 import { Collapse } from '@mui/material';
 import ProjectAddDialog, { IProjectSendApi } from '../ProjectComponents/ProjectAddDialog';
@@ -258,18 +258,16 @@ type PropsRowUsersWeekCollapseCollapse = {
   className?: string,
   child?: any
 
-  addProject?: (sessionToken: any,project: IProject) => {}
-  removeProject?: (sessionToken: any,name: string) => {}
-  editProject?:  (sessionToken: any,oldProjectInfromation: any,newProjectInfromation: any) => {}
-  addUserHoursProject?: (sessionToken: any,userProject: IUserProject) => {}
+  user?: IUser,
   rowUserWeekCollapse?: IWeek
   indexUserWeek?: number
+  donwloadProjectUserWeekExel?: any
 }
 
 
 
 //для вложенной таблицы строки
-const RowUsersWeekCollapse: React.FC<PropsRowUsersWeekCollapseCollapse> =({rowUserWeekCollapse,indexUserWeek})=>{
+const RowUsersWeekCollapse: React.FC<PropsRowUsersWeekCollapseCollapse> =({user,rowUserWeekCollapse,indexUserWeek,donwloadProjectUserWeekExel})=>{
   const [open, setOpen] = React.useState(false);
 
   return (
@@ -302,6 +300,13 @@ const RowUsersWeekCollapse: React.FC<PropsRowUsersWeekCollapseCollapse> =({rowUs
         <TableCell align="center">
           {rowUserWeekCollapse?.sumHour || "-"}
         </TableCell>
+        <TableCell align='center'>
+          <Button size="small" variant="outlined" onClick={()=>{
+            donwloadProjectUserWeekExel(user?.email,rowUserWeekCollapse)
+          }}>
+            Скачать Exel
+          </Button>
+        </TableCell>
       </TableRow>
     </React.Fragment>
   )
@@ -318,10 +323,11 @@ type PropsRowUsersCollapse = {
   addUserHoursProject?: (sessionToken: any,userProject: IUserProject) => {}
   rowUserCollapse?: IUser
   indexUser?: number
+  donwloadProjectUserWeekExel?: any
 }
 
 //для вложенной таблицы строки
-const RowUsersCollapse:   React.FC<PropsRowUsersCollapse> = ({rowUserCollapse,indexUser}) => {
+const RowUsersCollapse:   React.FC<PropsRowUsersCollapse> = ({rowUserCollapse,indexUser,donwloadProjectUserWeekExel}) => {
   const [open, setOpen] = React.useState(false);
 
   const getAllHours = () => {
@@ -371,6 +377,7 @@ const RowUsersCollapse:   React.FC<PropsRowUsersCollapse> = ({rowUserCollapse,in
                     <TableCell align="center">Суббота</TableCell>
                     <TableCell align="center">Воскрессенье</TableCell>
                     <TableCell align="center">Сумма часов за неделю</TableCell>
+                    <TableCell align='center'>Скачать Exel</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -382,6 +389,8 @@ const RowUsersCollapse:   React.FC<PropsRowUsersCollapse> = ({rowUserCollapse,in
                       key={index}
                       rowUserWeekCollapse={itemUserWeek}
                       indexUserWeek={index}
+                      donwloadProjectUserWeekExel={donwloadProjectUserWeekExel}
+                      user={rowUserCollapse}
                       />
 
                     )
@@ -415,6 +424,23 @@ function Row(props: { row: IProject, labelId: any,handleAddHours: any,handleRemo
     let actual = row.actualHour ? row.actualHour: 0;
     return actual + " / "+ row.maxHour;
   }
+
+  const {donwloadProjectUserWeekExel_fetch} = useActions()
+
+  const donwloadProjectUserWeekExel = (userEmail: string,week: IWeek) =>{
+    
+    let sessionToken = GetSesstionToken();
+
+    let downloadExel = new Object as IDownloadProjectUserWeekExel;
+    downloadExel.projectCode = row.code;
+    downloadExel.userEmail = userEmail;
+    downloadExel.numberWeek = week.numberWeek;
+    downloadExel.yearWeek = week.year;
+
+    donwloadProjectUserWeekExel_fetch(sessionToken,downloadExel);
+
+  }
+
 
   return (
     <React.Fragment>
@@ -503,6 +529,7 @@ function Row(props: { row: IProject, labelId: any,handleAddHours: any,handleRemo
                       key={index}
                       rowUserCollapse={itemUser}
                       indexUser={index}
+                      donwloadProjectUserWeekExel={donwloadProjectUserWeekExel}
                       />
 
                     )

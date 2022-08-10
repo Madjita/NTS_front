@@ -84,3 +84,12 @@ export interface IUserProject{
     project: IProject
     weeks: IWeek[]
 }
+
+
+//интерфейс для загрузки exel файла
+export interface IDownloadProjectUserWeekExel{
+    projectCode: string,
+    userEmail: string,
+    yearWeek: number,
+    numberWeek: number,
+}

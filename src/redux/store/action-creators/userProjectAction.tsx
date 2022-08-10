@@ -2,7 +2,7 @@ import {UserProjectAction, UserProjectActionTypes} from "../../types/userProject
 import {Dispatch} from "redux";
 import axios from "axios";
 import GetConnectionString, { sleepLoader } from "../../../settings/settings";
-import { IUserProject } from "../../../components/IDataInterface/IDataInterface";
+import { IDownloadProjectUserWeekExel, IUserProject } from "../../../components/IDataInterface/IDataInterface";
 import { fetchProject } from "./projectAction";
 
 
@@ -110,6 +110,63 @@ export const addUserHoursProject= (sessionToken: any,userProject: IUserProject) 
             dispatch({
                 type: UserProjectActionTypes.FETCH_USERProject_ERROR,
                 payload: 'Произошла ошибка при добавлении почасовки рабочего к проекту'
+            })
+        }
+    }
+}
+
+
+
+export const donwloadProjectUserWeekExel_fetch = (sessionToken: any,downloadProjectUserWeek: IDownloadProjectUserWeekExel) => {
+
+    return async (dispatch: Dispatch<UserProjectAction>,payload: any) => {
+        try {
+            dispatch({type: UserProjectActionTypes.FETCH_USERProject_Week_EXEL_HOURS})
+
+            console.log("downloadProjectUserWeek = ",downloadProjectUserWeek)
+            const json = JSON.stringify(downloadProjectUserWeek);
+
+            const response = await (await axios.post(GetConnectionString()+'/Exel/projects/user/week/exel',json,{ headers: {
+                'Content-Type': 'application/json',
+                'Authorization': sessionToken,
+            },
+            responseType: 'blob'
+            })
+            .then((response) => {
+                const headerval = response.headers['content-disposition'];
+                var filename = headerval.split(';')[1].split('=')[1].replace('"', '').replace('"', '');
+                console.log(response.headers,response.data,filename);
+
+                const downloadUrl = window.URL.createObjectURL(new Blob([response.data]));
+				const link = document.createElement('a');
+				link.href = downloadUrl;
+				link.setAttribute('download', filename); //any other extension
+				document.body.appendChild(link);
+				link.click();
+				link.remove();
+                
+				/*var filename = headerval.split(';')[1].split('=')[1].replace('"', '').replace('"', '');
+
+                const url = window.URL.createObjectURL(new Blob([response.data]));
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', 'file.pdf');
+                document.body.appendChild(link);
+                link.click();*/
+
+                setTimeout(() => {
+                    dispatch({type: UserProjectActionTypes.FETCH_USERProject_Week_EXEL_HOURS_SUCCESS, payload: response.data})
+                }, sleepLoader)
+              })
+            
+            )
+           
+
+            
+        } catch (e) {
+            dispatch({
+                type: UserProjectActionTypes.FETCH_USERProject_ERROR,
+                payload: 'Произошла ошибка при загрузки Exel файла Проект Юзер неделя'
             })
         }
     }

@@ -27,6 +27,11 @@ export const userProjectReducer = (state = initialState, action: UserProjectActi
             return {loading: true, error: null, userProjects: state.userProjects}
         case UserProjectActionTypes.FETCH_USERProject_ADD_HOURS_SUCCESS:
             return {loading: false, error: null, userProjects: action.payload}
+
+        case UserProjectActionTypes.FETCH_USERProject_Week_EXEL_HOURS:
+            return {loading: true, error: null, userProjects: state.userProjects}
+        case UserProjectActionTypes.FETCH_USERProject_Week_EXEL_HOURS_SUCCESS:
+            return {loading: false, error: null, userProjects: state.userProjects}
         default:
             return state
     }
