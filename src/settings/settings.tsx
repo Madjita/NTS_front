@@ -1,7 +1,7 @@
 
 
 const http_type = "https://"
-const ip = "localhost"
+const ip = "192.168.1.167"
 const port = "5001"
 export const sleepLoader = 0
 
