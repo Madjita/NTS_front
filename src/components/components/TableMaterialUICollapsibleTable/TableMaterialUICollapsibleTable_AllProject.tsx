@@ -706,6 +706,9 @@ const [TableEventually, setTableEventually] = React.useState<boolean>(false);
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
 
+  const {userLogin} = useTypedSelector(state => state.userLogin)
+  const {projects} = useTypedSelector(state => state.project)
+
   const handleAddHours = async (newObject: IWeek) => {
       let sessionToken =  GetSesstionToken()
       if(newObject != null)
@@ -736,8 +739,6 @@ const [TableEventually, setTableEventually] = React.useState<boolean>(false);
       }   
     }
 
-  const {userLogin} = useTypedSelector(state => state.userLogin)
-  const {projects} = useTypedSelector(state => state.project)
 
   const handleAddProject = async (newObject: IProjectSendApi) => {
       let sessionEmail =  GetSessionEmail()

@@ -18,8 +18,8 @@ export enum UserProjectActionTypes {
 
 
 
-    FETCH_USERProject_ADD_HOURS = 'FETCH_USERProject_ADD_HOURS',
-    FETCH_USERProject_ADD_HOURS_SUCCESS = 'FETCH_USERProject_ADD_HOURS_SUCCESS',
+    //FETCH_USERProject_ADD_HOURS = 'FETCH_USERProject_ADD_HOURS',
+   // FETCH_USERProject_ADD_HOURS_SUCCESS = 'FETCH_USERProject_ADD_HOURS_SUCCESS',
 
 
 
@@ -60,6 +60,7 @@ interface FetchUserProjectsAddSuccessAction {
     payload: IUserProject[]
 }
 
+/*
 interface FetchUserProjectsAddHoursAction {
     type: UserProjectActionTypes.FETCH_USERProject_ADD_HOURS;
     payload: IUserProject
@@ -68,7 +69,7 @@ interface FetchUserProjectsAddHoursAction {
 interface FetchUserProjectsAddHoursSuccessAction {
     type: UserProjectActionTypes.FETCH_USERProject_ADD_HOURS_SUCCESS;
     payload: IUserProject[]
-}
+}*/
 
 
 interface FetchUserProjectsWeekExelHoursAction {
@@ -86,7 +87,7 @@ export type UserProjectAction = FetchUserProjectsAction |
                          FetchUserProjectRemoveSuccessAction |
                          FetchUserProjectsAddAction |
                          FetchUserProjectsAddSuccessAction |
-                         FetchUserProjectsAddHoursAction | 
-                         FetchUserProjectsAddHoursSuccessAction |
+                        // FetchUserProjectsAddHoursAction | 
+                        // FetchUserProjectsAddHoursSuccessAction |
                          FetchUserProjectsWeekExelHoursAction |
                          FetchUserProjectsWeekExelHoursSuccessAction

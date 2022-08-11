@@ -2,7 +2,7 @@ import {ProjectAction, ProjectActionTypes} from "../../types/projectRedux";
 import {Dispatch} from "redux";
 import axios from "axios";
 import GetConnectionString, { sleepLoader } from "../../../settings/settings";
-import { IProject } from "../../../components/IDataInterface/IDataInterface";
+import { IProject, IUserProject } from "../../../components/IDataInterface/IDataInterface";
 
 export const fetchProject = (sessionToken: any) => {
     return async (dispatch: Dispatch<ProjectAction>) => {
@@ -124,3 +124,60 @@ export const editProject = (sessionToken: any,oldProjectInfromation: any,newProj
 }
 
 
+
+export const addUserHoursProject= (sessionToken: any,userProject: IUserProject) => {
+
+    return async (dispatch: Dispatch<ProjectAction>,payload: any) => {
+        try {
+
+            const json = JSON.stringify(userProject);
+            const response = await (await axios.post(GetConnectionString()+'/Project/projects/user/hours',json,{ headers: {
+                'Content-Type': 'application/json',
+                'Authorization': sessionToken, 
+            }
+            }))
+
+            setTimeout(() => {
+                dispatch({type: ProjectActionTypes.FETCH_PROJECT_SUCCESS, payload: response.data})
+            }, sleepLoader)
+        } catch (e) {
+            dispatch({
+                type: ProjectActionTypes.FETCH_PROJECT_ERROR,
+                payload: 'Произошла ошибка при добавлении почасовки рабочего к проекту'
+            })
+        }
+    }
+}
+
+
+
+export const addUserProject= (sessionToken: any,userProject: Array<IUserProject>) => {
+
+    return async (dispatch: Dispatch<ProjectAction>,payload: any) => {
+        try {
+           const formData  = new FormData();
+
+           let newObject = {'UserProjects': userProject.map((item,index)=>{
+
+                let object = {'Email': item.user.email, 'Project': item.project.title}
+                formData.append('UserProjects',JSON.stringify(object));
+
+                return object
+            })
+            }
+          
+
+            axios.defaults.headers.common['Authorization'] = sessionToken;
+            const response = await (await axios.post(GetConnectionString()+'/Project/projects/user',newObject))
+
+            setTimeout(() => {
+                dispatch({type: ProjectActionTypes.FETCH_PROJECT_SUCCESS, payload: response.data})
+            }, sleepLoader)
+        } catch (e) {
+            dispatch({
+                type: ProjectActionTypes.FETCH_PROJECT_ERROR,
+                payload: 'Произошла ошибка при добавлении рабочего к проекту'
+            })
+        }
+    }
+}

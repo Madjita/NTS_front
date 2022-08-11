@@ -9,9 +9,15 @@ const initialState: ProjectState = {
 export const projectReducer = (state = initialState, action: ProjectAction): ProjectState => {
     switch (action.type) {
         case ProjectActionTypes.FETCH_PROJECT:
-            return {loading: true, error: null, projects: []}
+            {
+                console.log("ProjectActionTypes.FETCH_PROJECT")
+                return {loading: true, error: null, projects: []}
+            }
         case ProjectActionTypes.FETCH_PROJECT_SUCCESS:
-            return {loading: false, error: null, projects: action.payload}
+            {
+                console.log("ProjectActionTypes.FETCH_PROJECT_SUCCESS ")
+                return {loading: false, error: null, projects: action.payload}
+            }
         case ProjectActionTypes.FETCH_PROJECT_ERROR:
             return {loading: false, error: action.payload, projects: []}
        /* case ProjectActionTypes.FETCH_PROJECT_ERROR:

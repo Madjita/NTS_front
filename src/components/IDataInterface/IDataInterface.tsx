@@ -37,6 +37,8 @@ export interface IUser {
     company: string
     role: string
     weeks: IWeek[]
+    photo: string,
+    info: string,
 }
 
 export interface ICompany{
