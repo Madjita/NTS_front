@@ -80,12 +80,12 @@ const HoursCode:  React.FC<Props> = ({setNewWeek,newWeek,sumHours}) =>
               type="name"
               fullWidth
               variant="standard"
-              value={newWeek.moHour!.workingTime!}
+              value={newWeek.moHour?.wtHour}
               inputProps={{ style: { textAlign: 'center' }}} 
               onChange={e =>{
 
                 sumHours(newWeek,e,1);
-                newWeek.moHour!.workingTime! = e.target.value;
+                newWeek.moHour!.wtHour! = Number(e.target.value);
                 setNewWeek({...newWeek})
               }}
               />
@@ -129,12 +129,12 @@ const HoursCode:  React.FC<Props> = ({setNewWeek,newWeek,sumHours}) =>
                 type="name"
                 fullWidth
                 variant="standard"
-                value={newWeek.tuHour!.workingTime!}
+                value={newWeek.tuHour!.wtHour!}
                 inputProps={{ style: { textAlign: 'center' }}} 
                 onChange={e =>{
 
                 sumHours(newWeek,e,2);
-                newWeek.tuHour!.workingTime! = e.target.value;
+                newWeek.tuHour!.wtHour! = Number(e.target.value);
                 setNewWeek({...newWeek})
                 }}
                 />
@@ -177,13 +177,13 @@ const HoursCode:  React.FC<Props> = ({setNewWeek,newWeek,sumHours}) =>
                 type="name"
                 fullWidth
                 variant="standard"
-                value={newWeek.weHour!.workingTime!}
+                value={newWeek.weHour!.wtHour!}
                 inputProps={{ style: { textAlign: 'center' }}} 
                 onChange={e =>{
 
                 sumHours(newWeek,e,3);
 
-                newWeek.weHour!.workingTime! = e.target.value;
+                newWeek.weHour!.wtHour! = Number(e.target.value);
                 setNewWeek({...newWeek})
                 }}
                 />
@@ -226,13 +226,13 @@ const HoursCode:  React.FC<Props> = ({setNewWeek,newWeek,sumHours}) =>
                 type="name"
                 fullWidth
                 variant="standard"
-                value={newWeek.thHour!.workingTime!}
+                value={newWeek.thHour!.wtHour!}
                 inputProps={{ style: { textAlign: 'center' }}} 
                 onChange={e =>{
 
                 sumHours(newWeek,e,4);
 
-                    newWeek.thHour!.workingTime! = e.target.value;
+                    newWeek.thHour!.wtHour! = Number(e.target.value);
                     setNewWeek({...newWeek})
                 }}
                 />
@@ -276,12 +276,12 @@ const HoursCode:  React.FC<Props> = ({setNewWeek,newWeek,sumHours}) =>
                 type="name"
                 fullWidth
                 variant="standard"
-                value={newWeek.frHour!.workingTime!}
+                value={newWeek.frHour!.wtHour!}
                 inputProps={{ style: { textAlign: 'center' }}} 
                 onChange={e =>{
 
                 sumHours(newWeek,e,5);
-                newWeek.frHour!.workingTime! = e.target.value;
+                newWeek.frHour!.wtHour! = Number(e.target.value);
                 setNewWeek({...newWeek})
                 }}
                 />
@@ -326,12 +326,12 @@ const HoursCode:  React.FC<Props> = ({setNewWeek,newWeek,sumHours}) =>
                 type="name"
                 fullWidth
                 variant="standard"
-                value={newWeek.saHour!.workingTime!}
+                value={newWeek.saHour!.wtHour!}
                 inputProps={{ style: { textAlign: 'center' }}} 
                 onChange={e =>{
 
                 sumHours(newWeek,e,6);
-                newWeek.saHour!.workingTime! = e.target.value;
+                newWeek.saHour!.wtHour! = Number(e.target.value);
                 setNewWeek({...newWeek})
                 }}
                 />
@@ -374,12 +374,12 @@ const HoursCode:  React.FC<Props> = ({setNewWeek,newWeek,sumHours}) =>
                 type="name"
                 fullWidth
                 variant="standard"
-                value={newWeek.suHour!.workingTime!}
+                value={newWeek.suHour!.wtHour!}
                 inputProps={{ style: { textAlign: 'center' }}} 
                 onChange={e =>{
 
                 sumHours(newWeek,e,7);
-                newWeek.suHour!.workingTime! = e.target.value;
+                newWeek.suHour!.wtHour! = Number(e.target.value);
                 setNewWeek({...newWeek})
                 }}
                 />
