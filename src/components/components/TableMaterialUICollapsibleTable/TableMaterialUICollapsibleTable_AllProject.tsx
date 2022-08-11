@@ -324,10 +324,11 @@ type PropsRowUsersCollapse = {
   rowUserCollapse?: IUser
   indexUser?: number
   donwloadProjectUserWeekExel?: any
+  donwloadProjectUserAllWeekExel?: any
 }
 
 //для вложенной таблицы строки
-const RowUsersCollapse:   React.FC<PropsRowUsersCollapse> = ({rowUserCollapse,indexUser,donwloadProjectUserWeekExel}) => {
+const RowUsersCollapse:   React.FC<PropsRowUsersCollapse> = ({rowUserCollapse,indexUser,donwloadProjectUserWeekExel,donwloadProjectUserAllWeekExel}) => {
   const [open, setOpen] = React.useState(false);
 
   const getAllHours = () => {
@@ -357,6 +358,13 @@ const RowUsersCollapse:   React.FC<PropsRowUsersCollapse> = ({rowUserCollapse,in
         <TableCell align="center">{rowUserCollapse?.secondName}</TableCell>
         <TableCell align="center">{rowUserCollapse?.email}</TableCell>
         <TableCell align="center">{getAllHours()}</TableCell>
+        <TableCell align='center'>
+          <Button size="small" variant="outlined" onClick={()=>{
+            donwloadProjectUserAllWeekExel(rowUserCollapse?.email)
+          }}>
+            Скачать Exel
+          </Button>
+        </TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={15}>
@@ -425,7 +433,7 @@ function Row(props: { row: IProject, labelId: any,handleAddHours: any,handleRemo
     return actual + " / "+ row.maxHour;
   }
 
-  const {donwloadProjectUserWeekExel_fetch} = useActions()
+  const {donwloadProjectUserWeekExel_fetch,donwloadProjectUserAllWeekExel_fetch} = useActions()
 
   const donwloadProjectUserWeekExel = (userEmail: string,week: IWeek) =>{
     
@@ -439,6 +447,17 @@ function Row(props: { row: IProject, labelId: any,handleAddHours: any,handleRemo
 
     donwloadProjectUserWeekExel_fetch(sessionToken,downloadExel);
 
+  }
+
+  const donwloadProjectUserAllWeekExel =(userEmail: string) => {
+
+    let sessionToken = GetSesstionToken();
+
+    let downloadExel = new Object as IDownloadProjectUserWeekExel;
+    downloadExel.projectCode = row.code;
+    downloadExel.userEmail = userEmail;
+
+    donwloadProjectUserAllWeekExel_fetch(sessionToken,downloadExel);
   }
 
 
@@ -530,6 +549,7 @@ function Row(props: { row: IProject, labelId: any,handleAddHours: any,handleRemo
                       rowUserCollapse={itemUser}
                       indexUser={index}
                       donwloadProjectUserWeekExel={donwloadProjectUserWeekExel}
+                      donwloadProjectUserAllWeekExel={donwloadProjectUserAllWeekExel}
                       />
 
                     )

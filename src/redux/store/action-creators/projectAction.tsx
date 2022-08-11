@@ -29,7 +29,7 @@ export const removeProject = (sessionToken: any,object: string) => {
 
     return async (dispatch: Dispatch<ProjectAction>,payload: any) => {
         try {
-            dispatch({type: ProjectActionTypes.FETCH_PROJECT_REMOVE, name: object})
+            //dispatch({type: ProjectActionTypes.FETCH_PROJECT_REMOVE, name: object})
 
             const formData  = new FormData();
             formData.append('Code', object);
@@ -61,7 +61,7 @@ export const addProject = (sessionToken: any,project: IProject) => {
 
     return async (dispatch: Dispatch<ProjectAction>,payload: any) => {
         try {
-            dispatch({type: ProjectActionTypes.FETCH_PROJECT_ADD, payload: project.title})
+            //dispatch({type: ProjectActionTypes.FETCH_PROJECT_ADD, payload: project.title})
 
             console.log("addProject = ", project)
             const formData  = new FormData();
@@ -95,7 +95,7 @@ export const editProject = (sessionToken: any,oldProjectInfromation: any,newProj
 
     return async (dispatch: Dispatch<ProjectAction>,payload: any) => {
         try {
-            dispatch({type: ProjectActionTypes.FETCH_PROJECT_EDIT})
+            //dispatch({type: ProjectActionTypes.FETCH_PROJECT_EDIT})
 
             let test = {
                 OldProjectInfromation: oldProjectInfromation,
