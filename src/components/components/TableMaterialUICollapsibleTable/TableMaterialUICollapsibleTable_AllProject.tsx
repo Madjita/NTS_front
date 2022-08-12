@@ -34,6 +34,7 @@ import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import ExpandCircleDownIcon from '@mui/icons-material/ExpandCircleDown';
 import AddIcon from '@mui/icons-material/Add';
 import ProjectUserDialog from '../Widget/ProjectUserComponents/ProjectUserDialog';
+import TableMenu_AllProject from '../TableMenu/TableMenu_AllProject';
 
 interface Data {
   id: number,
@@ -202,7 +203,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
           </TableCell>
         ))}
         <TableCell align="center">Добавить часы</TableCell>
-        {TableEventually ? <TableCell align="center">Добавить инженера</TableCell>:null}
+        {/*{TableEventually ? <TableCell align="center">Добавить инженера</TableCell>:null}*/}
         {TableEventually ? <TableCell align="center">Редактировать</TableCell>:null}
         {TableEventually ? <TableCell align="center">Удалить</TableCell>:null}
       </TableRow>
@@ -362,7 +363,7 @@ const RowUsersCollapse:   React.FC<PropsRowUsersCollapse> = ({rowUserCollapse,in
           <Button size="small" variant="outlined" onClick={()=>{
             donwloadProjectUserAllWeekExel(rowUserCollapse?.email)
           }}>
-            Скачать Exel
+            Скачать архив
           </Button>
         </TableCell>
       </TableRow>
@@ -419,7 +420,6 @@ function Row(props: { row: IProject, labelId: any,handleAddHours: any,handleRemo
   const { row,labelId,handleAddHours,handleRemove,handleEdit,TableEventually,rowsPerPage,page,index,rowsCount,order,accumCollapseUser } = props;
   const [open, setOpen] = React.useState(false);
 
-  const [reload,setReload] = React.useState(false);
 
   const dataString = (dataIoString:string) => {
 
@@ -461,9 +461,49 @@ function Row(props: { row: IProject, labelId: any,handleAddHours: any,handleRemo
   }
 
 
+  //For dialog menu
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [mouseEvent, setMouseEvent] = React.useState<React.MouseEvent<HTMLElement> | null >(null);
+  const handleClick = (event: React.MouseEvent<HTMLElement>,row: any) => {
+    event.preventDefault();
+    setMouseEvent(event)
+    setAnchorEl(event.currentTarget);
+  };
+
+  const[flagProjectUserDialog, setFlagProjectUserDialog] = React.useState(false)
+  const handleClickItem = (e: any) =>{
+    let { myValue } = e.currentTarget.dataset;
+
+    switch(Number(myValue))
+    {
+      case 0:
+        break;
+      case 1:
+      {
+        setFlagProjectUserDialog(true);
+        break;
+      }
+      case 2:
+        break;
+      case 3:
+        break
+      default:
+        break;
+    }
+
+    setAnchorEl(null);
+  }
+  const handleClose = () => {
+      setAnchorEl(null);
+  };
+
+
   return (
     <React.Fragment>
-      <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
+      <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}
+      hover
+      onContextMenu={(event) => handleClick(event, row)}
+      >
       <TableCell padding="checkbox">
         <IconButton
               aria-label="expand row"
@@ -499,9 +539,9 @@ function Row(props: { row: IProject, labelId: any,handleAddHours: any,handleRemo
       {
         TableEventually ? 
         <React.Fragment>
-          <TableCell align="center">
-            <ProjectUserDialog project={row}  reload={reload} setReload={setReload}/>
-          </TableCell>
+          { /*<TableCell align="center">
+            <ProjectUserDialog project={row}/>
+          </TableCell>*/}
           <TableCell align="center">
             <ProjectAddDialog indexEdit={()=>{
                 let indexNormal = index+(page * rowsPerPage)
@@ -522,6 +562,23 @@ function Row(props: { row: IProject, labelId: any,handleAddHours: any,handleRemo
         :null
       }
       </TableRow>
+
+      <ProjectUserDialog 
+      project={row} 
+      flagProjectUserDialog={flagProjectUserDialog} 
+      setFlagProjectUserDialog={setFlagProjectUserDialog}
+      />
+
+      <TableMenu_AllProject 
+      handleClick={handleClickItem} 
+      handleClose={handleClose} 
+      anchorEl={anchorEl} 
+      mouseEvent={mouseEvent} 
+      row={row}
+      />
+
+
+
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={15}>
           <Collapse in={open} timeout="auto" unmountOnExit>
@@ -537,6 +594,7 @@ function Row(props: { row: IProject, labelId: any,handleAddHours: any,handleRemo
                     <TableCell align="center">Имя</TableCell>
                     <TableCell align="center">Почта</TableCell>
                     <TableCell align="center">Общее количество часов по проекту</TableCell>
+                    <TableCell align='center'>Скачать архив почасовок</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>

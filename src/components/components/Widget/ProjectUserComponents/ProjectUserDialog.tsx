@@ -148,10 +148,15 @@ type Props = {
 
     reload?: any
     setReload?: any
+
+
+    flagProjectUserDialog?: boolean,
+    setFlagProjectUserDialog? : React.Dispatch<React.SetStateAction<boolean>>,
+
 }
 
 
-const  ProjectUserDialog: React.FC<Props> = ({project,reload,setReload}) => {
+const  ProjectUserDialog: React.FC<Props> = ({project,reload,setReload,flagProjectUserDialog,setFlagProjectUserDialog}) => {
   const [open, setOpen] = React.useState(false);
   const [selectedValue, setSelectedValue] = React.useState<Array<IUserProject>>();
 
@@ -170,17 +175,56 @@ const  ProjectUserDialog: React.FC<Props> = ({project,reload,setReload}) => {
     let sessionToken =  GetSesstionToken()
     addUserProject(sessionToken,value);
    
-    setReload(!reload);
-    console.log("CLOSE");
+    if(setFlagProjectUserDialog != undefined)
+      setFlagProjectUserDialog(false);
+
+    if(setReload != undefined)
+      setReload(!reload);
   };
 
   const handleClose = () => {
+    if(setFlagProjectUserDialog != undefined)
+    {
+      setFlagProjectUserDialog(false);
+    }
+     
     setOpen(false);
   };
 
+
+  useEffect(()=>{
+
+    if(flagProjectUserDialog != null || flagProjectUserDialog!= undefined)
+    {
+      if(flagProjectUserDialog)
+      {
+        handleClickOpen()
+      }
+    }
+  },[flagProjectUserDialog])
+  
+
+  if(flagProjectUserDialog != null || flagProjectUserDialog!= undefined)
+  {
+    return (
+      <SimpleDialog
+      selectedValue={selectedValue}
+      open={open}
+      onClose={handleClose}
+      onSaveClose={handleSaveClose}
+      project={project}
+      />
+      )
+  }
+
   return (
     <div>
-      <Icon style={{color: open? 'green': '', zIndex: '1', marginLeft:'10px'}} baseClassName="fas" className="fa-plus-circle" onClick={handleClickOpen}/>
+      <Icon style={{color: open? 'green': '', zIndex: '1'}} 
+        baseClassName="fas" 
+        className="fa-plus-circle" 
+        onClick={handleClickOpen}
+        fontSize="small"
+      />
       <SimpleDialog
         selectedValue={selectedValue}
         open={open}
