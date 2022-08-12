@@ -81,7 +81,7 @@ const TableMenu_AllProject:  React.FC<Props> = ({handleClick,handleClose,anchorE
             <ListItemIcon>
               <KeyboardTabIcon fontSize="small" />
             </ListItemIcon>
-            Открыть в новом окне
+            Открыть в новой вкладке
           </MenuItem>
           <Divider />
           <MenuItem onClick={handleClick} data-my-value={1}>
