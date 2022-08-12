@@ -124,7 +124,6 @@ const ProjectAddDialog:  React.FC<Props> = ({title,handleAdd,handleEdit,selectPr
       oldObject.status = selectProject!.status
       oldObject.enginerCreater = selectProject!.enginerCreater.email
 
-      console.log("selectProject = ",selectProject)
 
       handleEdit(oldObject,newProject);
     }

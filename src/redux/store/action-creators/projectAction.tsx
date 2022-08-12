@@ -25,14 +25,38 @@ export const fetchProject = (sessionToken: any) => {
 }
 
 
-export const removeProject = (sessionToken: any,object: string) => {
+export const findProject = (sessionToken: any,code: string) => {
+    return async (dispatch: Dispatch<ProjectAction>) => {
+        try {
+            dispatch({type: ProjectActionTypes.FETCH_PROJECT})
+
+            const formData  = new FormData();
+            formData.append('Code', code);
+
+            axios.defaults.headers.common['Authorization'] = sessionToken;
+            const response = await (await axios.post(GetConnectionString()+'/Project/projects/find',formData))
+
+            setTimeout(() => {
+                dispatch({type: ProjectActionTypes.FETCH_PROJECT_FIND_SUCCESS, payload: response.data})
+            }, sleepLoader)
+        } catch (e) {
+            dispatch({
+                type: ProjectActionTypes.FETCH_PROJECT_ERROR,
+                payload: 'Произошла ошибка при загрузке проекта'
+            })
+        }
+    }
+}
+
+
+export const removeProject = (sessionToken: any,code: string) => {
 
     return async (dispatch: Dispatch<ProjectAction>,payload: any) => {
         try {
             //dispatch({type: ProjectActionTypes.FETCH_PROJECT_REMOVE, name: object})
 
             const formData  = new FormData();
-            formData.append('Code', object);
+            formData.append('Code', code);
 
 
 
@@ -63,7 +87,6 @@ export const addProject = (sessionToken: any,project: IProject) => {
         try {
             //dispatch({type: ProjectActionTypes.FETCH_PROJECT_ADD, payload: project.title})
 
-            console.log("addProject = ", project)
             const formData  = new FormData();
             formData.append('Code', project.code);
             formData.append('NameProject', project.title);

@@ -43,7 +43,6 @@ const ProjectCardComponent:  React.FC<Props> = ({projectProps}) => {
     let sessionToken =  GetSesstionToken()
     if(newObject != null)
     {
-      console.log("Add hours = ",newObject)
        // let responce =   addCompany(sessionToken,newCompany);
     }   
   }

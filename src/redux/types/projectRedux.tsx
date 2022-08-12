@@ -17,6 +17,9 @@ export enum ProjectActionTypes {
     FETCH_PROJECT_ADD = 'FETCH_PROJECT_ADD',
     FETCH_PROJECT_ADD_SUCCESS = 'FETCH_PROJECT_ADD_SUCCESS',
 
+    FETCH_PROJECT_FIND = 'FETCH_PROJECT_FIND',
+    FETCH_PROJECT_FIND_SUCCESS = 'FETCH_PROJECT_FIND_SUCCESS',
+
 
     FETCH_PROJECT_EDIT = 'FETCH_PROJECT_EDIT',
     FETCH_PROJECT_EDIT_SUCCESS = 'FETCH_PROJECT_EDIT_SUCCESS',
@@ -43,13 +46,21 @@ interface FetchProjectsErrorAction {
     payload: string;
 }
 
+interface FetchProjectsAddAction {
+    type: ProjectActionTypes.FETCH_PROJECT_ADD;
+    payload: string;
+}
 interface FetchProjectsAddSuccessAction {
     type: ProjectActionTypes.FETCH_PROJECT_ADD_SUCCESS;
     payload: IProject[]
 }
-interface FetchProjectsAddAction {
-    type: ProjectActionTypes.FETCH_PROJECT_ADD;
-    payload: string;
+
+interface FetchProjectsFindAction {
+    type: ProjectActionTypes.FETCH_PROJECT_FIND;
+}
+interface FetchProjectsFindSuccessAction {
+    type: ProjectActionTypes.FETCH_PROJECT_FIND_SUCCESS;
+    payload: IProject
 }
 
 interface FetchProjectEditAction {
@@ -69,4 +80,6 @@ export type ProjectAction = FetchProjectsAction |
                          FetchProjectsAddSuccessAction|
                          FetchProjectsAddAction |
                          FetchProjectEditAction |
-                         FetchProjectEditSuccessAction
+                         FetchProjectEditSuccessAction |
+                         FetchProjectsFindAction|
+                         FetchProjectsFindSuccessAction

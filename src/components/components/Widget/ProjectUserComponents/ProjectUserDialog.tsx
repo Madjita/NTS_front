@@ -36,7 +36,6 @@ function SimpleDialog(props: SimpleDialogProps) {
 
   const handleSaveClose = () => {
 
-    console.log("Check Close",checked);
     onSaveClose(checked);
   };
 
@@ -73,11 +72,6 @@ function SimpleDialog(props: SimpleDialogProps) {
     }
 
     setChecked(newChecked);
-
-    console.log("Check");
-    console.log(newChecked,checked);
-
-
    
   };
 

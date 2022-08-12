@@ -14,7 +14,6 @@ type Props = {
 
 const LayoutColumn:  React.FC<Props> = ({children, maxWidth,flexGrow}) => {
 
-    console.log("CONSOLE = ",Array.isArray(children))
     let flag = Array.isArray(children)
 
     return(

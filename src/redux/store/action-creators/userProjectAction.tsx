@@ -80,7 +80,6 @@ export const donwloadProjectUserWeekExel_fetch = (sessionToken: any,downloadProj
         try {
             //dispatch({type: UserProjectActionTypes.FETCH_USERProject_Week_EXEL_HOURS})
 
-            console.log("downloadProjectUserWeek = ",downloadProjectUserWeek)
             const json = JSON.stringify(downloadProjectUserWeek);
 
             const response = await (await axios.post(GetConnectionString()+'/Exel/projects/user/week/exel',json,{ headers: {
@@ -92,7 +91,6 @@ export const donwloadProjectUserWeekExel_fetch = (sessionToken: any,downloadProj
             .then((response) => {
                 const headerval = response.headers['content-disposition'];
                 var filename = headerval.split(';')[1].split('=')[1].replace('"', '').replace('"', '');
-                console.log(response.headers,response.data,filename);
 
                 const downloadUrl = window.URL.createObjectURL(new Blob([response.data]));
 				const link = document.createElement('a');
@@ -129,7 +127,6 @@ export const donwloadProjectUserAllWeekExel_fetch = (sessionToken: any,downloadP
         try {
             //dispatch({type: UserProjectActionTypes.FETCH_USERProject_Week_EXEL_HOURS})
 
-            console.log("downloadProjectUserWeek = ",downloadProjectUserWeek)
             const json = JSON.stringify(downloadProjectUserWeek);
 
             const response = await (await axios.post(GetConnectionString()+'/Exel/projects/user/week/all/zip',json,{ headers: {
@@ -141,7 +138,6 @@ export const donwloadProjectUserAllWeekExel_fetch = (sessionToken: any,downloadP
             .then((response) => {
                 const headerval = response.headers['content-disposition'];
                 var filename = headerval.split(';')[1].split('=')[1].replace('"', '').replace('"', '');
-                console.log(response.headers,response.data,filename);
 
                 const downloadUrl = window.URL.createObjectURL(new Blob([response.data]));
 				const link = document.createElement('a');

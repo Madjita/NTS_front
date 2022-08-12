@@ -35,6 +35,7 @@ import ExpandCircleDownIcon from '@mui/icons-material/ExpandCircleDown';
 import AddIcon from '@mui/icons-material/Add';
 import ProjectUserDialog from '../Widget/ProjectUserComponents/ProjectUserDialog';
 import TableMenu_AllProject from '../TableMenu/TableMenu_AllProject';
+import { useNavigate } from 'react-router-dom';
 
 interface Data {
   id: number,
@@ -469,6 +470,7 @@ function Row(props: { row: IProject, labelId: any,handleAddHours: any,handleRemo
     setMouseEvent(event)
     setAnchorEl(event.currentTarget);
   };
+  const navigate = useNavigate();
 
   const[flagProjectUserDialog, setFlagProjectUserDialog] = React.useState(false)
   const handleClickItem = (e: any) =>{
@@ -477,7 +479,11 @@ function Row(props: { row: IProject, labelId: any,handleAddHours: any,handleRemo
     switch(Number(myValue))
     {
       case 0:
+      {
+        //navigate('/admin')
+        window.open('/SelectProject?Code='+row.code,'_blank')?.focus()
         break;
+      }
       case 1:
       {
         setFlagProjectUserDialog(true);
@@ -808,7 +814,6 @@ const [TableEventually, setTableEventually] = React.useState<boolean>(false);
     
         object.weeks.push(newObject)
 
-        console.log("Add hours = ",object)
 
         if(addUserHoursProject != undefined)
         {
@@ -824,7 +829,6 @@ const [TableEventually, setTableEventually] = React.useState<boolean>(false);
       if(newObject != null)
       {
         newObject.enginerCreater = sessionEmail;
-        console.log("Add handleAddProject = ",newObject)
 
 
         let newProject = new Object as IProject
@@ -849,7 +853,6 @@ const [TableEventually, setTableEventually] = React.useState<boolean>(false);
 
   const handleRemove = async (index: number) =>
   {    
-      console.log("index =",index)
       if(removeProject != undefined)
       {
         removeProject(GetSesstionToken(),projects[index].code)
@@ -860,15 +863,11 @@ const [TableEventually, setTableEventually] = React.useState<boolean>(false);
   {
     if(editProject != undefined)
     {
-      console.log("oldProjectInformation = ",oldProjectInformation, "newProjectInformation  =",newProjectInformation)
       editProject(GetSesstionToken(),oldProjectInformation,newProjectInformation)
     }
   }
     
-  
 
- 
-  console.log("projects = ",projects)
 
   return (
     <Box sx={{ width: "100%",maxHeight: '780px',overflow: 'auto' }}>

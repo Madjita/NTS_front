@@ -31,7 +31,6 @@ const Home:  React.FC<Props> = (props) => {
         },1000)
     },[])
 
-    console.log("Home")
     return(
 
             loading ? 

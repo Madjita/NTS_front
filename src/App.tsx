@@ -15,6 +15,7 @@ import PageRegister from './components/Pages/Register/PageRegister';
 import Layout from './components/Pages/Layout/Layout';
 import { IUser } from './components/IDataInterface/IDataInterface';
 import axios from 'axios'
+import SelectProject from './components/Pages/SelectProject/SelectProject';
 
 
 
@@ -123,6 +124,9 @@ function App() {
           <Layout title="Панель администратора" children={<Admin/>}/>
       }/>
       <Route  path="/test" element={  <Home/> }/>
+      <Route  path="/SelectProject" element={ 
+          <Layout title='Панель проекта' children={<SelectProject/>} />
+       }/> 
       <Route  path="*" element={<NotFound/>}/>
     </Routes>
   );

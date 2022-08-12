@@ -145,7 +145,6 @@ const Admin:  React.FC<Props> = ({role}) => {
 
         setLoadding(true);
         setTimeout(() => {
-            console.log("setLoadding")
             setLoadding(false);
         },1000)
 
@@ -153,7 +152,6 @@ const Admin:  React.FC<Props> = ({role}) => {
             let companys = await getAllCompanys()
             let users = await getAllUsers()
 
-            console.log("setUsers")
             setCompanys(companys)
             setUsers(users)
             

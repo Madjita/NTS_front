@@ -55,7 +55,6 @@ const PageLogin:  React.FC<Props> = ({setRole,setUser}) => {
     navigate('/register')
   }
 
-  console.log("user = ",userLogin)
 
     
     return(

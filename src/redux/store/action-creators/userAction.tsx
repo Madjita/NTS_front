@@ -6,7 +6,7 @@ import GetConnectionString, { sleepLoader } from "../../../settings/settings";
 export const fetchUsers = (sessionToken: any) => {
     return async (dispatch: Dispatch<UserAction>) => {
         try {
-            dispatch({type: UserActionTypes.FETCH_USERS})
+           // dispatch({type: UserActionTypes.FETCH_USERS})
 
 
             const newLocal = '/Authorize/users';
@@ -16,9 +16,6 @@ export const fetchUsers = (sessionToken: any) => {
                                                         'Authorization': sessionToken
                                                     }
                                                 }))
-
-            console.log("Response OK =",response.data)
-
 
             setTimeout(() => {
                 dispatch({type: UserActionTypes.FETCH_USERS_SUCCESS, payload: response.data})

@@ -61,7 +61,6 @@ const Enginer:  React.FC<Props> = ({value}) => {
         let sessionEmail =  GetSessionEmail()
         if(sessionToken != null && sessionEmail != null && userLogin === null)
         {
-            console.log("findUser")
             findUser(sessionToken,sessionEmail)
             fetchUsers(sessionToken)
             fetchProject(sessionToken)
@@ -71,8 +70,6 @@ const Enginer:  React.FC<Props> = ({value}) => {
 
 
 
-
-    console.log("Engineer ",userLogin,"Value = ",value,loadingLogin)
     return(
 
             loadingLogin ? 

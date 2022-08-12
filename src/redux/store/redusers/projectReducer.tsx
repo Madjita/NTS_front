@@ -10,12 +10,10 @@ export const projectReducer = (state = initialState, action: ProjectAction): Pro
     switch (action.type) {
         case ProjectActionTypes.FETCH_PROJECT:
             {
-                console.log("ProjectActionTypes.FETCH_PROJECT")
                 return {loading: true, error: null, projects: []}
             }
         case ProjectActionTypes.FETCH_PROJECT_SUCCESS:
             {
-                console.log("ProjectActionTypes.FETCH_PROJECT_SUCCESS ")
                 return {loading: false, error: null, projects: action.payload}
             }
         case ProjectActionTypes.FETCH_PROJECT_ERROR:
@@ -23,13 +21,18 @@ export const projectReducer = (state = initialState, action: ProjectAction): Pro
        /* case ProjectActionTypes.FETCH_PROJECT_ERROR:
             return {loading: true, error: null, projects: state.projects.filter((item,index) => item.title !== action.payload)}*/
         case ProjectActionTypes.FETCH_PROJECT_REMOVE_SUCCESS:
-            console.log("ProjectActionTypes.FETCH_PROJECT_REMOVE_SUCCES")
             return {loading: false, error: null, projects: action.payload}
         
         case ProjectActionTypes.FETCH_PROJECT_ADD:
             return {loading: true, error: null, projects: []}
         case ProjectActionTypes.FETCH_PROJECT_ADD_SUCCESS:
             return {loading: false, error: null, projects: action.payload}
+
+        case ProjectActionTypes.FETCH_PROJECT_FIND:
+            return {loading: true, error: null, projects: []}
+        case ProjectActionTypes.FETCH_PROJECT_FIND_SUCCESS:
+            state.projects.push(action.payload)
+            return {loading: false, error: null, projects: state.projects}
 
         case ProjectActionTypes.FETCH_PROJECT_EDIT:
             return {loading: true, error: null, projects: state.projects}
