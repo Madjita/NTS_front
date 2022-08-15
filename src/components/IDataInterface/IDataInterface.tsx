@@ -27,6 +27,9 @@ export interface IProject{
 }
 
 
+export interface Role {
+    title: string
+}
 
 export interface IUser {
     firstName: string,
@@ -35,7 +38,7 @@ export interface IUser {
     email: string,
     userProjects: IUserProject[],
     company: string
-    role: string
+    role: Role
     weeks: IWeek[]
     photo: string,
     info: string,

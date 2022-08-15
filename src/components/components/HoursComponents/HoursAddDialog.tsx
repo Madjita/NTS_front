@@ -24,6 +24,9 @@ import HoursCode from './HoursCode';
 import { useActions } from '../../../redux/hooks/userActions';
 import { useTypedSelector } from '../../../redux/hooks/useTypedSelector';
 import { GetSesstionToken } from '../../../settings/settings';
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+
+
 
 const localeMap = {
   en: enLocale,
@@ -56,6 +59,10 @@ const HoursAddDialog:  React.FC<Props> = ({title,handleAdd,selectProject}) =>
 
   const [dataValue, setDataValue] = React.useState<Date | null>(new Date());
 
+
+  const [dataValueMonStart, setDataValueMonStart] = React.useState<Date | null>(new Date());
+  const [dataValueMonStop, setDataValueMonStop] = React.useState<Date | null>(new Date());
+
   const [newWeek, setNewWeek] = React.useState<IWeek>(()=>{
    let init =  {
       year: dataValue?.getFullYear() as number,
@@ -80,6 +87,15 @@ const HoursAddDialog:  React.FC<Props> = ({title,handleAdd,selectProject}) =>
      init.frHour.activityCode = 'AACD'
      init.saHour.activityCode = 'AACD'
      init.suHour.activityCode = 'AACD'
+
+
+     init.moHour.workingTime = '08:00:00-17:00:00'
+     init.tuHour.workingTime = '08:00:00-17:00:00'
+     init.weHour.workingTime = '08:00:00-17:00:00'
+     init.thHour.workingTime = '08:00:00-17:00:00'
+     init.frHour.workingTime = '08:00:00-17:00:00'
+     init.saHour.workingTime = '08:00:00-17:00:00'
+     init.suHour.workingTime = '08:00:00-17:00:00'
 
     if(users != undefined)
      {
@@ -303,7 +319,7 @@ const HoursAddDialog:  React.FC<Props> = ({title,handleAdd,selectProject}) =>
               label="Код"
               type="select"
               variant="standard"
-              value={newWeek.moHour?.activityCode}
+              value={newWeek.moHour?.activityCode || 'None'}
               inputProps={{ style: { textAlign: 'center' }}} 
               onChange={e =>{
 
@@ -326,6 +342,77 @@ const HoursAddDialog:  React.FC<Props> = ({title,handleAdd,selectProject}) =>
                 <MenuItem value={'AACE'}>AACE</MenuItem>
                 <MenuItem value={'AADE'}>AADE</MenuItem>
           </TextField>
+
+          <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={localeMap["en"]}>
+          <div style={{display:'flex'}}>
+              <div style={{flex: '1'}}>
+                <TimePicker
+                label="Time"
+                ampm={true}
+                value={dataValueMonStart}
+                onChange={(e,text) => {
+
+                if(e != null)
+                {
+                  let dataStart = dataValueMonStart?.toLocaleTimeString("hh:mm") as string
+                  let dataStop = dataValueMonStop?.toLocaleTimeString("hh:mm") as string
+
+                  console.log(dataStart+"-"+dataStop)
+                
+
+                  newWeek.moHour!.workingTime! = dataStart+"-"+dataStop
+                  newWeek.tuHour!.workingTime! = dataStart+"-"+dataStop
+                  newWeek.weHour!.workingTime! = dataStart+"-"+dataStop
+                  newWeek.thHour!.workingTime! = dataStart+"-"+dataStop
+                  newWeek.frHour!.workingTime! = dataStart+"-"+dataStop
+                  newWeek.saHour!.workingTime! = dataStart+"-"+dataStop
+                  newWeek.suHour!.workingTime! = dataStart+"-"+dataStop
+      
+                  setNewWeek({...newWeek})
+                  setDataValueMonStart(e);
+
+                  console.log(dataValueMonStart?.toLocaleTimeString())
+                }
+
+                }}
+                renderInput={(params) => <TextField fullWidth {...params} variant="standard"/>}
+                />
+              </div>
+              <div style={{flex: '1',marginLeft:'20px'}}>
+                <TimePicker
+                  label="Time"
+                  ampm={true}
+                  value={dataValueMonStop}
+                  onChange={(e) => {
+
+                  if(e != null)
+                  {
+                    let dataStart = dataValueMonStart?.toLocaleTimeString("hh:mm") as string
+                    let dataStop = dataValueMonStop?.toLocaleTimeString("hh:mm") as string
+  
+                    console.log(dataStart+"-"+dataStop)
+                  
+  
+                    newWeek.moHour!.workingTime! = dataStart+"-"+dataStop
+                    newWeek.tuHour!.workingTime! = dataStart+"-"+dataStop
+                    newWeek.weHour!.workingTime! = dataStart+"-"+dataStop
+                    newWeek.thHour!.workingTime! = dataStart+"-"+dataStop
+                    newWeek.frHour!.workingTime! = dataStart+"-"+dataStop
+                    newWeek.saHour!.workingTime! = dataStart+"-"+dataStop
+                    newWeek.suHour!.workingTime! = dataStart+"-"+dataStop
+        
+                    setNewWeek({...newWeek})
+                    setDataValueMonStop(e);
+
+                    console.log(dataValueMonStop?.toLocaleTimeString())
+                  }
+
+                  }}
+                  renderInput={(params) => <TextField fullWidth {...params} variant="standard"/>}
+                />
+              </div>
+          </div>
+          </LocalizationProvider>
 
           <TextField
               autoFocus

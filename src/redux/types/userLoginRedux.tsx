@@ -11,6 +11,7 @@ export enum UserLoginActionTypes {
     FETCH_USERLOGIN_ERROR = 'FETCH_USERLOGIN_ERROR',
 
 }
+
 interface FetchUserAction {
     type: UserLoginActionTypes.FETCH_USERLOGIN;
 }
@@ -26,6 +27,6 @@ interface FetchUsersErrorAction {
 }
 
 
-export type UserLoginAction = FetchUserAction |
-                         FetchUserFindSuccessAction|
+export type UserLoginAction = FetchUserAction       |
+                         FetchUserFindSuccessAction |
                          FetchUsersErrorAction

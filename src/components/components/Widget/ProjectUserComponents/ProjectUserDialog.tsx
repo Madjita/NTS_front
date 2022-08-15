@@ -99,7 +99,7 @@ function SimpleDialog(props: SimpleDialogProps) {
                     <PersonIcon />
                 </Avatar>
                 </ListItemAvatar>
-                <ListItemText primary={user.firstName} secondary={user.role} />
+                <ListItemText primary={user.firstName} secondary={user.role.title} />
             </ListItem>
         )
   })

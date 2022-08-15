@@ -91,7 +91,7 @@ const ProjectUserBodyComponents:  React.FC<Props> = ({projects,handleRemoveUser,
                                     <PersonIcon />
                                 </Avatar>
                                 </ListItemAvatar>
-                                <ListItemText primary={user.firstName} secondary={user.role} />
+                                <ListItemText primary={user.firstName} secondary={user.role.title} />
                             </ListItem>
                         )
                     })}

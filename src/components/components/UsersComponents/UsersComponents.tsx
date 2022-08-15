@@ -39,7 +39,7 @@ const UsersComponents:  React.FC<Props> = ({users,handleRemoveUser,userTableEven
                     <div className="fig-author-figure-title">{user.company}</div>
                     <div className="fig-author-figure-title">{user.secondName+" "+user.firstName+" "+user.middleName}</div>
                     <div className="fig-author-figure-title">{user.email}</div>
-                    <div className="fig-author-figure-title">{user.role}</div>
+                    <div className="fig-author-figure-title">{user.role.title}</div>
                 </figcaption>
                 
                 {userTableEventually ? <IconDelete onClick={(e)=>{e.preventDefault();handleRemoveUser(index)}}/> : null}

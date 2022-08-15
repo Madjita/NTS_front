@@ -16,6 +16,7 @@ import Content from '../../components/Content/Content';
 import ProjectCardComponent from '../../components/ProjectComponents/ProjectCardComponent';
 import TableMaterialUICollapsibleTable_AllProject from '../../components/TableMaterialUICollapsibleTable/TableMaterialUICollapsibleTable_AllProject';
 import Z from '../../components/Z';
+import Info from '../../components/Info/Info';
 
 
 interface TabPanelProps {
@@ -112,6 +113,7 @@ const Enginer:  React.FC<Props> = ({value}) => {
                 </TabPanel>
                 <TabPanel value={value} index={3}>
                     Информация
+                    <Info/>
                 </TabPanel>
             </React.Fragment>
           

@@ -100,7 +100,7 @@ function Row(props: { index: number, row: IProject ,TableEventually : boolean,ha
                         {row.email}
                       </TableCell>
                       <TableCell align="center">
-                        {row.role}
+                        {row.role.title}
                       </TableCell>
                     </TableRow>
                   ))

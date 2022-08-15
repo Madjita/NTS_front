@@ -91,7 +91,7 @@ function Row(props: { index: number, row: ICompany ,TableEventually : boolean,ha
                         {row.email}
                       </TableCell>
                       <TableCell align="center">
-                        {row.role}
+                        {row.role.title}
                       </TableCell>
                       <TableCell align="center">
                         {row.userProjects.length}

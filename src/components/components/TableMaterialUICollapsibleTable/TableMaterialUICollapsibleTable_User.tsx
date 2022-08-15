@@ -45,7 +45,7 @@ function Row(props: { row: IUser }) {
         <TableCell align="center">{row.secondName}</TableCell>
         <TableCell align="center">{row.middleName}</TableCell>
         <TableCell align="center">{row.company}</TableCell>
-        <TableCell align="center">{row.role}</TableCell>
+        <TableCell align="center">{row.role.title}</TableCell>
         <TableCell align="center">{row.userProjects.length}</TableCell>
       </TableRow>
       <TableRow>
