@@ -81,6 +81,8 @@ function RowMultiplayHours(props: { row: IUserProject, labelId: any,handleAddHou
      
        });
 
+    let timeFormat = {hour: '2-digit', minute:'2-digit'} as any;
+
 
     return (
       <React.Fragment>
@@ -372,8 +374,8 @@ function RowMultiplayHours(props: { row: IUserProject, labelId: any,handleAddHou
 
                     if(e != null)
                     {
-                    let dataStart = dataValueMonStart?.toLocaleTimeString("hh:mm") as string
-                    let dataStop = dataValueMonStop?.toLocaleTimeString("hh:mm") as string
+                    let dataStart = dataValueMonStart?.toLocaleTimeString([], timeFormat) as string
+                    let dataStop = dataValueMonStop?.toLocaleTimeString([], timeFormat) as string
 
                     console.log(dataStart+"-"+dataStop)
                     
@@ -389,7 +391,7 @@ function RowMultiplayHours(props: { row: IUserProject, labelId: any,handleAddHou
                     setNewWeek({...newWeek})
                     setDataValueMonStart(e);
 
-                    console.log(dataValueMonStart?.toLocaleTimeString())
+                    console.log(dataValueMonStart?.toLocaleTimeString([], timeFormat))
                     }
 
                     }}
@@ -406,8 +408,8 @@ function RowMultiplayHours(props: { row: IUserProject, labelId: any,handleAddHou
 
                         if(e != null)
                         {
-                            let dataStart = dataValueMonStart?.toLocaleTimeString("hh:mm") as string
-                            let dataStop = dataValueMonStop?.toLocaleTimeString("hh:mm") as string
+                            let dataStart = dataValueMonStart?.toLocaleTimeString([],timeFormat) as string
+                            let dataStop = dataValueMonStop?.toLocaleTimeString([],timeFormat) as string
         
                             console.log(dataStart+"-"+dataStop)
                         
@@ -423,7 +425,7 @@ function RowMultiplayHours(props: { row: IUserProject, labelId: any,handleAddHou
                             setNewWeek({...newWeek})
                             setDataValueMonStop(e);
 
-                            console.log(dataValueMonStop?.toLocaleTimeString())
+                            console.log(dataValueMonStop?.toLocaleTimeString([],timeFormat))
                         }
 
                         }}

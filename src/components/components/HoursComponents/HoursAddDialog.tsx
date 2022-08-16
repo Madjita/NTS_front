@@ -209,6 +209,8 @@ const HoursAddDialog:  React.FC<Props> = ({title,handleAdd,selectProject}) =>
       }
     };
 
+  let timeFormat = {hour: '2-digit', minute:'2-digit'} as any;
+
   return (
     <React.Fragment>
       <Button size="small" variant="outlined" onClick={handleClickOpen}>
@@ -354,8 +356,8 @@ const HoursAddDialog:  React.FC<Props> = ({title,handleAdd,selectProject}) =>
 
                 if(e != null)
                 {
-                  let dataStart = dataValueMonStart?.toLocaleTimeString("hh:mm") as string
-                  let dataStop = dataValueMonStop?.toLocaleTimeString("hh:mm") as string
+                  let dataStart = dataValueMonStart?.toLocaleTimeString([],timeFormat) as string
+                  let dataStop = dataValueMonStop?.toLocaleTimeString([],timeFormat) as string
 
                   console.log(dataStart+"-"+dataStop)
                 
@@ -371,7 +373,7 @@ const HoursAddDialog:  React.FC<Props> = ({title,handleAdd,selectProject}) =>
                   setNewWeek({...newWeek})
                   setDataValueMonStart(e);
 
-                  console.log(dataValueMonStart?.toLocaleTimeString())
+                  console.log(dataValueMonStart?.toLocaleTimeString([],timeFormat))
                 }
 
                 }}
@@ -387,8 +389,8 @@ const HoursAddDialog:  React.FC<Props> = ({title,handleAdd,selectProject}) =>
 
                   if(e != null)
                   {
-                    let dataStart = dataValueMonStart?.toLocaleTimeString("hh:mm") as string
-                    let dataStop = dataValueMonStop?.toLocaleTimeString("hh:mm") as string
+                    let dataStart = dataValueMonStart?.toLocaleTimeString([],timeFormat) as string
+                    let dataStop = dataValueMonStop?.toLocaleTimeString([],timeFormat) as string
   
                     console.log(dataStart+"-"+dataStop)
                   
@@ -404,7 +406,7 @@ const HoursAddDialog:  React.FC<Props> = ({title,handleAdd,selectProject}) =>
                     setNewWeek({...newWeek})
                     setDataValueMonStop(e);
 
-                    console.log(dataValueMonStop?.toLocaleTimeString())
+                    console.log(dataValueMonStop?.toLocaleTimeString([],timeFormat))
                   }
 
                   }}
