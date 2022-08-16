@@ -368,7 +368,7 @@ function RowMultiplayHours(props: { row: IUserProject, labelId: any,handleAddHou
             <TableCell align="center"> 
                 <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={localeMap["en"]}>
                     <TimePicker
-                    ampm={true}
+                    ampm={false}
                     value={dataValueMonStart}
                     onChange={(e,text) => {
 
@@ -402,7 +402,7 @@ function RowMultiplayHours(props: { row: IUserProject, labelId: any,handleAddHou
             <TableCell align="center"> 
                 <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={localeMap["en"]}>
                     <TimePicker
-                        ampm={true}
+                        ampm={false}
                         value={dataValueMonStop}
                         onChange={(e) => {
 

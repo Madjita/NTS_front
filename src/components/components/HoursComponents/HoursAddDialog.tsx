@@ -345,12 +345,12 @@ const HoursAddDialog:  React.FC<Props> = ({title,handleAdd,selectProject}) =>
                 <MenuItem value={'AADE'}>AADE</MenuItem>
           </TextField>
 
-          <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={localeMap["en"]}>
+          <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={localeMap["ru"]}>
           <div style={{display:'flex'}}>
               <div style={{flex: '1'}}>
                 <TimePicker
                 label="Time"
-                ampm={true}
+                ampm={false}
                 value={dataValueMonStart}
                 onChange={(e,text) => {
 
@@ -383,7 +383,7 @@ const HoursAddDialog:  React.FC<Props> = ({title,handleAdd,selectProject}) =>
               <div style={{flex: '1',marginLeft:'20px'}}>
                 <TimePicker
                   label="Time"
-                  ampm={true}
+                  ampm={false}
                   value={dataValueMonStop}
                   onChange={(e) => {
 
