@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { alpha } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -16,8 +15,6 @@ import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import Button from '@mui/material/Button';
-import DeleteIcon from '@mui/icons-material/Delete';
-import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 import HoursAddDialog from '../HoursComponents/HoursAddDialog';
 import { IDownloadProjectUserWeekExel, IProject, IUser, IUserProject, IWeek } from '../../IDataInterface/IDataInterface';
@@ -30,9 +27,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import IconDelete from '@mui/icons-material/Delete'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import ExpandCircleDownIcon from '@mui/icons-material/ExpandCircleDown';
-import AddIcon from '@mui/icons-material/Add';
 import ProjectUserDialog from '../Widget/ProjectUserComponents/ProjectUserDialog';
 import TableMenu_AllProject from '../TableMenu/TableMenu_AllProject';
 import { useNavigate } from 'react-router-dom';
@@ -78,7 +73,7 @@ function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
 
 type Order = 'asc' | 'desc';
 
-function getComparator<Key extends keyof any>(
+export function getComparator<Key extends keyof any>(
   order: Order,
   orderBy: Key,
 ): (
@@ -92,7 +87,7 @@ function getComparator<Key extends keyof any>(
 
 // This method is created for cross-browser compatibility, if you don't
 // need to support IE11, you can use Array.prototype.sort() directly
-function stableSort<T>(array:  T[], comparator: (a: T, b: T) => number) {
+export function stableSort<T>(array:  T[], comparator: (a: T, b: T) => number) {
   const stabilizedThis = array.map((el, index) => [el, index] as [T, number]);
   stabilizedThis.sort((a, b) => {
     const order = comparator(a[0], b[0]);
@@ -731,6 +726,9 @@ const TableMaterialUICollapsibleTable_AllProject:  React.FC<Props> = ({addProjec
 
 const [TableEventually, setTableEventually] = React.useState<boolean>(false);
 
+const {userLogin} = useTypedSelector(state => state.userLogin)
+const {projects} = useTypedSelector(state => state.project)
+
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
     property: keyof IProject
@@ -787,11 +785,10 @@ const [TableEventually, setTableEventually] = React.useState<boolean>(false);
   const isSelected = (name: string) => selected.indexOf(name) !== -1;
 
   // Avoid a layout jump when reaching the last page with empty rows.
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - projects.length) : 0;
 
 
-  const {userLogin} = useTypedSelector(state => state.userLogin)
-  const {projects} = useTypedSelector(state => state.project)
+
 
   const handleAddHours = async (newObject: IWeek) => {
       let sessionToken =  GetSesstionToken()

@@ -28,7 +28,7 @@ import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 
 
 
-const localeMap = {
+export const localeMap = {
   en: enLocale,
   fr: frLocale,
   de: deLocale,
