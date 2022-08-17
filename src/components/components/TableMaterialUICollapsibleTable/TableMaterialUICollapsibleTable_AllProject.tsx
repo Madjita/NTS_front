@@ -667,7 +667,7 @@ const TableMaterialUICollapsibleTable_AllProject:  React.FC<Props> = ({addProjec
     accum: new Array<stateAccumCollapseUser>
   })
 
-  const [rows, setRows] = React.useState([
+ /* const [rows, setRows] = React.useState([
   createData(1,'204366', 'KYVO3', ''),
   createData(2,'206232', 'Crane', 'Folignio'),
   createData(3,'260287', 'KPP', 'Porvoo'),
@@ -723,6 +723,7 @@ const TableMaterialUICollapsibleTable_AllProject:  React.FC<Props> = ({addProjec
   createData(53,'T1011A', 'ND Beihai CP10RB SRS', 'China'),
   createData(54,'260453', 'CMA CGM APL DANUBE', '-'),
 ]);
+*/
 
 const [TableEventually, setTableEventually] = React.useState<boolean>(false);
 
@@ -740,7 +741,7 @@ const {projects} = useTypedSelector(state => state.project)
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      const newSelected = rows.map((n) => n.id);
+      const newSelected = projects.map((n) => n.code);
       //setSelected(newSelected);
       return;
     }
@@ -865,7 +866,6 @@ const {projects} = useTypedSelector(state => state.project)
   }
     
 
-
   return (
     <Box sx={{ width: "100%",maxHeight: '780px',overflow: 'auto' }}>
       <Paper sx={{ width: "100%", mb: 2}}>
@@ -889,7 +889,7 @@ const {projects} = useTypedSelector(state => state.project)
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={rows.length}
+              rowCount={projects.length}
               TableEventually={TableEventually}
             />
             <TableBody>

@@ -16,6 +16,7 @@ import Layout from './components/Pages/Layout/Layout';
 import { IUser } from './components/IDataInterface/IDataInterface';
 import axios from 'axios'
 import SelectProject from './components/Pages/SelectProject/SelectProject';
+import TMPHome from './components/Pages/TMP/TMPHome';
 
 
 
@@ -126,6 +127,9 @@ function App() {
       <Route  path="/test" element={  <Home/> }/>
       <Route  path="/SelectProject" element={ 
           <Layout title='Панель проекта' children={<SelectProject/>} />
+       }/> 
+      <Route  path="/tmp" element={ 
+          <TMPHome/>
        }/> 
       <Route  path="*" element={<NotFound/>}/>
     </Routes>
