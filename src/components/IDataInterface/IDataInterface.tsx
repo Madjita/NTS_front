@@ -40,9 +40,39 @@ export interface IUser {
     company: string
     role: Role
     weeks: IWeek[]
-    photo: string,
-    info: string,
+    profile: IProfile
 }
+
+export interface IProfile{
+    user: IUser,
+    sex: boolean,
+    date: Date,
+    prfseries: number,
+    prfnumber: number,
+    prfdatetaked: Date,
+    prfdateback: Date,
+    prfcode: number,
+    prftaked: string,
+    prfplaceborned: string,
+    prfplaceregistration: string,
+    prfplacelived: string,
+    ipnumber: number,
+    ipdatetaked: Date,
+    ipdateback: Date,
+    ipcode: number,
+    iptaked: string,
+    ipplaceborned: string,
+    ulmnumber: number,
+    ulmdatetaked: Date,
+    ulmdateback: Date,
+    ulmcode: number,
+    ulmtaked: string,
+    ulmplaceborned: string,
+    snils: string,
+    inn: number,
+    phone: string,
+    image: string
+} 
 
 export interface ICompany{
     name : string
