@@ -5,15 +5,17 @@ import DownloadIcon from '@mui/icons-material/Download';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import PreviewIcon from '@mui/icons-material/Preview';
 import { TextField } from '@mui/material';
+import { IUser } from '../../../../../../IDataInterface/IDataInterface';
 
 type Props = {
     className?: string,
+    userLogin?: IUser | null
 }
 
 
 
  
-const UserInfo:  React.FC<Props> = () => {
+const UserInfo:  React.FC<Props> = ({userLogin}) => {
 
     return(
         <div style={{width:'100%',height:'50%',display:'flex'}}>
@@ -24,7 +26,7 @@ const UserInfo:  React.FC<Props> = () => {
                                 <p>Фамилия</p>
                             </div>
                             <div className='center'>
-                                <input className='origin' type="text" value={"Фамилия"}/>
+                                <input className='origin' type="text" value={ userLogin ? userLogin!.secondName : "Фамилия"}/>
                             </div>
                         </div>
                     </div>
@@ -36,7 +38,7 @@ const UserInfo:  React.FC<Props> = () => {
                                 <p>Имя</p>
                             </div>
                             <div className='center'>
-                                <input className='origin' type="text" value={"Имя"}/>
+                                <input className='origin' type="text" value={ userLogin ? userLogin!.firstName : "Имя"}/>
                             </div>
                         </div>
                     </div>
@@ -47,7 +49,7 @@ const UserInfo:  React.FC<Props> = () => {
                                 <p>Отчество</p>
                             </div>
                             <div className='center'>
-                                <input className='origin' type="text" value={"Отчество"}/>
+                                <input className='origin' type="text" value={ userLogin ? userLogin!.middleName : "Отчество"}/>
                             </div>
                         </div>
                     </div>
@@ -58,7 +60,7 @@ const UserInfo:  React.FC<Props> = () => {
                                 <p>Дата рождения</p>
                             </div>
                             <div className='center'>
-                                <input className='origin' type="text" value={"Отчество"}/>
+                                <input className='origin' type="text" value={"Дата рождения"}/>
                             </div>
                         </div>
                     </div>

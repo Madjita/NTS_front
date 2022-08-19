@@ -21,8 +21,8 @@ const UserPasportInternational:  React.FC<Props> = () => {
                         <div className='center'>
                             <p>Паспорт загран</p>
                         </div>
-                        <div>
-                            <div className='center'>
+                        <div className='center'>
+                            <div style={{display: 'flex'}}>
                                 <div className='center'>
                                     <div>
                                         <input className='origin' style={{width:'97px'}} type="text" value={"7102 573922"}/>
@@ -60,13 +60,13 @@ const UserPasportInternational:  React.FC<Props> = () => {
                         </div>
                     </div>
                 </div>
-                <div style={{height:'22px',display:'flex'}}>
+                <div style={{height:'30px',display:'flex'}}>
                     <div style={{width:'100%',display:'flex',justifyContent: 'space-between'}} >
                         <div className='center'>
                             <p></p>
                         </div>
-                        <div style={{width: '408px'}}>
-                            <input className='origin' style={{width: 'calc(100% - 7px)'}} type="text" value={"место рождения"}/>
+                        <div style={{width: '408px'}} className='center'>
+                            <input className='origin' style={{width: '100%'}} type="text" value={"место рождения"}/>
                         </div>
                     </div>
                 </div>                

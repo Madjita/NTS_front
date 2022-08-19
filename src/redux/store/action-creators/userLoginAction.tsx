@@ -16,6 +16,10 @@ export const findUser = (sessionToken: any,email: string) => {
             axios.defaults.headers.common['Authorization'] = sessionToken;
             const response = await (await axios.post(GetConnectionString()+'/Authorize/users/find',formData))
 
+
+           /* if(response.data.profile.id != undefined)
+                delete response.data.profile.id;*/
+            
             setTimeout(() => {
                 dispatch({type: UserLoginActionTypes.FETCH_USERLOGIN_FIND_SUCCESS, payload: response.data})
             }, sleepLoader)

@@ -21,9 +21,9 @@ const UserYLM:  React.FC<Props> = () => {
                         <div className='center'>
                             <p>УЛМ</p>
                         </div>
-                        <div>
+                        <div className='center'>
                             <div style={{display: 'flex'}}>
-                                <div style={{display: 'flex'}}>
+                                <div className='center'>
                                     <div>
                                         <input className='origin' style={{width:'97px'}} type="text" value={"7102 573922"}/>
                                     </div>         
