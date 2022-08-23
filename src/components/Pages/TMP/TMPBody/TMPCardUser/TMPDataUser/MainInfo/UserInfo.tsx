@@ -15,10 +15,15 @@ type Props = {
     edit? : boolean
 }
 
-
+export const disabledStyle = {
+    color: 'white',
+    background: 'transparent',
+    border: '0px'
+};
 
  
 const UserInfo:  React.FC<Props> = ({userLogin,handlerEdit,edit}) => {
+
 
 return(
         <div style={{width:'100%',height:'50%',display:'flex'}}>
@@ -29,7 +34,7 @@ return(
                                 <p>Фамилия</p>
                             </div>
                             <div className='center'>
-                                {
+                                {/*
                                     edit ?
                                     <input className='origin' type="text" value={ userLogin!.newUser ? userLogin!.newUser.secondName : "Фамилия"} 
                                     onChange={e=>{
@@ -38,8 +43,18 @@ return(
                                     }}/>
                                     : 
                                     <p>{userLogin!.newUser ? userLogin!.newUser.secondName : "-"}</p>
+                                    */
                                 }
-                               
+
+                                <input className='origin' type="text" value={ userLogin!.newUser ? userLogin!.newUser.secondName : "Фамилия"} 
+                                    onChange={e=>{
+                                        userLogin!.newUser.secondName = e.target.value;
+                                        handlerEdit({...userLogin})
+                                    }}
+                                    
+                                    disabled={!edit}
+                                    style={edit ? {}:disabledStyle}
+                                />
                             </div>
                         </div>
                     </div>
@@ -51,7 +66,7 @@ return(
                                 <p>Имя</p>
                             </div>
                             <div className='center'>
-                                {
+                                {/*
                                      edit ?
                                      <input className='origin' type="text" value={ userLogin!.newUser ? userLogin!.newUser.firstName : "Имя"}
                                      onChange={e=>{
@@ -60,7 +75,17 @@ return(
                                      }}/>
                                      :
                                      <p>{userLogin!.newUser ? userLogin!.newUser.firstName : "-"}</p>
+                                     */
                                 }
+
+                                <input className='origin' type="text" value={ userLogin!.newUser ? userLogin!.newUser.firstName : "Имя"}
+                                     onChange={e=>{
+                                         userLogin!.newUser.firstName = e.target.value;
+                                         handlerEdit({...userLogin})
+                                     }}
+                                     disabled={!edit}
+                                     style={edit ? {}:disabledStyle}
+                                />
                                
                             </div>
                         </div>
@@ -72,7 +97,7 @@ return(
                                 <p>Отчество</p>
                             </div>
                             <div className='center'>
-                                {
+                                {/*
                                     edit ?
                                     <input className='origin' type="text" value={ userLogin!.newUser ? userLogin!.newUser.middleName : "Отчество"}
                                     onChange={e=>{
@@ -81,7 +106,16 @@ return(
                                     }}/>
                                     :
                                     <p>{userLogin!.newUser ? userLogin!.newUser.middleName : "-"}</p>
+                                    */
                                 }
+                                <input className='origin' type="text" value={ userLogin!.newUser ? userLogin!.newUser.middleName : "Отчество"}
+                                    onChange={e=>{
+                                        userLogin!.newUser.middleName = e.target.value;
+                                        handlerEdit({...userLogin})
+                                     }}
+                                     disabled={!edit}
+                                     style={edit ? {}:disabledStyle}
+                                />
                                
                             </div>
                         </div>
@@ -93,12 +127,18 @@ return(
                                 <p>Дата рождения</p>
                             </div>
                             <div className='center'>
-                                {
+                                {/*
                                     edit ?
                                     <input className='origin' type="text" value={ userLogin?.newUser?.profile?.date ? new Date(userLogin!.newUser.profile.date).toLocaleDateString("en-US") : "Дата рождения"}/>
                                     :
                                     <p>{userLogin!.newUser ? new Date(userLogin!.newUser.profile.date).toLocaleDateString("en-US") : "-"}</p>
+                                */
                                 }
+                                 <input className='origin' type="text" 
+                                 value={ userLogin?.newUser?.profile?.date ? new Date(userLogin!.newUser.profile.date).toLocaleDateString("en-US") : "Дата рождения"}
+                                 disabled={!edit}
+                                 style={edit ? {}:disabledStyle}
+                                 />
                             </div>
                         </div>
                     </div>
@@ -124,6 +164,7 @@ return(
                                             }
                                         }
                                     }}
+                                    disabled={!edit}
                                     />
                                     Мужчина
                                 </p>
@@ -142,6 +183,7 @@ return(
                                             }
                                         }
                                     }}
+                                    disabled={!edit}
                                     />
                                     Женщина
                                </p>
@@ -162,7 +204,7 @@ return(
                                         <PreviewIcon/>
                                     </div>
                                     <div>
-                                       {
+                                       {/*
                                         edit ? 
                                         <input className='origin' type="text" value={userLogin ? userLogin.newUser?.profile.snils : "XXX-XXX-XXX-XX"} 
                                         onChange={e=>{
@@ -171,7 +213,16 @@ return(
                                         }}/>
                                         :
                                         <p>{userLogin!.newUser ? userLogin!.newUser.profile.snils: "-"}</p>
+                                        */
                                        }
+                                        <input className='origin' type="text" value={userLogin ? userLogin.newUser?.profile.snils : "XXX-XXX-XXX-XX"} 
+                                        onChange={e=>{
+                                            userLogin!.newUser!.profile!.snils = e.target.value;
+                                            handlerEdit({...userLogin})
+                                            }}
+                                        disabled={!edit}
+                                        style={edit ? {}:disabledStyle}
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -191,7 +242,7 @@ return(
                                         <PreviewIcon/>
                                     </div>
                                     <div>
-                                        {
+                                        {/*
                                             edit ? 
                                             <input className='origin' type="text" value={ userLogin ? userLogin.newUser?.profile.inn : "XXX-XXX-XXX-XX"}
                                             onChange={e=>{
@@ -200,7 +251,16 @@ return(
                                             }}/>
                                             :
                                             <p>{userLogin!.newUser ? userLogin!.newUser.profile.inn: "-"}</p>
+                                            */
                                         }
+                                        <input className='origin' type="text" value={ userLogin ? userLogin.newUser?.profile.inn : "XXX-XXX-XXX-XX"}
+                                            onChange={e=>{
+                                                userLogin!.newUser!.profile!.inn = Number(e.target.value);
+                                                handlerEdit({...userLogin})
+                                        }}
+                                        disabled={!edit}
+                                        style={edit ? {}:disabledStyle}
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -213,7 +273,7 @@ return(
                                 <p>Телефон</p>
                             </div>
                             <div className='center'>
-                                {
+                                {/*
                                     edit ?
                                     <input className='origin' type="text" value={ userLogin ? userLogin.newUser?.profile.phone : "+7 912 34-22-44"}
                                     onChange={e=>{
@@ -222,7 +282,16 @@ return(
                                     }}/>
                                     :
                                     <p>{userLogin!.newUser ? userLogin!.newUser.profile.phone: "-"}</p>
+                                    */
                                 }
+                                  <input className='origin' type="text" value={ userLogin ? userLogin.newUser?.profile.phone : "+7 912 34-22-44"}
+                                    onChange={e=>{
+                                    userLogin!.newUser!.profile!.phone = e.target.value;
+                                    handlerEdit({...userLogin})
+                                    }}
+                                    disabled={!edit}
+                                    style={edit ? {}:disabledStyle}
+                                    />
                             </div>
                         </div>
                     </div>

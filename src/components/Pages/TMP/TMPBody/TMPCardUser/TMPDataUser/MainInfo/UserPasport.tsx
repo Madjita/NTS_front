@@ -6,6 +6,7 @@ import FileUploadIcon from '@mui/icons-material/FileUpload';
 import PreviewIcon from '@mui/icons-material/Preview';
 import { IUser } from '../../../../../../IDataInterface/IDataInterface';
 import { IOldNewUser } from '../../../../../../IDataInterface/IDataInsideInterface';
+import { disabledStyle } from './UserInfo';
 
 type Props = {
     className?: string,
@@ -13,7 +14,6 @@ type Props = {
     handlerEdit? : any
     edit? : boolean
 }
-
 
 
  
@@ -30,6 +30,7 @@ useEffect(()=>{
     }
 
 },[userLogin])
+
 
 return(
         <div style={{padding: '13px'}}>
@@ -53,7 +54,7 @@ return(
                             <div style={{display: 'flex',height: '30px'}}>
                                 <div className='center'>
                                     <div>
-                                        {
+                                        {/*
                                             edit ?
                                             <input className='origin' style={{width:'101px'}} type="text" value={SeriesNumber ? SeriesNumber : "-"}
                                                 onChange={e=>{
@@ -75,29 +76,63 @@ return(
                                             }}/>
                                             :
                                             <p>{SeriesNumber ? SeriesNumber : "-"}</p>
+                                            */
                                         }
+
+                                        <input className='origin' type="text" value={SeriesNumber ? SeriesNumber : "-"}
+                                                onChange={e=>{
+                                                if(userLogin != undefined && edit === true )
+                                                {
+                                                    let split = e.target.value.split(" ")
+                                                    let serial = split[0]
+                                                    let number = split[1]
+                                                    if(userLogin.newUser != undefined)
+                                                    {
+                                                        if(userLogin.newUser.profile != undefined)
+                                                        {
+                                                            userLogin.newUser.profile.prfSeries = Number(serial)
+                                                            userLogin.newUser.profile.prfNumber = Number(number)
+                                                            handlerEdit({...userLogin});
+                                                        }
+                                                    }
+                                                }
+                                            }}
+                                            disabled={!edit}
+                                            style={edit ? {width:'101px'}:{width:'101px',...disabledStyle}}
+                                            />
+
                                     </div>    
                                    
                                     <div style={{paddingLeft: '10px'}}>
-                                      {
+                                      {/*
                                         edit ? 
                                         <input className='origin' style={{width:'80px'}} type="text" value={userLogin?.newUser ? new Date(userLogin?.newUser.profile.prfDateTaked).toLocaleDateString("en-US"): "-"}/>
                                         :
                                         <p>{userLogin?.newUser ? new Date(userLogin?.newUser.profile.prfDateTaked).toLocaleDateString("en-US"): "-"}</p>
+                                        */
                                       }
+                                      <input className='origin' type="text" value={userLogin?.newUser ? new Date(userLogin?.newUser.profile.prfDateTaked).toLocaleDateString("en-US"): "-"}
+                                       disabled={!edit}
+                                       style={edit ? {width:'80px'}:{width:'80px',...disabledStyle}}
+                                      />
                                     </div>
   
                                     <p style={{margin: '0px',padding: '5px'}}>-</p>
                                     <div>
-                                        {
+                                        {/*
                                         edit ? 
                                         <input className='origin' style={{width:'80px'}} type="text" value={userLogin?.newUser ? new Date(userLogin?.newUser.profile.prfDateBack).toLocaleDateString("en-US"): "-"}/>
                                         :
                                         <p>{userLogin?.newUser ? new Date(userLogin?.newUser.profile.prfDateBack).toLocaleDateString("en-US"): "-"}</p>
+                                        */
                                         }
+                                        <input className='origin' type="text" value={userLogin?.newUser ? new Date(userLogin?.newUser.profile.prfDateBack).toLocaleDateString("en-US"): "-"}
+                                           disabled={!edit}
+                                           style={edit ? {width:'80px'}:{width:'80px',...disabledStyle}}
+                                        />
                                     </div>
                                     <div style={{paddingLeft: '10px'}}>
-                                        {
+                                        {/*
                                         edit ? 
                                         <input className='origin' style={{width:'80px'}} type="text" value={userLogin?.newUser ? userLogin?.newUser.profile.prfCode: "-"}
                                         onChange={e=>{
@@ -107,7 +142,17 @@ return(
                                         />
                                         :
                                         <p>{userLogin?.newUser ? userLogin?.newUser.profile.prfCode: "-"}</p>
+                                        */
                                         }
+
+                                        <input className='origin' type="text" value={userLogin?.newUser ? userLogin?.newUser.profile.prfCode: "-"}
+                                        onChange={e=>{
+                                            userLogin!.newUser!.profile.prfCode= Number(e.target.value);
+                                            handlerEdit({...userLogin})
+                                        }}
+                                        disabled={!edit}
+                                        style={edit ? {width:'80px'}:{width:'80px',...disabledStyle}}
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -127,7 +172,7 @@ return(
                                     <PreviewIcon/>
                                 </div>
                                 <div style={{width: '408px'}} className='center'>
-                                    {
+                                    {/*
                                         edit ?
                                         <textarea className='origin' style={{width: '100%', resize: 'none'}} value={userLogin?.newUser ? userLogin?.newUser.profile.prfTaked : "кем выдан"}
                                         onChange={e=>{
@@ -137,7 +182,16 @@ return(
                                         />
                                         :
                                         <p>{userLogin?.newUser ? userLogin?.newUser.profile.prfTaked: "кем выдан"}</p>
+                                        */
                                     }
+                                     <textarea className='origin' value={userLogin?.newUser ? userLogin?.newUser.profile.prfTaked : "кем выдан"}
+                                        onChange={e=>{
+                                            userLogin!.newUser!.profile.prfTaked = e.target.value;
+                                            handlerEdit({...userLogin})
+                                        }}
+                                        disabled={!edit}
+                                        style={edit ? {width: '100%', resize: 'none'}:{width: '100%', resize: 'none', ...disabledStyle}}
+                                    />
                                 </div>
                         </div>
                     </div>
@@ -149,7 +203,7 @@ return(
                             <p></p>
                         </div>
                         <div style={{width: '408px'}} className='center'>
-                           {
+                           {/*
                             edit ?
                             <input className='origin' style={{width: '100%'}} type="text" value={userLogin?.newUser ? userLogin?.newUser.profile.prfPlaceBorned : "место рождения"}
                             onChange={e=>{
@@ -159,7 +213,16 @@ return(
                             />
                             :
                             <p>{userLogin?.newUser ? userLogin?.newUser.profile.prfPlaceBorned : "место рождения"}</p>
+                            */
                            }
+                           <input className='origin' type="text" value={userLogin?.newUser ? userLogin?.newUser.profile.prfPlaceBorned : "место рождения"}
+                            onChange={e=>{
+                                userLogin!.newUser!.profile.prfPlaceBorned = e.target.value;
+                                handlerEdit({...userLogin})
+                            }}
+                            disabled={!edit}
+                            style={edit ? {width: '100%'}:{width: '100%', ...disabledStyle}}
+                            />
                         </div>
                     </div>
                 </div>
@@ -170,7 +233,7 @@ return(
                             <p></p>
                         </div>
                         <div style={{width: '408px'}} className='center'>
-                           {
+                           {/*
                             edit ?
                             <input className='origin' style={{width: '100%'}} type="text" value={userLogin?.newUser  ? userLogin?.newUser.profile.prfPlaceRegistration:   "место прописки"}
                             onChange={e=>{
@@ -180,7 +243,16 @@ return(
                             />
                             :
                             <p>{userLogin?.newUser ? userLogin?.newUser.profile.prfPlaceRegistration : "место прописки"}</p>
+                            */
                            }
+                            <input className='origin' type="text" value={userLogin?.newUser  ? userLogin?.newUser.profile.prfPlaceRegistration:   "место прописки"}
+                            onChange={e=>{
+                                userLogin!.newUser!.profile.prfPlaceRegistration = e.target.value;
+                                handlerEdit({...userLogin})
+                            }}
+                            disabled={!edit}
+                            style={edit ? {width: '100%'}:{width: '100%', ...disabledStyle}}
+                            />
                         </div>
                     </div>
                 </div>
@@ -191,7 +263,7 @@ return(
                             <p></p>
                         </div>
                         <div style={{width: '408px'}} className='center'>
-                           {
+                           {/*
                             edit ?
                             <input className='origin' style={{width: '100%'}} type="text" value={userLogin?.newUser ? userLogin?.newUser.profile.prfPlaceLived : "место проживания"}
                             onChange={e=>{
@@ -201,7 +273,16 @@ return(
                             />
                             :
                             <p>{userLogin?.newUser ? userLogin?.newUser.profile.prfPlaceLived : "место проживания"}</p>
+                            */
                            }
+                            <input className='origin' type="text" value={userLogin?.newUser ? userLogin?.newUser.profile.prfPlaceLived : "место проживания"}
+                            onChange={e=>{
+                                userLogin!.newUser!.profile.prfPlaceLived = e.target.value;
+                                handlerEdit({...userLogin})
+                            }}
+                            disabled={!edit}
+                            style={edit ? {width: '100%'}:{width: '100%', ...disabledStyle}}
+                            />
                         </div>
                     </div>
                 </div>

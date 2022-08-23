@@ -13,6 +13,7 @@ import UserPasportInternational from '../TMPCardUser/TMPDataUser/MainInfo/UserPa
 import UserYLM from '../TMPCardUser/TMPDataUser/MainInfo/UserYLM';
 import EditIcon from '@mui/icons-material/Edit'; 
 import PreviewIcon from '@mui/icons-material/Preview';
+import Dialog_copy from './Dialog_copy';
 
 type Props = {
     className?: string,
@@ -133,6 +134,10 @@ function getStyle (isActive : any) {
     },[newUser])
 
 
+    //Dialog copy
+    const [openDialogCopy, setOpenDialogCopy] = React.useState(false);
+
+    //
 
 
 
@@ -161,12 +166,14 @@ function getStyle (isActive : any) {
                     <Tooltip title={previewDataFlag ? "Copied":"Click to copy"}>
                     <a style={{paddingRight: '10px'}}
                     onClick={() => {
-                        setPreviewDataFlag(previewDataFlag => !previewDataFlag)
+                        setOpenDialogCopy(openDialogCopy => !openDialogCopy)
+                       
+                       /* setPreviewDataFlag(previewDataFlag => !previewDataFlag)
                         navigator.clipboard.writeText(previewData)
 
                         setTimeout(() => {
                             setPreviewDataFlag(previewDataFlag => !previewDataFlag)
-                        }, 200);
+                        }, 250);*/
                     }}
 
                    
@@ -177,6 +184,11 @@ function getStyle (isActive : any) {
                     
                 </div>
             </Box>
+            <Dialog_copy open={openDialogCopy} 
+            setOpen={setOpenDialogCopy} 
+            textForCopy={previewData}
+            setTextForCopy={setPreviewData}/>
+
             <TabPanel value={value} index={0}>
                <UserInfo userLogin={newUser} handlerEdit={handlerEdit} edit={edit}/>
             </TabPanel>
