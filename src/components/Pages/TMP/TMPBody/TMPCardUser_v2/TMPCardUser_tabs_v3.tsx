@@ -1,4 +1,4 @@
-import { Box, Tab, Tabs } from '@mui/material';
+import { Box, Tab, Tabs, Tooltip } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useActions } from '../../../../../redux/hooks/userActions';
 import { useTypedSelector } from '../../../../../redux/hooks/useTypedSelector';
@@ -12,6 +12,7 @@ import UserPasport from '../TMPCardUser/TMPDataUser/MainInfo/UserPasport';
 import UserPasportInternational from '../TMPCardUser/TMPDataUser/MainInfo/UserPasportInternational';
 import UserYLM from '../TMPCardUser/TMPDataUser/MainInfo/UserYLM';
 import EditIcon from '@mui/icons-material/Edit'; 
+import PreviewIcon from '@mui/icons-material/Preview';
 
 type Props = {
     className?: string,
@@ -82,6 +83,38 @@ function getStyle (isActive : any) {
     })
 
     const [edit,setEdit] = React.useState<boolean>(false)
+
+    const [previewDataFlag,setPreviewDataFlag] = React.useState<boolean>(false)
+    const [previewData,setPreviewData] = React.useState<string>('')
+    const init_previewData = ()=> {
+
+        let preview = '';
+        if(newUser != undefined)
+        {
+            if(newUser.newUser != undefined)
+            {
+                if(newUser.newUser.profile != undefined)
+                {
+                    preview = "Компания: \t"+newUser.newUser.company + "\n"
+                    preview += "ФИО: \t" + newUser.newUser.firstName + " "+ newUser.newUser.secondName +" "+newUser.newUser.middleName + "\n"
+                    preview += "День рождения: \t"+newUser.newUser.profile.date + "\n"
+                    preview += "Почта: \t"+newUser.newUser.email + "\n"
+            
+                    preview += "Паспорт РФ: \n"
+                    preview += "Серия Номер: \t"+newUser.newUser.profile.prfSeries+" "+newUser.newUser.profile.prfNumber+"\n"
+                    preview += "Кем выдан: \t"+newUser.newUser.profile.prfTaked+"\n"
+                    preview += "Дата выдачи: \t"+newUser.newUser.profile.prfDateTaked+"\n"
+                    preview += "Код подразделения: \t"+newUser.newUser.profile.prfCode+"\n"
+                    preview += "Место рождения: \t"+newUser.newUser.profile.prfPlaceBorned+"\n"
+                    preview += "Место прописки: \t"+newUser.newUser.profile.prfPlaceRegistration+"\n"
+                    preview += "Место проживания: \t"+newUser.newUser.profile.prfPlaceLived+"\n"
+                }
+            }
+        }
+       
+        return preview
+        
+     }
    
     const handlerEditFlag = (e: any) =>{
         setEdit(!edit)
@@ -94,6 +127,12 @@ function getStyle (isActive : any) {
         let obj = init();
         ChangeInfo({...obj});
     },[userLogin])
+
+    useEffect(()=>{
+        setPreviewData(init_previewData())
+    },[newUser])
+
+
 
 
 
@@ -119,6 +158,23 @@ function getStyle (isActive : any) {
                     <a onClick={handlerEditFlag} style={{paddingRight: '10px'}}>
                         <EditIcon style={{color: edit ? '#B8A590': ''}}/>
                     </a>
+                    <Tooltip title={previewDataFlag ? "Copied":"Click to copy"}>
+                    <a style={{paddingRight: '10px'}}
+                    onClick={() => {
+                        setPreviewDataFlag(previewDataFlag => !previewDataFlag)
+                        navigator.clipboard.writeText(previewData)
+
+                        setTimeout(() => {
+                            setPreviewDataFlag(previewDataFlag => !previewDataFlag)
+                        }, 200);
+                    }}
+
+                   
+                    >
+                        <PreviewIcon style={{color: previewDataFlag ? '#B8A590': ''}}/>
+                    </a>
+                    </Tooltip>
+                    
                 </div>
             </Box>
             <TabPanel value={value} index={0}>
