@@ -1,18 +1,65 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 
 import DownloadIcon from '@mui/icons-material/Download';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import PreviewIcon from '@mui/icons-material/Preview';
+import { IUser } from '../../../../../../IDataInterface/IDataInterface';
+import { IOldNewUser } from '../../../../../../IDataInterface/IDataInsideInterface';
 
 type Props = {
     className?: string,
+    userLogin?: IOldNewUser
+    handlerEdit? : any
+    edit? : boolean
 }
 
 
 
  
-const UserPasport:  React.FC<Props> = () => {
+const UserPasport:  React.FC<Props> = ({userLogin,handlerEdit,edit}) => {
+
+const [SeriesNumber,setSeriesNumber] = React.useState('')
+
+
+useEffect(()=>{
+
+    if(userLogin?.newUser != undefined)
+    {
+        setSeriesNumber(userLogin?.newUser.profile.prfSeries + " "+ userLogin?.newUser.profile.prfNumber)
+    }
+
+},[userLogin])
+
+/*let prfSeries = null;
+let prfNumber = null;
+
+
+let prfDatetaked = null;
+let prfDateback = null;
+let prfCode = null;
+let prfTaked = null;
+let prfPlaceBorned = null;
+let prfPlaceRegistration = null;
+let prfPlaceLived = null;
+
+if(userLogin != undefined)
+{
+    if(userLogin.profile != undefined)
+    {
+        prfSeries = userLogin.profile.prfSeries
+        prfNumber = userLogin.profile.prfNumber
+        SeriesNumber = prfSeries + " " + prfNumber
+        prfDatetaked = new Date(userLogin.profile.prfDateTaked).toLocaleDateString("en-US")
+        prfDateback = new Date(userLogin.profile.prfDateBack).toLocaleDateString("en-US")
+        prfTaked = userLogin.profile.prfTaked;
+        prfCode = userLogin.profile.prfCode;
+        prfPlaceBorned = userLogin.profile.prfPlaceBorned;
+        prfPlaceRegistration = userLogin.profile.prfPlaceRegistration;
+        prfPlaceLived = userLogin.profile.prfPlaceLived;
+    }
+}*/
+
 
     return(
         <div style={{padding: '13px'}}>
@@ -36,25 +83,49 @@ const UserPasport:  React.FC<Props> = () => {
                             <div style={{display: 'flex',height: '30px'}}>
                                 <div className='center'>
                                     <div>
-                                        <input className='origin' style={{width:'101px'}} type="text" value={"7102 573922"}/>
-                                    </div>         
+                                        {
+                                            edit ?
+                                            <input className='origin' style={{width:'101px'}} type="text" value={SeriesNumber ? SeriesNumber : "-"}
+                                                onChange={e=>{
+                                                if(userLogin != undefined && edit === true )
+                                                {
+                                                    let split = e.target.value.split(" ")
+                                                    let serial = split[0]
+                                                    let number = split[1]
+                                                    if(userLogin.newUser != undefined)
+                                                    {
+                                                        if(userLogin.newUser.profile != undefined)
+                                                        {
+                                                            userLogin.newUser.profile.prfSeries = Number(serial)
+                                                            userLogin.newUser.profile.prfNumber = Number(number)
+                                                            handlerEdit({...userLogin});
+                                                        }
+                                                    }
+                                                }
+                                            }}/>
+                                            :
+                                            <p>{SeriesNumber ? SeriesNumber : "-"}</p>
+                                        }
+                                    </div>    
+                                    {/*     
                                     <div style={{paddingLeft: '10px'}}>
-                                        <input className='origin' style={{width:'80px'}} type="text" value={"13.05.1983"}/>
+                                        <input className='origin' style={{width:'80px'}} type="text" value={prfDatetaked ? prfDatetaked: "13.05.1983"}/>
                                     </div>
                                     <p style={{margin: '0px',padding: '5px'}}>-</p>
                                     <div>
-                                        <input className='origin' style={{width:'80px'}} type="text" value={"13.05.2028"}/>
+                                        <input className='origin' style={{width:'80px'}} type="text" value={prfDateback ? prfDateback : "13.05.2028"}/>
                                     </div>
                                     <div style={{paddingLeft: '10px'}}>
-                                        <input className='origin' style={{width:'80px'}} type="text" value={"722-033"}/>
+                                        <input className='origin' style={{width:'80px'}} type="text" value={prfCode ? prfCode: "722-033"}/>
                                     </div>
+                                    */}
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <div style={{height:'30px',display:'flex'}}>
+{/*
+                <div style={{height:'55px',display:'flex'}}>
                     <div style={{width:'100%',display:'flex',justifyContent: 'space-between'}} >
                         <div className='center'>
                             <p></p>
@@ -66,7 +137,7 @@ const UserPasport:  React.FC<Props> = () => {
                                     <PreviewIcon/>
                                 </div>
                                 <div style={{display: 'flex',width: '408px'}}>
-                                    <input className='origin' style={{width: '100%'}} type="text" value={"кем выдан"}/>
+                                    <textarea className='origin' style={{width: '100%', resize: 'none'}} value={prfTaked ? prfTaked : "кем выдан"}/>
                                 </div>
                         </div>
                     </div>
@@ -77,7 +148,7 @@ const UserPasport:  React.FC<Props> = () => {
                             <p></p>
                         </div>
                         <div style={{width: '408px'}} className='center'>
-                            <input className='origin' style={{width: '100%'}} type="text" value={"место рождения"}/>
+                            <input className='origin' style={{width: '100%'}} type="text" value={prfPlaceBorned ? prfPlaceBorned : "место рождения"}/>
                         </div>
                     </div>
                 </div>
@@ -87,7 +158,7 @@ const UserPasport:  React.FC<Props> = () => {
                             <p></p>
                         </div>
                         <div style={{width: '408px'}} className='center'>
-                            <input className='origin' style={{width: '100%'}} type="text" value={"место прописки"}/>
+                            <input className='origin' style={{width: '100%'}} type="text" value={prfPlaceRegistration ? prfPlaceRegistration:   "место прописки"}/>
                         </div>
                     </div>
                 </div>
@@ -97,11 +168,11 @@ const UserPasport:  React.FC<Props> = () => {
                             <p></p>
                         </div>
                         <div style={{width: '408px'}} className='center'>
-                            <input className='origin' style={{width: '100%'}} type="text" value={"место проживания"}/>
+                            <input className='origin' style={{width: '100%'}} type="text" value={prfPlaceLived ? prfPlaceLived : "место проживания"}/>
                         </div>
                     </div>
                 </div>
-                
+                                */}
         </div>
     )
 }

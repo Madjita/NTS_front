@@ -4,15 +4,45 @@ import React from 'react';
 import DownloadIcon from '@mui/icons-material/Download';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import PreviewIcon from '@mui/icons-material/Preview';
+import { IUser } from '../../../../../../IDataInterface/IDataInterface';
 
 type Props = {
     className?: string,
+    userLogin?: IUser | null
 }
 
 
 
  
-const UserPasportInternational:  React.FC<Props> = () => {
+const UserPasportInternational:  React.FC<Props> = ({userLogin}) => {
+
+    let ipNumber = null;
+    let ipDatetaked = null;
+    let ipDateback = null;
+    let ipCode = null;
+    let ipTaked = null;
+    let ipPlaceborned = null;
+
+    if(userLogin != undefined)
+    {
+        if(userLogin.profile != undefined)
+        {
+            ipNumber = userLogin.profile.ipNumber;
+            ipDatetaked = new Date(userLogin.profile.ipDateTaked).toLocaleDateString("en-US")
+            ipDateback = new Date(userLogin.profile.ipDateBack).toLocaleDateString("en-US")
+            ipCode = userLogin.profile.ipCode
+           /* prfSeries = userLogin.profile.prFseries
+            prfNumber = userLogin.profile.prFnumber
+            SeriesNumber = prfSeries + " " + prfNumber
+            prfDatetaked = new Date(userLogin.profile.prFdatetaked).toLocaleDateString("en-US")
+            prfDateback = new Date(userLogin.profile.prFdateback).toLocaleDateString("en-US")
+            prfTaked = userLogin.profile.prFtaked;
+            prfCode = userLogin.profile.prFcode;
+            prfPlaceBorned = userLogin.profile.prFplaceborned;
+            prfPlaceRegistration = userLogin.profile.prFplaceregistration;
+            prfPlaceLived = userLogin.profile.prFplacelived; */
+        }
+    }
 
     return(
         <div style={{padding: '13px'}}>
@@ -25,10 +55,10 @@ const UserPasportInternational:  React.FC<Props> = () => {
                             <div style={{display: 'flex'}}>
                                 <div className='center'>
                                     <div>
-                                        <input className='origin' style={{width:'97px'}} type="text" value={"7102 573922"}/>
+                                        <input className='origin' style={{width:'97px'}} type="text" value={ipNumber ? ipNumber : "7102 573922"}/>
                                     </div>         
                                     <div style={{paddingLeft: '10px'}}>
-                                        <input className='origin' style={{width:'80px'}} type="text" value={"13.05.1983"}/>
+                                        <input className='origin' style={{width:'80px'}} type="text" value={ipDatetaked ? ipDatetaked: "13.05.1983"}/>
                                     </div>
                                     <p style={{margin: '0px',padding: '5px'}}>-</p>
                                     <div>
@@ -43,7 +73,7 @@ const UserPasportInternational:  React.FC<Props> = () => {
                     </div>
                 </div>
 
-                <div style={{height:'30px',display:'flex'}}>
+                <div style={{height:'55px',display:'flex'}}>
                     <div style={{width:'100%',display:'flex',justifyContent: 'space-between'}} >
                         <div className='center'>
                             <p></p>
@@ -55,7 +85,7 @@ const UserPasportInternational:  React.FC<Props> = () => {
                                     <PreviewIcon/>
                                 </div>
                                 <div style={{display: 'flex',width: '408px'}}>
-                                    <input className='origin' style={{width: 'calc(100% - 7px)'}} type="text" value={"кем выдан"}/>
+                                    <textarea className='origin' style={{width: '100%',resize:'none'}}  value={"кем выдан"}/>
                                 </div>
                         </div>
                     </div>

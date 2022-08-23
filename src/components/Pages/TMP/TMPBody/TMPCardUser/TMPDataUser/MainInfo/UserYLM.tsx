@@ -43,7 +43,7 @@ const UserYLM:  React.FC<Props> = () => {
                     </div>
                 </div>
 
-                <div style={{height:'30px',display:'flex'}}>
+                <div style={{height:'55px',display:'flex'}}>
                     <div style={{width:'100%',display:'flex',justifyContent: 'space-between'}} >
                         <div className='center'>
                             <p></p>
@@ -55,7 +55,7 @@ const UserYLM:  React.FC<Props> = () => {
                                     <PreviewIcon/>
                                 </div>
                                 <div style={{display: 'flex',width: '408px'}}>
-                                    <input className='origin' style={{width: 'calc(100% - 7px)'}} type="text" value={"кем выдан"}/>
+                                    <textarea className='origin' style={{width: '100%',resize:'none'}} value={"кем выдан"}/>
                                 </div>
                         </div>
                     </div>

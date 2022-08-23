@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 
 import DownloadIcon from '@mui/icons-material/Download';
@@ -6,18 +6,21 @@ import FileUploadIcon from '@mui/icons-material/FileUpload';
 import PreviewIcon from '@mui/icons-material/Preview';
 import { TextField } from '@mui/material';
 import { IUser } from '../../../../../../IDataInterface/IDataInterface';
+import { IOldNewUser } from '../../../../../../IDataInterface/IDataInsideInterface';
 
 type Props = {
     className?: string,
-    userLogin?: IUser | null
+    userLogin?: IOldNewUser
+    handlerEdit? : any
+    edit? : boolean
 }
 
 
 
  
-const UserInfo:  React.FC<Props> = ({userLogin}) => {
+const UserInfo:  React.FC<Props> = ({userLogin,handlerEdit,edit}) => {
 
-    return(
+return(
         <div style={{width:'100%',height:'50%',display:'flex'}}>
                 <div style={{width:'70%',height:'100%',margin: '13px',marginRight: '0px'}}>
                     <div style={{width:'100%',height:'30px',display:'flex'}}>
@@ -26,7 +29,17 @@ const UserInfo:  React.FC<Props> = ({userLogin}) => {
                                 <p>Фамилия</p>
                             </div>
                             <div className='center'>
-                                <input className='origin' type="text" value={ userLogin ? userLogin!.secondName : "Фамилия"}/>
+                                {
+                                    edit ?
+                                    <input className='origin' type="text" value={ userLogin!.newUser ? userLogin!.newUser.secondName : "Фамилия"} 
+                                    onChange={e=>{
+                                        userLogin!.newUser.secondName = e.target.value;
+                                        handlerEdit({...userLogin})
+                                    }}/>
+                                    : 
+                                    <p>{userLogin!.newUser ? userLogin!.newUser.secondName : "-"}</p>
+                                }
+                               
                             </div>
                         </div>
                     </div>
@@ -38,7 +51,17 @@ const UserInfo:  React.FC<Props> = ({userLogin}) => {
                                 <p>Имя</p>
                             </div>
                             <div className='center'>
-                                <input className='origin' type="text" value={ userLogin ? userLogin!.firstName : "Имя"}/>
+                                {
+                                     edit ?
+                                     <input className='origin' type="text" value={ userLogin!.newUser ? userLogin!.newUser.firstName : "Имя"}
+                                     onChange={e=>{
+                                         userLogin!.newUser.firstName = e.target.value;
+                                         handlerEdit({...userLogin})
+                                     }}/>
+                                     :
+                                     <p>{userLogin!.newUser ? userLogin!.newUser.firstName : "-"}</p>
+                                }
+                               
                             </div>
                         </div>
                     </div>
@@ -49,7 +72,17 @@ const UserInfo:  React.FC<Props> = ({userLogin}) => {
                                 <p>Отчество</p>
                             </div>
                             <div className='center'>
-                                <input className='origin' type="text" value={ userLogin ? userLogin!.middleName : "Отчество"}/>
+                                {
+                                    edit ?
+                                    <input className='origin' type="text" value={ userLogin!.newUser ? userLogin!.newUser.middleName : "Отчество"}
+                                    onChange={e=>{
+                                        userLogin!.newUser.middleName = e.target.value;
+                                        handlerEdit({...userLogin})
+                                    }}/>
+                                    :
+                                    <p>{userLogin!.newUser ? userLogin!.newUser.middleName : "-"}</p>
+                                }
+                               
                             </div>
                         </div>
                     </div>
@@ -60,7 +93,12 @@ const UserInfo:  React.FC<Props> = ({userLogin}) => {
                                 <p>Дата рождения</p>
                             </div>
                             <div className='center'>
-                                <input className='origin' type="text" value={"Дата рождения"}/>
+                                {
+                                    edit ?
+                                    <input className='origin' type="text" value={ userLogin?.newUser?.profile?.date ? new Date(userLogin!.newUser.profile.date).toLocaleDateString("en-US") : "Дата рождения"}/>
+                                    :
+                                    <p>{userLogin!.newUser ? new Date(userLogin!.newUser.profile.date).toLocaleDateString("en-US") : "-"}</p>
+                                }
                             </div>
                         </div>
                     </div>
@@ -71,8 +109,42 @@ const UserInfo:  React.FC<Props> = ({userLogin}) => {
                                 <p>Пол</p>
                             </div>
                             <div className='center'>
-                               <p> <input name="pol" type="radio"/> Мужчина</p>
-                               <p style={{  marginLeft: '16px'}}> <input name="pol" type="radio"/> Женщина</p>
+                               <p> 
+                                    <input name="pol" type="radio" checked={ userLogin ? !(userLogin.newUser?.profile.sex) : false}
+                                     onChange={e=>{
+                                        if(userLogin != undefined && edit === true)
+                                        {
+                                            if(userLogin.newUser != undefined)
+                                            {
+                                                if(userLogin.newUser.profile != undefined)
+                                                {
+                                                    userLogin.newUser.profile.sex = !userLogin.newUser.profile.sex;
+                                                    handlerEdit({...userLogin})
+                                                }
+                                            }
+                                        }
+                                    }}
+                                    />
+                                    Мужчина
+                                </p>
+                               <p style={{  marginLeft: '16px'}}> 
+                                    <input name="pol" type="radio" checked={userLogin ? (userLogin.newUser?.profile.sex) : false}
+                                    onChange={e=>{
+                                        if(userLogin != undefined && edit === true )
+                                        {
+                                            if(userLogin.newUser != undefined)
+                                            {
+                                                if(userLogin.newUser.profile != undefined)
+                                                {
+                                                    userLogin.newUser.profile.sex = !userLogin.newUser.profile.sex;
+                                                    handlerEdit({...userLogin})
+                                                }
+                                            }
+                                        }
+                                    }}
+                                    />
+                                    Женщина
+                               </p>
                             </div>
                         </div>
                     </div>
@@ -90,7 +162,16 @@ const UserInfo:  React.FC<Props> = ({userLogin}) => {
                                         <PreviewIcon/>
                                     </div>
                                     <div>
-                                        <input className='origin' type="text" value={"XXX-XXX-XXX-XX"}/>
+                                       {
+                                        edit ? 
+                                        <input className='origin' type="text" value={userLogin ? userLogin.newUser?.profile.snils : "XXX-XXX-XXX-XX"} 
+                                        onChange={e=>{
+                                        userLogin!.newUser!.profile!.snils = e.target.value;
+                                        handlerEdit({...userLogin})
+                                        }}/>
+                                        :
+                                        <p>{userLogin!.newUser ? userLogin!.newUser.profile.snils: "-"}</p>
+                                       }
                                     </div>
                                 </div>
                             </div>
@@ -110,7 +191,16 @@ const UserInfo:  React.FC<Props> = ({userLogin}) => {
                                         <PreviewIcon/>
                                     </div>
                                     <div>
-                                        <input className='origin' type="text" value={"XXX-XXX-XXX-XX"}/>
+                                        {
+                                            edit ? 
+                                            <input className='origin' type="text" value={ userLogin ? userLogin.newUser?.profile.inn : "XXX-XXX-XXX-XX"}
+                                            onChange={e=>{
+                                                userLogin!.newUser!.profile!.inn = Number(e.target.value);
+                                                handlerEdit({...userLogin})
+                                            }}/>
+                                            :
+                                            <p>{userLogin!.newUser ? userLogin!.newUser.profile.inn: "-"}</p>
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -123,12 +213,22 @@ const UserInfo:  React.FC<Props> = ({userLogin}) => {
                                 <p>Телефон</p>
                             </div>
                             <div className='center'>
-                                <input className='origin' type="text" value={"+7 912 34-22-44"}/>
+                                {
+                                    edit ?
+                                    <input className='origin' type="text" value={ userLogin ? userLogin.newUser?.profile.phone : "+7 912 34-22-44"}
+                                    onChange={e=>{
+                                    userLogin!.newUser!.profile!.phone = e.target.value;
+                                    handlerEdit({...userLogin})
+                                    }}/>
+                                    :
+                                    <p>{userLogin!.newUser ? userLogin!.newUser.profile.phone: "-"}</p>
+                                }
                             </div>
                         </div>
                     </div>
 
                 </div>
+                
                 <div style={{
                     width:'203px',
                     height:'272px',
@@ -143,6 +243,7 @@ const UserInfo:  React.FC<Props> = ({userLogin}) => {
                     alt='NTS'
                     loading="lazy"/>
                 </div>
+               
         </div>
     )
 }

@@ -17,18 +17,6 @@ type Props = {
 const TMPCardUser_v2:  React.FC<Props> = () => {
 
     const {userLogin, errorLogin, loadingLogin} = useTypedSelector(state => state.userLogin)
-    const {findUser,fetchUsers,fetchProject,addProject,removeProject,editProject,addUserHoursProject} = useActions()
-    
-    useEffect(()=>{
-
-        let sessionToken = GetSesstionToken()
-        let sessionEmail = GetSessionEmail()
-        if(sessionToken != null)
-        {
-            findUser(sessionToken,sessionEmail);
-        }
-
-    },[loadingLogin])
 
     console.log("userLogin = ", userLogin)
     return(
@@ -42,16 +30,16 @@ const TMPCardUser_v2:  React.FC<Props> = () => {
                </div>
                <div style={{padding:'10px 10px',display: 'grid',gap:'10px'}}>
                     <div className='test'>
-                        <UserInfo userLogin={userLogin}/>
+                       
                     </div>
                     <div className='test'>
-                        <UserPasport />
+                       
                     </div>
                     <div className='test'>
-                        <UserPasportInternational/>
+                  
                     </div>
                     <div className='test'>
-                        <UserYLM/>
+                        
                     </div>
                </div>
             </div>
@@ -60,3 +48,22 @@ const TMPCardUser_v2:  React.FC<Props> = () => {
 }
 
 export default TMPCardUser_v2;
+
+/*
+
+ <div style={{padding:'10px 10px',display: 'grid',gap:'10px'}}>
+                    <div className='test'>
+                        <UserInfo/>
+                    </div>
+                    <div className='test'>
+                        <UserPasport  userLogin={userLogin}/>
+                    </div>
+                    <div className='test'>
+                        <UserPasportInternational/>
+                    </div>
+                    <div className='test'>
+                        <UserYLM/>
+                    </div>
+               </div>
+
+*/
