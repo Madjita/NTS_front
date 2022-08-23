@@ -25,10 +25,7 @@ const TMPCardUser_v2:  React.FC<Props> = () => {
                 <p style={{margin: 0}}>КАРТОЧКА СОТРУДНИКА</p>
             </div>
             <div className='grid'>
-               <div style={{padding:'10px 10px'}}>
-                   <TMPCardUser_tabs_v3/>
-               </div>
-               <div style={{padding:'10px 10px',display: 'grid',gap:'10px'}}>
+                <div style={{padding:'10px 10px',display: 'grid',gap:'10px'}}>
                     <div className='test'>
                        
                     </div>
@@ -42,6 +39,10 @@ const TMPCardUser_v2:  React.FC<Props> = () => {
                         
                     </div>
                </div>
+               <div style={{padding:'10px 10px'}}>
+                   <TMPCardUser_tabs_v3/>
+               </div>
+               
             </div>
         </div>
     )

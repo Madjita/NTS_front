@@ -4,15 +4,19 @@ import React from 'react';
 import DownloadIcon from '@mui/icons-material/Download';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import PreviewIcon from '@mui/icons-material/Preview';
+import { IOldNewUser } from '../../../../../../IDataInterface/IDataInsideInterface';
 
 type Props = {
     className?: string,
+    userLogin?: IOldNewUser
+    handlerEdit? : any
+    edit? : boolean
 }
 
 
 
  
-const UserYLM:  React.FC<Props> = () => {
+const UserYLM:  React.FC<Props> = ({userLogin,handlerEdit,edit}) => {
 
     return(
         <div style={{padding: '13px'}}>
@@ -25,17 +29,58 @@ const UserYLM:  React.FC<Props> = () => {
                             <div style={{display: 'flex'}}>
                                 <div className='center'>
                                     <div>
-                                        <input className='origin' style={{width:'97px'}} type="text" value={"7102 573922"}/>
-                                    </div>         
+                                        {
+                                            edit ?
+                                            <input className='origin' style={{width:'97px'}} type="text" value={userLogin?.newUser ? userLogin?.newUser.profile.ulmNumber : "-"}
+                                            onChange={e=>{
+                                                userLogin!.newUser!.profile.ulmNumber = Number(e.target.value)
+                                                handlerEdit({...userLogin});
+                                            }}/>
+                                            :
+                                            <p>{userLogin?.newUser ? userLogin?.newUser.profile.ulmNumber : "-"}</p>
+                                        }
+                                       
+                                    </div>    
+                                   
                                     <div style={{paddingLeft: '10px'}}>
-                                        <input className='origin' style={{width:'80px'}} type="text" value={"13.05.1983"}/>
+                                        {
+                                            edit ?
+                                            <input className='origin' style={{width:'80px'}} type="text" value={userLogin?.newUser ? new Date(userLogin?.newUser.profile.ulmDateTaked).toLocaleDateString("en-US"): "-"}
+                                            onChange={e=>{
+                                                userLogin!.newUser!.profile.ulmDateTaked = e.target.value
+                                                handlerEdit({...userLogin});
+                                            }}/>
+                                            :
+                                            <p>{userLogin?.newUser ? new Date(userLogin?.newUser.profile.ulmDateTaked).toLocaleDateString("en-US") : "-"}</p>
+
+                                        }
+                                       
                                     </div>
                                     <p style={{margin: '0px',padding: '5px'}}>-</p>
+                                     
                                     <div>
-                                        <input className='origin' style={{width:'84px'}} type="text" value={"13.05.2028"}/>
+                                        {
+                                            edit ?
+                                            <input className='origin' style={{width:'84px'}} type="text" value={userLogin?.newUser ? new Date(userLogin?.newUser.profile.ulmDateBack).toLocaleDateString("en-US"): "-"}
+                                            onChange={e=>{
+                                                userLogin!.newUser!.profile.ulmDateBack = e.target.value
+                                                handlerEdit({...userLogin});
+                                            }}/>
+                                            :
+                                            <p>{userLogin?.newUser ? new Date(userLogin?.newUser.profile.ulmDateBack).toLocaleDateString("en-US") : "-"}</p>
+                                        }
                                     </div>
                                     <div style={{paddingLeft: '10px'}}>
-                                        <input className='origin' style={{width:'80px'}} type="text" value={"722-033"}/>
+                                        {
+                                            edit ?
+                                            <input className='origin' style={{width:'80px'}} type="text" value={userLogin?.newUser ? userLogin?.newUser.profile.ulmCode : "-"}
+                                            onChange={e=>{
+                                                userLogin!.newUser!.profile.ulmCode = Number(e.target.value)
+                                                handlerEdit({...userLogin});
+                                            }}/>
+                                            :
+                                            <p>{userLogin?.newUser ? userLogin?.newUser.profile.ulmCode : "-"}</p>
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -54,22 +99,42 @@ const UserYLM:  React.FC<Props> = () => {
                                     <DownloadIcon/>
                                     <PreviewIcon/>
                                 </div>
-                                <div style={{display: 'flex',width: '408px'}}>
-                                    <textarea className='origin' style={{width: '100%',resize:'none'}} value={"кем выдан"}/>
+                                <div  style={{width: '408px'}}>
+                                    {
+                                        edit ?
+                                        <textarea className='origin' style={{width: '100%',resize:'none'}}  value={userLogin?.newUser ? userLogin?.newUser.profile.ipTaked: "кем выдан"}
+                                        onChange={e=>{
+                                            userLogin!.newUser!.profile.ipTaked = e.target.value
+                                            handlerEdit({...userLogin});
+                                        }}/>
+                                        :
+                                        <p>{userLogin?.newUser ? userLogin?.newUser.profile.ipTaked: "кем выдан"}</p>
+                                    }
                                 </div>
                         </div>
                     </div>
                 </div>
+
                 <div style={{height:'30px',display:'flex'}}>
                     <div style={{width:'100%',display:'flex',justifyContent: 'space-between'}} >
                         <div className='center'>
                             <p></p>
                         </div>
                         <div style={{width: '408px'}} className='center'>
-                            <input className='origin' style={{width: '100%'}} type="text" value={"место рождения"}/>
+                            {
+                                edit ?
+                                <input className='origin' style={{width: '100%'}} type="text" value={userLogin?.newUser ? userLogin?.newUser.profile.ipPlaceBorned: "место рождения"}
+                                onChange={e=>{
+                                    userLogin!.newUser!.profile.ipPlaceBorned = e.target.value
+                                    handlerEdit({...userLogin});
+                                }}/>
+                                :
+                                <p>{userLogin?.newUser ? userLogin?.newUser.profile.ipPlaceBorned: "место рождения"}</p>
+                            }
                         </div>
                     </div>
-                </div>                
+                </div>    
+                      
         </div>
     )
 }

@@ -5,44 +5,19 @@ import DownloadIcon from '@mui/icons-material/Download';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import PreviewIcon from '@mui/icons-material/Preview';
 import { IUser } from '../../../../../../IDataInterface/IDataInterface';
+import { IOldNewUser } from '../../../../../../IDataInterface/IDataInsideInterface';
 
 type Props = {
     className?: string,
-    userLogin?: IUser | null
+    userLogin?: IOldNewUser
+    handlerEdit? : any
+    edit? : boolean
 }
 
 
 
  
-const UserPasportInternational:  React.FC<Props> = ({userLogin}) => {
-
-    let ipNumber = null;
-    let ipDatetaked = null;
-    let ipDateback = null;
-    let ipCode = null;
-    let ipTaked = null;
-    let ipPlaceborned = null;
-
-    if(userLogin != undefined)
-    {
-        if(userLogin.profile != undefined)
-        {
-            ipNumber = userLogin.profile.ipNumber;
-            ipDatetaked = new Date(userLogin.profile.ipDateTaked).toLocaleDateString("en-US")
-            ipDateback = new Date(userLogin.profile.ipDateBack).toLocaleDateString("en-US")
-            ipCode = userLogin.profile.ipCode
-           /* prfSeries = userLogin.profile.prFseries
-            prfNumber = userLogin.profile.prFnumber
-            SeriesNumber = prfSeries + " " + prfNumber
-            prfDatetaked = new Date(userLogin.profile.prFdatetaked).toLocaleDateString("en-US")
-            prfDateback = new Date(userLogin.profile.prFdateback).toLocaleDateString("en-US")
-            prfTaked = userLogin.profile.prFtaked;
-            prfCode = userLogin.profile.prFcode;
-            prfPlaceBorned = userLogin.profile.prFplaceborned;
-            prfPlaceRegistration = userLogin.profile.prFplaceregistration;
-            prfPlaceLived = userLogin.profile.prFplacelived; */
-        }
-    }
+const UserPasportInternational:  React.FC<Props> = ({userLogin,handlerEdit,edit}) => {
 
     return(
         <div style={{padding: '13px'}}>
@@ -55,17 +30,58 @@ const UserPasportInternational:  React.FC<Props> = ({userLogin}) => {
                             <div style={{display: 'flex'}}>
                                 <div className='center'>
                                     <div>
-                                        <input className='origin' style={{width:'97px'}} type="text" value={ipNumber ? ipNumber : "7102 573922"}/>
-                                    </div>         
+                                        {
+                                            edit ?
+                                            <input className='origin' style={{width:'97px'}} type="text" value={userLogin?.newUser ? userLogin?.newUser.profile.ipNumber : "-"}
+                                            onChange={e=>{
+                                                userLogin!.newUser!.profile.ipNumber = Number(e.target.value)
+                                                handlerEdit({...userLogin});
+                                            }}/>
+                                            :
+                                            <p>{userLogin?.newUser ? userLogin?.newUser.profile.ipNumber : "-"}</p>
+                                        }
+                                       
+                                    </div>    
+                                   
                                     <div style={{paddingLeft: '10px'}}>
-                                        <input className='origin' style={{width:'80px'}} type="text" value={ipDatetaked ? ipDatetaked: "13.05.1983"}/>
+                                        {
+                                            edit ?
+                                            <input className='origin' style={{width:'80px'}} type="text" value={userLogin?.newUser ? new Date(userLogin?.newUser.profile.ipDateTaked).toLocaleDateString("en-US"): "-"}
+                                            onChange={e=>{
+                                                userLogin!.newUser!.profile.ipDateTaked = e.target.value
+                                                handlerEdit({...userLogin});
+                                            }}/>
+                                            :
+                                            <p>{userLogin?.newUser ? new Date(userLogin?.newUser.profile.ipDateTaked).toLocaleDateString("en-US") : "-"}</p>
+
+                                        }
+                                       
                                     </div>
                                     <p style={{margin: '0px',padding: '5px'}}>-</p>
+                                     
                                     <div>
-                                        <input className='origin' style={{width:'84px'}} type="text" value={"13.05.2028"}/>
+                                        {
+                                            edit ?
+                                            <input className='origin' style={{width:'84px'}} type="text" value={userLogin?.newUser ? new Date(userLogin?.newUser.profile.ipDateBack).toLocaleDateString("en-US"): "-"}
+                                            onChange={e=>{
+                                                userLogin!.newUser!.profile.ipDateBack = e.target.value
+                                                handlerEdit({...userLogin});
+                                            }}/>
+                                            :
+                                            <p>{userLogin?.newUser ? new Date(userLogin?.newUser.profile.ipDateBack).toLocaleDateString("en-US") : "-"}</p>
+                                        }
                                     </div>
                                     <div style={{paddingLeft: '10px'}}>
-                                        <input className='origin' style={{width:'80px'}} type="text" value={"722-033"}/>
+                                        {
+                                            edit ?
+                                            <input className='origin' style={{width:'80px'}} type="text" value={userLogin?.newUser ? userLogin?.newUser.profile.ipCode : "-"}
+                                            onChange={e=>{
+                                                userLogin!.newUser!.profile.ipCode = Number(e.target.value)
+                                                handlerEdit({...userLogin});
+                                            }}/>
+                                            :
+                                            <p>{userLogin?.newUser ? userLogin?.newUser.profile.ipCode : "-"}</p>
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -84,22 +100,42 @@ const UserPasportInternational:  React.FC<Props> = ({userLogin}) => {
                                     <DownloadIcon/>
                                     <PreviewIcon/>
                                 </div>
-                                <div style={{display: 'flex',width: '408px'}}>
-                                    <textarea className='origin' style={{width: '100%',resize:'none'}}  value={"кем выдан"}/>
+                                <div  style={{width: '408px'}}>
+                                    {
+                                        edit ?
+                                        <textarea className='origin' style={{width: '100%',resize:'none'}}  value={userLogin?.newUser ? userLogin?.newUser.profile.ipTaked: "кем выдан"}
+                                        onChange={e=>{
+                                            userLogin!.newUser!.profile.ipTaked = e.target.value
+                                            handlerEdit({...userLogin});
+                                        }}/>
+                                        :
+                                        <p>{userLogin?.newUser ? userLogin?.newUser.profile.ipTaked: "кем выдан"}</p>
+                                    }
                                 </div>
                         </div>
                     </div>
                 </div>
+
                 <div style={{height:'30px',display:'flex'}}>
                     <div style={{width:'100%',display:'flex',justifyContent: 'space-between'}} >
                         <div className='center'>
                             <p></p>
                         </div>
                         <div style={{width: '408px'}} className='center'>
-                            <input className='origin' style={{width: '100%'}} type="text" value={"место рождения"}/>
+                            {
+                                edit ?
+                                <input className='origin' style={{width: '100%'}} type="text" value={userLogin?.newUser ? userLogin?.newUser.profile.ipPlaceBorned: "место рождения"}
+                                onChange={e=>{
+                                    userLogin!.newUser!.profile.ipPlaceBorned = e.target.value
+                                    handlerEdit({...userLogin});
+                                }}/>
+                                :
+                                <p>{userLogin?.newUser ? userLogin?.newUser.profile.ipPlaceBorned: "место рождения"}</p>
+                            }
                         </div>
                     </div>
-                </div>                
+                </div>    
+                      
         </div>
     )
 }

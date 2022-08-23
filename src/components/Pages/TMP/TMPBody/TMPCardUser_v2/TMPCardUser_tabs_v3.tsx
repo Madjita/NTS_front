@@ -128,10 +128,10 @@ function getStyle (isActive : any) {
                 <UserPasport userLogin={newUser} handlerEdit={handlerEdit} edit={edit}/>
             </TabPanel>
             <TabPanel value={value} index={2}>
-               {/*  <UserPasportInternational/>*/}
+                 <UserPasportInternational userLogin={newUser} handlerEdit={handlerEdit} edit={edit}/>
             </TabPanel>
             <TabPanel value={value} index={3}>
-               {/* <UserYLM/>*/}
+                <UserYLM userLogin={newUser} handlerEdit={handlerEdit} edit={edit}/>
             </TabPanel>
         </div>
     )

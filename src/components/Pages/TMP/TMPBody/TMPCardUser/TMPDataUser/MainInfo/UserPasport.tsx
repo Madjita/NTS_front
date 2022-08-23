@@ -31,37 +31,7 @@ useEffect(()=>{
 
 },[userLogin])
 
-/*let prfSeries = null;
-let prfNumber = null;
-
-
-let prfDatetaked = null;
-let prfDateback = null;
-let prfCode = null;
-let prfTaked = null;
-let prfPlaceBorned = null;
-let prfPlaceRegistration = null;
-let prfPlaceLived = null;
-
-if(userLogin != undefined)
-{
-    if(userLogin.profile != undefined)
-    {
-        prfSeries = userLogin.profile.prfSeries
-        prfNumber = userLogin.profile.prfNumber
-        SeriesNumber = prfSeries + " " + prfNumber
-        prfDatetaked = new Date(userLogin.profile.prfDateTaked).toLocaleDateString("en-US")
-        prfDateback = new Date(userLogin.profile.prfDateBack).toLocaleDateString("en-US")
-        prfTaked = userLogin.profile.prfTaked;
-        prfCode = userLogin.profile.prfCode;
-        prfPlaceBorned = userLogin.profile.prfPlaceBorned;
-        prfPlaceRegistration = userLogin.profile.prfPlaceRegistration;
-        prfPlaceLived = userLogin.profile.prfPlaceLived;
-    }
-}*/
-
-
-    return(
+return(
         <div style={{padding: '13px'}}>
                 <div style={{height:'30px',display:'flex'}}>
                     <div style={{width:'100%',display:'flex',justifyContent: 'space-between'}} >
@@ -107,24 +77,44 @@ if(userLogin != undefined)
                                             <p>{SeriesNumber ? SeriesNumber : "-"}</p>
                                         }
                                     </div>    
-                                    {/*     
+                                   
                                     <div style={{paddingLeft: '10px'}}>
-                                        <input className='origin' style={{width:'80px'}} type="text" value={prfDatetaked ? prfDatetaked: "13.05.1983"}/>
+                                      {
+                                        edit ? 
+                                        <input className='origin' style={{width:'80px'}} type="text" value={userLogin?.newUser ? new Date(userLogin?.newUser.profile.prfDateTaked).toLocaleDateString("en-US"): "-"}/>
+                                        :
+                                        <p>{userLogin?.newUser ? new Date(userLogin?.newUser.profile.prfDateTaked).toLocaleDateString("en-US"): "-"}</p>
+                                      }
                                     </div>
+  
                                     <p style={{margin: '0px',padding: '5px'}}>-</p>
                                     <div>
-                                        <input className='origin' style={{width:'80px'}} type="text" value={prfDateback ? prfDateback : "13.05.2028"}/>
+                                        {
+                                        edit ? 
+                                        <input className='origin' style={{width:'80px'}} type="text" value={userLogin?.newUser ? new Date(userLogin?.newUser.profile.prfDateBack).toLocaleDateString("en-US"): "-"}/>
+                                        :
+                                        <p>{userLogin?.newUser ? new Date(userLogin?.newUser.profile.prfDateBack).toLocaleDateString("en-US"): "-"}</p>
+                                        }
                                     </div>
                                     <div style={{paddingLeft: '10px'}}>
-                                        <input className='origin' style={{width:'80px'}} type="text" value={prfCode ? prfCode: "722-033"}/>
+                                        {
+                                        edit ? 
+                                        <input className='origin' style={{width:'80px'}} type="text" value={userLogin?.newUser ? userLogin?.newUser.profile.prfCode: "-"}
+                                        onChange={e=>{
+                                            userLogin!.newUser!.profile.prfCode= Number(e.target.value);
+                                            handlerEdit({...userLogin})
+                                        }}
+                                        />
+                                        :
+                                        <p>{userLogin?.newUser ? userLogin?.newUser.profile.prfCode: "-"}</p>
+                                        }
                                     </div>
-                                    */}
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-{/*
+
                 <div style={{height:'55px',display:'flex'}}>
                     <div style={{width:'100%',display:'flex',justifyContent: 'space-between'}} >
                         <div className='center'>
@@ -136,43 +126,86 @@ if(userLogin != undefined)
                                     <DownloadIcon/>
                                     <PreviewIcon/>
                                 </div>
-                                <div style={{display: 'flex',width: '408px'}}>
-                                    <textarea className='origin' style={{width: '100%', resize: 'none'}} value={prfTaked ? prfTaked : "кем выдан"}/>
+                                <div style={{width: '408px'}} className='center'>
+                                    {
+                                        edit ?
+                                        <textarea className='origin' style={{width: '100%', resize: 'none'}} value={userLogin?.newUser ? userLogin?.newUser.profile.prfTaked : "кем выдан"}
+                                        onChange={e=>{
+                                            userLogin!.newUser!.profile.prfTaked = e.target.value;
+                                            handlerEdit({...userLogin})
+                                        }}
+                                        />
+                                        :
+                                        <p>{userLogin?.newUser ? userLogin?.newUser.profile.prfTaked: "кем выдан"}</p>
+                                    }
                                 </div>
                         </div>
                     </div>
                 </div>
+
                 <div style={{height:'30px',display:'flex'}}>
                     <div style={{width:'100%',display:'flex',justifyContent: 'space-between'}} >
                         <div className='center'>
                             <p></p>
                         </div>
                         <div style={{width: '408px'}} className='center'>
-                            <input className='origin' style={{width: '100%'}} type="text" value={prfPlaceBorned ? prfPlaceBorned : "место рождения"}/>
+                           {
+                            edit ?
+                            <input className='origin' style={{width: '100%'}} type="text" value={userLogin?.newUser ? userLogin?.newUser.profile.prfPlaceBorned : "место рождения"}
+                            onChange={e=>{
+                                userLogin!.newUser!.profile.prfPlaceBorned = e.target.value;
+                                handlerEdit({...userLogin})
+                            }}
+                            />
+                            :
+                            <p>{userLogin?.newUser ? userLogin?.newUser.profile.prfPlaceBorned : "место рождения"}</p>
+                           }
                         </div>
                     </div>
                 </div>
+
                 <div style={{height:'30px',display:'flex'}}>
                     <div style={{width:'100%',display:'flex',justifyContent: 'space-between'}} >
                         <div className='center'>
                             <p></p>
                         </div>
                         <div style={{width: '408px'}} className='center'>
-                            <input className='origin' style={{width: '100%'}} type="text" value={prfPlaceRegistration ? prfPlaceRegistration:   "место прописки"}/>
+                           {
+                            edit ?
+                            <input className='origin' style={{width: '100%'}} type="text" value={userLogin?.newUser  ? userLogin?.newUser.profile.prfPlaceRegistration:   "место прописки"}
+                            onChange={e=>{
+                                userLogin!.newUser!.profile.prfPlaceRegistration = e.target.value;
+                                handlerEdit({...userLogin})
+                            }}
+                            />
+                            :
+                            <p>{userLogin?.newUser ? userLogin?.newUser.profile.prfPlaceRegistration : "место прописки"}</p>
+                           }
                         </div>
                     </div>
                 </div>
+
                 <div style={{height:'30px',display:'flex'}}>
                     <div style={{width:'100%',display:'flex',justifyContent: 'space-between'}} >
                         <div className='center'>
                             <p></p>
                         </div>
                         <div style={{width: '408px'}} className='center'>
-                            <input className='origin' style={{width: '100%'}} type="text" value={prfPlaceLived ? prfPlaceLived : "место проживания"}/>
+                           {
+                            edit ?
+                            <input className='origin' style={{width: '100%'}} type="text" value={userLogin?.newUser ? userLogin?.newUser.profile.prfPlaceLived : "место проживания"}
+                            onChange={e=>{
+                                userLogin!.newUser!.profile.prfPlaceLived = e.target.value;
+                                handlerEdit({...userLogin})
+                            }}
+                            />
+                            :
+                            <p>{userLogin?.newUser ? userLogin?.newUser.profile.prfPlaceLived : "место проживания"}</p>
+                           }
                         </div>
                     </div>
                 </div>
-                                */}
+
         </div>
     )
 }
