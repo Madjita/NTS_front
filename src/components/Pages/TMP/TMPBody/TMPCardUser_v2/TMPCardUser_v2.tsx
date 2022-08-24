@@ -10,6 +10,7 @@ import UserPasportInternational from '../TMPCardUser/TMPDataUser/MainInfo/UserPa
 import UserYLM from '../TMPCardUser/TMPDataUser/MainInfo/UserYLM';
 import TMPCardUser_tabs_v3 from './TMPCardUser_tabs_v3';
 import './TMPCardUser_v2.css'
+
 type Props = {
     className?: string,
 }

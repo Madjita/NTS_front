@@ -38,12 +38,6 @@ export const changeUser = (sessionToken: any,newUser: OldNewUser) => {
 
             newUser.oldUser.userProjects=[]
             const json = JSON.stringify(newUser);
-
-          /* axios.defaults.headers.common['Authorization'] = sessionToken;
-            axios.defaults.headers.common['Content-Type'] = 'application/json';
-            const response = await (await axios.put(GetConnectionString()+'/Authorize/users/',json))*/
-
-            console.log(newUser)
               
             const response= await (await axios.put(GetConnectionString()+'/Authorize/users',json, { headers: {
                 'Authorization': sessionToken,

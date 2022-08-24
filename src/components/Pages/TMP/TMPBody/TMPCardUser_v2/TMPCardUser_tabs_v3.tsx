@@ -1,4 +1,4 @@
-import { Box, Tab, Tabs, Tooltip } from '@mui/material';
+import { Box, Button, Tab, Tabs, Tooltip } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useActions } from '../../../../../redux/hooks/userActions';
 import { useTypedSelector } from '../../../../../redux/hooks/useTypedSelector';
@@ -14,6 +14,7 @@ import UserYLM from '../TMPCardUser/TMPDataUser/MainInfo/UserYLM';
 import EditIcon from '@mui/icons-material/Edit'; 
 import PreviewIcon from '@mui/icons-material/Preview';
 import Dialog_copy from './Dialog_copy';
+import Dialog_acknowledge from './Dialog_acknowledge';
 
 type Props = {
     className?: string,
@@ -64,7 +65,6 @@ function getStyle (isActive : any) {
     const {userLogin, errorLogin, loadingLogin} = useTypedSelector(state => state.userLogin)
     
     const init = () => {
-        console.log("LOL")
         let newUser = new Object as OldNewUser;
             if(userLogin != undefined)
             {
@@ -84,6 +84,7 @@ function getStyle (isActive : any) {
     })
 
     const [edit,setEdit] = React.useState<boolean>(false)
+    const [editDialog,setEditDialog] = React.useState<boolean>(false)
 
     const [previewDataFlag,setPreviewDataFlag] = React.useState<boolean>(false)
     const [previewData,setPreviewData] = React.useState<string>('')
@@ -119,6 +120,10 @@ function getStyle (isActive : any) {
    
     const handlerEditFlag = (e: any) =>{
         setEdit(!edit)
+        if(edit)
+        {
+            setEditDialog(editDialog => !editDialog)
+        }
     }
     const handlerEdit = (e: any) =>{
         ChangeInfo({...e})
@@ -184,6 +189,12 @@ function getStyle (isActive : any) {
                     
                 </div>
             </Box>
+            <Dialog_acknowledge
+            open={editDialog}
+            setOpen={setEditDialog}
+            newUser={newUser}
+            setNewUser={ChangeInfo}
+            />
             <Dialog_copy open={openDialogCopy} 
             setOpen={setOpenDialogCopy} 
             textForCopy={previewData}
