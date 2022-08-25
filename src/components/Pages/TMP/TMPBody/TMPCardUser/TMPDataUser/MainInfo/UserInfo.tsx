@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-
+import './MainInfo.css'
 
 import DownloadIcon from '@mui/icons-material/Download';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
@@ -21,7 +21,38 @@ export const disabledStyle = {
     border: '0px'
 };
 
- 
+
+
+const styleMenuItem = {
+        padding: '5px 18px',
+        cursor: 'pointer',
+        fontSize: '12.5px',
+        backgroundAttachment: 'scroll',
+        backgroundClip: 'border-box',
+        backgroundColor: 'rgba(0, 0, 0, 0)',
+        backgroundImage: 'url("https://st4-15.vk.com/images/icons/edit_photo_icons_white_2x.png?2")',
+        backgroundOrigin: 'padding-box',
+        backgroundPositionX: '3%',
+        backgroundPositionY: '4px',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: '20px 65px',
+}
+
+const styleMenuItem2 = {
+    padding: '5px 20px',
+    cursor: 'pointer',
+    fontSize: '12.5px',
+    backgroundAttachment: 'scroll',
+    backgroundClip: 'border-box',
+    backgroundColor: 'rgba(0, 0, 0, 0)',
+    backgroundImage: 'url("https://st4-15.vk.com/images/icons/edit_photo_icons_white_2x.png?2")',
+    backgroundOrigin: 'padding-box',
+    backgroundPositionX: '3%',
+    backgroundPositionY: '-20px',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: '20px 65px',
+}
+
 const UserInfo:  React.FC<Props> = ({userLogin,handlerEdit,edit}) => {
 
 
@@ -305,13 +336,28 @@ return(
                     margin:'13px',
                     display: 'flex',
                     alignItems: 'center',
-                    justifyContent: 'center',}}>
+                    justifyContent: 'center',
+                    position: 'relative'
+                    }}>
+                    
                     <img  
                     src={"https://s3-alpha-sig.figma.com/img/96bb/4f15/1760424f6bb319f08d77ff589f892d8c?Expires=1661731200&Signature=RRB6H5qJBy3WET2pry74WLyaYiGJqwaNKFnZPpLtiJpASQnv9cx7UWUXkdOgFFhnSxmxiRxWD4~xusDrniFvonV9~2lzmdVHvyHKcpPS9Wo5Zk2oe9VQFzdX669uFMxPHGjFxdauiTSQQJy3h-MkdnOu-pX~5JKGhJqktgxlooCG~syrZrJew6sspwAqEQdtZ33W0ivDcaTiN~HkEGi-iRYd74dD0TiH-M73jwPyUEMQ5LX4Oltg~6now0UkXkZmKJKFxyHGL1CmWQD-SQvjdgUV6W9vOV3rByaFfJGs~Ab0wtA3h6Zz13oTHhC1yxxYu3gIZBbCDsKYrpSlm~P9vQ__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"}
                     srcSet={"https://s3-alpha-sig.figma.com/img/96bb/4f15/1760424f6bb319f08d77ff589f892d8c?Expires=1661731200&Signature=RRB6H5qJBy3WET2pry74WLyaYiGJqwaNKFnZPpLtiJpASQnv9cx7UWUXkdOgFFhnSxmxiRxWD4~xusDrniFvonV9~2lzmdVHvyHKcpPS9Wo5Zk2oe9VQFzdX669uFMxPHGjFxdauiTSQQJy3h-MkdnOu-pX~5JKGhJqktgxlooCG~syrZrJew6sspwAqEQdtZ33W0ivDcaTiN~HkEGi-iRYd74dD0TiH-M73jwPyUEMQ5LX4Oltg~6now0UkXkZmKJKFxyHGL1CmWQD-SQvjdgUV6W9vOV3rByaFfJGs~Ab0wtA3h6Zz13oTHhC1yxxYu3gIZBbCDsKYrpSlm~P9vQ__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"}
                     alt='NTS'
                     loading="lazy"/>
+                   
+                    <div className='styleMenuUserInfoConteiner'>
+                        <div className='styleMenuUserInfo'>
+                            <div style={{marginTop: '5px',...styleMenuItem}} className='center'>
+                                <span style={{paddingLeft: '15px'}}>Обновить фотографию</span>
+                            </div>
+                            <div style={styleMenuItem2} className='center'>
+                                <span style={{paddingLeft: '15px'}}>Изменить миниатюру</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                
                
         </div>
     )

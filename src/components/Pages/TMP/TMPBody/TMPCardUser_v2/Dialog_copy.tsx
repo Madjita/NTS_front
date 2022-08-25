@@ -29,8 +29,13 @@ const Dialog_copy:  React.FC<Props> = ({open,setOpen,textForCopy,setTextForCopy}
         PaperProps={{
             sx: {
               width: "50%",
-              minHeight: "50%"
+              minHeight: "50%" 
+            },
+            style:{
+                backgroundColor:'#333333',
+                color: 'white',
             }
+            
           }}>
             <DialogTitle>Скопировать информацию: </DialogTitle>
             <DialogContent dividers>
@@ -39,7 +44,7 @@ const Dialog_copy:  React.FC<Props> = ({open,setOpen,textForCopy,setTextForCopy}
                 }}/>
             </DialogContent>
             <DialogActions>
-            <Button autoFocus onClick={handleClickClose}>
+            <Button autoFocus onClick={handleClickClose} sx={{color: 'white',}}>
                 Скопировать
             </Button>
             </DialogActions>
