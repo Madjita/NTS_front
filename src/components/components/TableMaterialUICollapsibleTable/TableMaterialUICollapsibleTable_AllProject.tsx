@@ -866,7 +866,10 @@ const {projects} = useTypedSelector(state => state.project)
     
 
   return (
-    <React.Fragment>
+    <div style={{
+      position: 'relative',
+      height: '100%',
+    }}>
         <EnhancedTableToolbar 
         numSelected={selected.length}  
         handleAddProject={handleAddProject} 
@@ -875,7 +878,7 @@ const {projects} = useTypedSelector(state => state.project)
         accumCollapseUser={accumCollapseUser}/>
 
 
-        <TableContainer>
+        <TableContainer style={{overflowX: 'inherit'}}>
           <Table
             aria-labelledby="tableTitle"
             size={dense ? "small" : "medium"}
@@ -935,8 +938,13 @@ const {projects} = useTypedSelector(state => state.project)
           page={page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
+          style={{
+            bottom: '0',
+            position: 'absolute',
+            width: '100%'
+          }}
         />
-    </React.Fragment>
+    </div>
   );
 }
 

@@ -54,7 +54,7 @@ const TMPCardUser_v2:  React.FC<Props> = () => {
             </div>
 
             <div className='test' style={{height: 'calc(100vh - 490px)',
-                                            margin: '0px 10px'}}>
+                                            margin: '0px 10px',overflow: 'auto'}}>
                 <TableMaterialUICollapsibleTable_AllProject 
                             addProject={addProject} 
                             removeProject={removeProject} 
