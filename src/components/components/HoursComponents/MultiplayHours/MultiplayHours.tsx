@@ -94,8 +94,11 @@ const MultiplayHours:  React.FC<Props> = ({outSideTextColor,outSideCountView}) =
     }
 
     return(
-        <React.Fragment>
-                  <TableContainer>
+        <div style={{
+          position: 'relative',
+          height: '100%',
+        }}>
+                  <TableContainer  style={{overflowX: 'inherit'}}>
                     <Table
                       aria-labelledby="tableTitle"
                       size="small"
@@ -175,8 +178,13 @@ const MultiplayHours:  React.FC<Props> = ({outSideTextColor,outSideCountView}) =
                     page={page}
                     onPageChange={handleChangePage}
                     onRowsPerPageChange={handleChangeRowsPerPage}
+                    style={{
+                      bottom: '0',
+                      position: 'absolute',
+                      width: '100%'
+                    }}
                   />
-      </React.Fragment>
+      </div>
     )
 }
 

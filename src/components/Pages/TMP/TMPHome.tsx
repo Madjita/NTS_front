@@ -29,6 +29,8 @@ const TMPHome:  React.FC<Props> = () => {
         if(sessionToken != null)
         {
             findUser(sessionToken,sessionEmail);
+            fetchUsers(sessionToken)
+            fetchProject(sessionToken)
         }
 
     },[loadingLogin])

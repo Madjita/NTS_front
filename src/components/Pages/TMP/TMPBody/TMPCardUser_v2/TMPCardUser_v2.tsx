@@ -21,15 +21,6 @@ const TMPCardUser_v2:  React.FC<Props> = () => {
 
     const {userLogin, errorLogin, loadingLogin} = useTypedSelector(state => state.userLogin)
     const {fetchProject,addProject,removeProject,editProject,addUserHoursProject} = useActions()
-    
-    useEffect(()=>{
-        let sessionToken =  GetSesstionToken()
-        let sessionEmail =  GetSessionEmail()
-        if(sessionToken != null && sessionEmail != null && userLogin === null)
-        {
-            fetchProject(sessionToken)
-        }
-    },[])
 
     return(
         <div style={{}}>
@@ -37,7 +28,7 @@ const TMPCardUser_v2:  React.FC<Props> = () => {
                 <p style={{margin: 0}}>КАРТОЧКА СОТРУДНИКА</p>
             </div>
             <div className='grid'>
-                <div style={{padding:'10px 10px',display: 'grid',gap:'10px'}}>
+                <div style={{padding:'10px 10px',display: 'grid',gap:'10px',}}>
                     {/*
                     <div className='test'>
                        
@@ -52,8 +43,8 @@ const TMPCardUser_v2:  React.FC<Props> = () => {
                         
                     </div>
                      */}
-                    <div className='test'>
-                        <MultiplayHours outSideCountView={2}/>    
+                    <div className='test' style={{overflow: 'auto', maxWidth:'100%'}}>
+                        <MultiplayHours outSideCountView={3}/>    
                     </div>
                      
                </div>
