@@ -518,7 +518,6 @@ function Row(props: { row: IProject, labelId: any,handleAddHours: any,handleRemo
         </IconButton>
       </TableCell>
       <TableCell
-        component="th"
         id={labelId}
         scope="row"
         padding="none"
@@ -867,9 +866,7 @@ const {projects} = useTypedSelector(state => state.project)
     
 
   return (
-    <Box sx={{ width: "100%",maxHeight: '780px',overflow: 'auto' }}>
-      <Paper sx={{ width: "100%", mb: 2}}>
-
+    <React.Fragment>
         <EnhancedTableToolbar 
         numSelected={selected.length}  
         handleAddProject={handleAddProject} 
@@ -939,8 +936,7 @@ const {projects} = useTypedSelector(state => state.project)
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
-      </Paper>
-    </Box>
+    </React.Fragment>
   );
 }
 

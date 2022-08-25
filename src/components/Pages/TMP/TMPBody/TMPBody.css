@@ -16,7 +16,37 @@
     justify-content: center;
 }
 
+th {
+    color: white !important;
+}
 
+td {
+    color: white !important;
+}
+input{
+    color: white !important;
+}
+button {
+   /* color: white !important;*/
+}
+span {
+    color: white !important;
+}
+p{
+    color: white !important;
+}
+/*.css-12q85cb-MuiTableCell-root {
+
+    color: white !important;
+}
+.css-372vfo-MuiTableCell-root
+{
+    
+    color: white !important;
+}
+.css-372vfo-MuiTableCell-root{
+    color: white !important;
+}*/
 
 @media  (max-width: 891px),(max-width: 1244px) {
     .grid{

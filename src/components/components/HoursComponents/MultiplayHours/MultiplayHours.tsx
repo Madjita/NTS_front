@@ -29,29 +29,20 @@ import { getComparator, stableSort } from '../../TableMaterialUICollapsibleTable
 import RowMultiplayHours from './RowMultiplayHours';
 
 type Props = {
-    className?: string,
+    outSideTextColor?: any,
+    outSideCountView?: number,
 }
 
-/*interface IMultiplayWeek{
-    userProject: IUserProject,
-    dayOfWeek: number,
-    user: IUser,
-   
-}
-interface IMultiplayHours{
-    list: IMultiplayWeek[];
-}*/
- 
 type Order = 'asc' | 'desc';
 
-const MultiplayHours:  React.FC<Props> = ({}) => {
+const MultiplayHours:  React.FC<Props> = ({outSideTextColor,outSideCountView}) => {
 
     const [order, setOrder] = React.useState<Order>("asc");
     const [orderBy, setOrderBy] = React.useState<keyof IProject>("indexAdd");
     const [selected, setSelected] = React.useState<readonly string[]>([]);
     const [page, setPage] = React.useState(0);
     const [dense, setDense] = React.useState(true);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [rowsPerPage, setRowsPerPage] = React.useState(outSideCountView ? outSideCountView : 10);
 
     const [list, setList] = React.useState<IUserProject[]>([{
         project: new Object as IProject,
@@ -68,7 +59,7 @@ const MultiplayHours:  React.FC<Props> = ({}) => {
     const handleChangeRowsPerPage = (
         event: React.ChangeEvent<HTMLInputElement>
       ) => {
-        setRowsPerPage(parseInt(event.target.value, 10));
+        setRowsPerPage(parseInt(event.target.value, 3));
         setPage(0);
     };
     
@@ -104,94 +95,92 @@ const MultiplayHours:  React.FC<Props> = ({}) => {
 
     return(
         <React.Fragment>
-            <Box sx={{ width: "100%",maxHeight: '780px',overflow: 'auto' }}>
-                <Paper sx={{ width: "100%", mb: 2}}>
+                  <TableContainer>
+                    <Table
+                      aria-labelledby="tableTitle"
+                      size="small"
+                    >
+                    <TableHead>
 
-        <TableContainer>
-          <Table
-            aria-labelledby="tableTitle"
-            size="small"
-          >
-           <TableHead>
-
-           <TableRow hover sx={{ '& > *': { borderBottom: 'unset' } }}>
-                    <TableCell colSpan={12} sx={{textAlign:'center'}}>
-                        <Button onClick={handleAddHours}>
-                            Загрузить почасовку
-                        </Button>
-                    </TableCell>
-            </TableRow>
-            <TableRow>
-                <TableCell align="center">№</TableCell>
-                <TableCell align="center">Номер недели</TableCell>
-                <TableCell align="center">День недели</TableCell>
-                <TableCell align="center">Проект</TableCell>
-                <TableCell align="center">Инженер</TableCell>
-                <TableCell align="center">Код</TableCell>
-                <TableCell align="center">Начало работы</TableCell>
-                <TableCell align="center">Окончание работы</TableCell>
-                <TableCell align="center">Количество часов</TableCell>
-                <TableCell align="center"></TableCell>
-            </TableRow>
-            </TableHead>
-            <TableBody>
+                    <TableRow hover sx={{ '& > *': { borderBottom: 'unset' } }}>
+                              <TableCell colSpan={12} sx={{textAlign:'center'}}>
+                                  <Button onClick={handleAddHours}>
+                                      Загрузить почасовку
+                                  </Button>
+                              </TableCell>
+                      </TableRow>
+                      <TableRow>
+                          <TableCell align="center">№</TableCell>
+                          <TableCell align="center">Номер недели</TableCell>
+                          <TableCell align="center">День недели</TableCell>
+                          <TableCell align="center">Проект</TableCell>
+                          <TableCell align="center">Инженер</TableCell>
+                          <TableCell align="center">Код</TableCell>
+                          <TableCell align="center">Начало работы</TableCell>
+                          <TableCell align="center">Окончание работы</TableCell>
+                          <TableCell align="center">Количество часов</TableCell>
+                          <TableCell align="center"></TableCell>
+                      </TableRow>
+                      </TableHead>
+                      <TableBody>
 
 
-              {/* if you don't need to support IE11, you can replace the `stableSort` call with:
-              rows.slice().sort(getComparator(order, orderBy)) */}
-              { stableSort(list as any, getComparator(order, orderBy))
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row, index) => {
-                  const labelId = `enhanced-table-checkbox-${index}`;
+                        {/* if you don't need to support IE11, you can replace the `stableSort` call with:
+                        rows.slice().sort(getComparator(order, orderBy)) */}
+                        { stableSort(list as any, getComparator(order, orderBy))
+                          .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                          .map((row, index) => {
+                            const labelId = `enhanced-table-checkbox-${index}`;
 
-                  return (
-                      <RowMultiplayHours 
-                        key={index} 
-                        page={page}
-                        rowsPerPage={rowsPerPage}
-                        index={index}
-                        row={row as any}
-                        labelId={labelId}
-                        rowsCount={list.length}
-                        order={order} 
-                        handleRemove={handleRemove}
-                        setRowsPerPage={setRowsPerPage}/>
-                    
-                  );
-                })}
+                            return (
+                                <RowMultiplayHours 
+                                  key={index} 
+                                  page={page}
+                                  rowsPerPage={rowsPerPage}
+                                  index={index}
+                                  row={row as any}
+                                  labelId={labelId}
+                                  rowsCount={list.length}
+                                  order={order} 
+                                  handleRemove={handleRemove}
+                                  setRowsPerPage={setRowsPerPage}/>
+                              
+                            );
+                          })}
 
-            <TableRow hover sx={{ '& > *': { borderBottom: 'unset' } }}>
-                    <TableCell colSpan={12} sx={{textAlign:'center'}}>
-                        <Button onClick={handleAddRowInList}>
-                            Добавить строчку
-                        </Button>
-                    </TableCell>
-            </TableRow>
-              {emptyRows > 0 && (
-                <TableRow
-                  style={{
-                    height: (dense ? 43 : 63) * emptyRows
-                  }}
-                >
-                  <TableCell colSpan={12} />
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[14]}
-          component="div"
-          count={list.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-      </Paper>
-    </Box>
-        </React.Fragment>
+                      <TableRow hover sx={{ '& > *': { borderBottom: 'unset' } }}>
+                              <TableCell colSpan={12} sx={{textAlign:'center'}}>
+                                  <Button onClick={handleAddRowInList}>
+                                      Добавить строчку
+                                  </Button>
+                              </TableCell>
+                      </TableRow>
+                        {emptyRows > 0 && (
+                          <TableRow
+                            style={{
+                              height: (dense ? 43 : 63) * emptyRows
+                            }}
+                          >
+                            <TableCell colSpan={12} />
+                          </TableRow>
+                        )}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                  <TablePagination
+                    rowsPerPageOptions={[outSideCountView ? outSideCountView : 14]}
+                    component="div"
+                    count={list.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onPageChange={handleChangePage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                  />
+      </React.Fragment>
     )
 }
 
 export default MultiplayHours;
+
+//12
+//14

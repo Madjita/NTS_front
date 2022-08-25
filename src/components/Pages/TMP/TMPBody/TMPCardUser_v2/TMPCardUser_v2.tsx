@@ -3,6 +3,8 @@ import { useActions } from '../../../../../redux/hooks/userActions';
 import { useTypedSelector } from '../../../../../redux/hooks/useTypedSelector';
 import { findUser } from '../../../../../redux/store/action-creators/userLoginAction';
 import { GetSessionEmail, GetSesstionToken } from '../../../../../settings/settings';
+import MultiplayHours from '../../../../components/HoursComponents/MultiplayHours/MultiplayHours';
+import TableMaterialUICollapsibleTable_AllProject from '../../../../components/TableMaterialUICollapsibleTable/TableMaterialUICollapsibleTable_AllProject';
 import { IUser } from '../../../../IDataInterface/IDataInterface';
 import UserInfo from '../TMPCardUser/TMPDataUser/MainInfo/UserInfo';
 import UserPasport from '../TMPCardUser/TMPDataUser/MainInfo/UserPasport';
@@ -18,8 +20,17 @@ type Props = {
 const TMPCardUser_v2:  React.FC<Props> = () => {
 
     const {userLogin, errorLogin, loadingLogin} = useTypedSelector(state => state.userLogin)
+    const {fetchProject,addProject,removeProject,editProject,addUserHoursProject} = useActions()
+    
+    useEffect(()=>{
+        let sessionToken =  GetSesstionToken()
+        let sessionEmail =  GetSessionEmail()
+        if(sessionToken != null && sessionEmail != null && userLogin === null)
+        {
+            fetchProject(sessionToken)
+        }
+    },[])
 
-    console.log("userLogin = ", userLogin)
     return(
         <div style={{}}>
             <div style={{fontSize:'28px',textAlign: 'center',paddingTop:'10px'}}>
@@ -27,6 +38,7 @@ const TMPCardUser_v2:  React.FC<Props> = () => {
             </div>
             <div className='grid'>
                 <div style={{padding:'10px 10px',display: 'grid',gap:'10px'}}>
+                    {/*
                     <div className='test'>
                        
                     </div>
@@ -39,12 +51,28 @@ const TMPCardUser_v2:  React.FC<Props> = () => {
                     <div className='test'>
                         
                     </div>
+                     */}
+                    <div className='test'>
+                        <MultiplayHours outSideCountView={2}/>    
+                    </div>
+                     
                </div>
                <div style={{padding:'10px 10px'}}>
                    <TMPCardUser_tabs_v3/>
                </div>
-               
             </div>
+
+            <div className='test' style={{height: 'calc(100vh - 490px)',
+                                            margin: '0px 10px'}}>
+                <TableMaterialUICollapsibleTable_AllProject 
+                            addProject={addProject} 
+                            removeProject={removeProject} 
+                            fetchProject={fetchProject} 
+                            editProject={editProject}
+                            addUserHoursProject={addUserHoursProject} 
+                />
+            </div>
+         
         </div>
     )
 }

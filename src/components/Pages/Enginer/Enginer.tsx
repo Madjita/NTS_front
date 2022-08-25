@@ -11,13 +11,14 @@ import { GetSesstionToken,GetSessionEmail } from '../../../settings/settings';
 
 //
 
-import { Button, Grid } from '@mui/material';
+import { Button, Grid, Paper } from '@mui/material';
 import Content from '../../components/Content/Content';
 import ProjectCardComponent from '../../components/ProjectComponents/ProjectCardComponent';
 import TableMaterialUICollapsibleTable_AllProject from '../../components/TableMaterialUICollapsibleTable/TableMaterialUICollapsibleTable_AllProject';
 import Z from '../../components/Z';
 import Info from '../../components/Info/Info';
 import MultiplayHours from '../../components/HoursComponents/MultiplayHours/MultiplayHours';
+import { Box } from '@mui/system';
 
 
 interface TabPanelProps {
@@ -102,16 +103,25 @@ const Enginer:  React.FC<Props> = ({value}) => {
                     </Grid>
                 </TabPanel>
                     <TabPanel value={value} index={1}>
-                        <TableMaterialUICollapsibleTable_AllProject 
-                        addProject={addProject} 
-                        removeProject={removeProject} 
-                        fetchProject={fetchProject} 
-                        editProject={editProject}
-                        addUserHoursProject={addUserHoursProject}
-                    />
+                    <Box sx={{ width: "100%",maxHeight: '780px',overflow: 'auto' }}>
+                        <Paper sx={{ width: "100%", mb: 2}}>
+                            <TableMaterialUICollapsibleTable_AllProject 
+                            addProject={addProject} 
+                            removeProject={removeProject} 
+                            fetchProject={fetchProject} 
+                            editProject={editProject}
+                            addUserHoursProject={addUserHoursProject} 
+                            />
+                        </Paper>
+                        </Box>
+                   
                 </TabPanel>
                 <TabPanel value={value} index={2}>
-                    <MultiplayHours/>
+                    <Box sx={{ width: "100%",maxHeight: '780px',overflow: 'auto'}}> 
+                        <Paper sx={{ width: "100%", mb: 2}}>
+                            <MultiplayHours/>
+                        </Paper>
+                    </Box>
                 </TabPanel>
                 <TabPanel value={value} index={3}>
                     Информация

@@ -147,7 +147,7 @@ function getStyle (isActive : any) {
 
 
     return(
-        <div className='test'>
+        <div className='test' style={{  minHeight: '367px'}}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider', display: 'flex', justifyContent: 'space-between' }}>
                 <Tabs 
                 value={value} onChange={handleChange} 

@@ -44,7 +44,7 @@ const Dialog_copy:  React.FC<Props> = ({open,setOpen,textForCopy,setTextForCopy}
                 }}/>
             </DialogContent>
             <DialogActions>
-            <Button autoFocus onClick={handleClickClose} sx={{color: 'white',}}>
+            <Button autoFocus onClick={handleClickClose} sx={{color: 'white'}}>
                 Скопировать
             </Button>
             </DialogActions>
