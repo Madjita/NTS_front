@@ -20,7 +20,7 @@ const handlerChangeLeftPanel = () => {
     switch(leftPanelWidth)
     {
         case 50:
-            setLeftPanelWidth(100);
+            setLeftPanelWidth(150);
             break;
         default:
             if(leftPanelWidth!= 50)

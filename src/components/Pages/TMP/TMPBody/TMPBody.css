@@ -16,6 +16,12 @@
     justify-content: center;
 }
 
+.centerSpaceAround{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
 
 .MuiTableSortLabel-root.MuiTableSortLabel-active,
 .MuiTableSortLabel-root:hover,
