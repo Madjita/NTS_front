@@ -32,6 +32,9 @@ import ProjectUserDialog from '../Widget/ProjectUserComponents/ProjectUserDialog
 import TableMenu_AllProject from '../TableMenu/TableMenu_AllProject';
 import { useNavigate } from 'react-router-dom';
 
+
+import { useElementSize } from 'usehooks-ts'
+
 interface Data {
   id: number,
   codeProject: string;
@@ -929,13 +932,18 @@ const {projects} = useTypedSelector(state => state.project)
       editProject(GetSesstionToken(),oldProjectInformation,newProjectInformation)
     }
   }
+
+  const [squareRef, { width, height }] = useElementSize()
     
 
   return (
-    <div style={{
+    <div
+    style={{
       position: 'relative',
       height: '100%',
-    }}>
+    }}
+    ref={squareRef}
+    >
         <EnhancedTableToolbar 
         numSelected={selected.length}  
         handleAddProject={handleAddProject} 
@@ -946,7 +954,7 @@ const {projects} = useTypedSelector(state => state.project)
         />
 
 
-        <TableContainer style={{overflow: 'inherit'}}>
+        <TableContainer style={{maxHeight: height-100}}>
           <div style={{ overflow: "auto" }} >
           <Table
             aria-labelledby="tableTitle"
@@ -964,7 +972,9 @@ const {projects} = useTypedSelector(state => state.project)
             />
            </Table>
            </div>
-           <div style={{ overflow: 'auto', height: '345px'}}>
+           <div
+            
+            style={{ overflow: 'auto', maxHeight: height-100}}>
            <Table
             aria-labelledby="tableTitle"
             size={dense ? "small" : "medium"}
