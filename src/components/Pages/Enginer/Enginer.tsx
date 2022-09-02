@@ -30,10 +30,13 @@ interface TabPanelProps {
 export function TabPanel(props: TabPanelProps) {
     const { children, value, index, ...other } = props;
   
+    let flagHidden = value !== index;
+
     return (
       <div
+        style={{height: flagHidden ? '':'100%'}}
         role="tabpanel"
-        hidden={value !== index}
+        hidden={flagHidden}
         id={`simple-tabpanel-${index}`}
         aria-labelledby={`simple-tab-${index}`}
         {...other}
@@ -102,9 +105,9 @@ const Enginer:  React.FC<Props> = ({value}) => {
                     }
                     </Grid>
                 </TabPanel>
-                    <TabPanel value={value} index={1}>
-                    <Box sx={{ width: "100%",maxHeight: '780px',overflow: 'auto' }}>
-                        <Paper sx={{ width: "100%", mb: 2}}>
+                <TabPanel value={value} index={1}>
+                    <Box sx={{ position:'relative', width: "100%",height: '100%'}}>
+                        <Paper sx={{ width: "100%", height: '100%', mb: 2}}>
                             <TableMaterialUICollapsibleTable_AllProject 
                             addProject={addProject} 
                             removeProject={removeProject} 
@@ -113,8 +116,7 @@ const Enginer:  React.FC<Props> = ({value}) => {
                             addUserHoursProject={addUserHoursProject} 
                             />
                         </Paper>
-                        </Box>
-                   
+                    </Box>
                 </TabPanel>
                 <TabPanel value={value} index={2}>
                     <Box sx={{ width: "100%",maxHeight: '780px',overflow: 'auto'}}> 
