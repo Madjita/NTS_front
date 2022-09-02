@@ -31,11 +31,12 @@ import RowMultiplayHours from './RowMultiplayHours';
 type Props = {
     outSideTextColor?: any,
     outSideCountView?: number,
+    color?: string;
 }
 
 type Order = 'asc' | 'desc';
 
-const MultiplayHours:  React.FC<Props> = ({outSideTextColor,outSideCountView}) => {
+const MultiplayHours:  React.FC<Props> = ({outSideTextColor,outSideCountView,color}) => {
 
     const [order, setOrder] = React.useState<Order>("asc");
     const [orderBy, setOrderBy] = React.useState<keyof IProject>("indexAdd");
@@ -113,16 +114,16 @@ const MultiplayHours:  React.FC<Props> = ({outSideTextColor,outSideCountView}) =
                               </TableCell>
                       </TableRow>
                       <TableRow>
-                          <TableCell align="center">№</TableCell>
-                          <TableCell align="center">Номер недели</TableCell>
-                          <TableCell align="center">День недели</TableCell>
-                          <TableCell align="center">Проект</TableCell>
-                          <TableCell align="center">Инженер</TableCell>
-                          <TableCell align="center">Код</TableCell>
-                          <TableCell align="center">Начало работы</TableCell>
-                          <TableCell align="center">Окончание работы</TableCell>
-                          <TableCell align="center">Количество часов</TableCell>
-                          <TableCell align="center"></TableCell>
+                          <TableCell align="center" style={{color: color}}>№</TableCell>
+                          <TableCell align="center" style={{color: color}}>Номер недели</TableCell>
+                          <TableCell align="center" style={{color: color}}>День недели</TableCell>
+                          <TableCell align="center" style={{color: color}}>Проект</TableCell>
+                          <TableCell align="center" style={{color: color}}>Инженер</TableCell>
+                          <TableCell align="center" style={{color: color}}>Код</TableCell>
+                          <TableCell align="center" style={{color: color}}>Начало работы</TableCell>
+                          <TableCell align="center" style={{color: color}}>Окончание работы</TableCell>
+                          <TableCell align="center" style={{color: color}}>Количество часов</TableCell>
+                          <TableCell align="center" style={{color: color}}></TableCell>
                       </TableRow>
                       </TableHead>
                       <TableBody>
@@ -146,7 +147,9 @@ const MultiplayHours:  React.FC<Props> = ({outSideTextColor,outSideCountView}) =
                                   rowsCount={list.length}
                                   order={order} 
                                   handleRemove={handleRemove}
-                                  setRowsPerPage={setRowsPerPage}/>
+                                  setRowsPerPage={setRowsPerPage}
+                                  color={color}
+                                  />
                               
                             );
                           })}

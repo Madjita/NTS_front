@@ -44,7 +44,7 @@ const TMPCardUser_v2:  React.FC<Props> = () => {
                     </div>
                      */}
                     <div className='test' style={{overflow: 'auto', maxWidth:'100%'}}>
-                        <MultiplayHours outSideCountView={3}/>    
+                        <MultiplayHours outSideCountView={3} color={'white'}/>    
                     </div>
                      
                </div>
@@ -61,6 +61,8 @@ const TMPCardUser_v2:  React.FC<Props> = () => {
                             fetchProject={fetchProject} 
                             editProject={editProject}
                             addUserHoursProject={addUserHoursProject} 
+                            outSideCountView={7}
+                            color={'white'}
                 />
             </div>
          

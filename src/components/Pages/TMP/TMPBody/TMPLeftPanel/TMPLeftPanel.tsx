@@ -4,12 +4,20 @@ import './TMPLeftPanel.css'
 
 import label from "../../../../../img/Ico.svg"
 
+import EastIcon from '@mui/icons-material/East';
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
+
 type Props = {
     className?: string,
+    handlerChangeLeftPanel?: {
+        value : number,
+        action: ()=> void
+    }
 }
 
  
-const TMPLeftPanel:  React.FC<Props> = () => {
+const TMPLeftPanel:  React.FC<Props> = ({
+    handlerChangeLeftPanel}) => {
 
     const[select,setSelect] = React.useState(0);
 
@@ -41,6 +49,14 @@ const TMPLeftPanel:  React.FC<Props> = () => {
                         alt='NTS'
                         loading="lazy"
                     />
+                </div>
+                <div className='center' style={{
+                    position: 'absolute',
+                    marginLeft: '12px',
+                    bottom: '10px',
+                    color: '#d0d1d4'
+                }}>
+                    {handlerChangeLeftPanel?.value ? <EastIcon/> :  <KeyboardBackspaceIcon/>}
                 </div>
         </div>
     )

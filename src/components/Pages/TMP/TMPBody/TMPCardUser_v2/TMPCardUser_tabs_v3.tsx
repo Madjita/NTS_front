@@ -134,6 +134,7 @@ function getStyle (isActive : any) {
         ChangeInfo({...obj});
     },[userLogin])
 
+    //данные для диалога 
     useEffect(()=>{
         setPreviewData(init_previewData())
     },[newUser])
@@ -150,8 +151,9 @@ function getStyle (isActive : any) {
         <div className='test' style={{  minHeight: '367px'}}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider', display: 'flex', justifyContent: 'space-between' }}>
                 <Tabs 
+                variant="scrollable"
+                scrollButtons="auto"
                 value={value} onChange={handleChange} 
-                aria-label="basic tabs example" 
                 textColor="inherit"
                 TabIndicatorProps={{
                     style: {
