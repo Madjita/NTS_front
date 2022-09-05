@@ -38,8 +38,8 @@ export default function Header2(props: HeaderProps) {
     list.push('Актуальные проекты');
     list.push('Все проекты');
     list.push('Почасовки');
+    list.push('Командировки');
     list.push('Информация');
-    
   }
 
   return list;

@@ -127,6 +127,9 @@ const Enginer:  React.FC<Props> = ({value}) => {
                     </Box>
                 </TabPanel>
                 <TabPanel value={value} index={3}>
+                    Чеки для командировки
+                </TabPanel>
+                <TabPanel value={value} index={4}>
                     Информация
                     <Info/>
                 </TabPanel>
