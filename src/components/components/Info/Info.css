@@ -1,4 +1,18 @@
 .TestInfo{
     background-color: LightCyan;
 }
+.handleClickChange{
+    margin: 7px;
+}
 
+.handleClickSave{
+    margin: 7px; 
+}
+
+.handleClickCancel{
+    margin: 7px; 
+}
+
+.Buttons{
+    display: flex;
+}
