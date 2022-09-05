@@ -20,6 +20,7 @@ import Info from '../../components/Info/Info';
 import MultiplayHours from '../../components/HoursComponents/MultiplayHours/MultiplayHours';
 import { Box } from '@mui/system';
 import { IUser } from '../../IDataInterface/IDataInterface';
+import ChecksForProject from '../../components/ChecksForProject/ChecksForProject';
 
 
 interface TabPanelProps {
@@ -128,6 +129,7 @@ const Enginer:  React.FC<Props> = ({value}) => {
                 </TabPanel>
                 <TabPanel value={value} index={3}>
                     Чеки для командировки
+                    <ChecksForProject/>
                 </TabPanel>
                 <TabPanel value={value} index={4}>
                     Информация
