@@ -5,6 +5,12 @@
     margin: 7px;
 }
 
+.Buttons{
+    flex-wrap: wrap;
+    display: flex;
+    gap: 20px 5px;
+}
+    padding: 10px;
 .handleClickSave{
     margin: 7px; 
 }
