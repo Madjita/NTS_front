@@ -973,8 +973,7 @@ const {projects} = useTypedSelector(state => state.project)
            </Table>
            </div>
            <div
-            
-            style={{ overflow: 'auto', maxHeight: height-100}}>
+            style={{maxHeight: height-100}}>
            <Table
             aria-labelledby="tableTitle"
             size={dense ? "small" : "medium"}
@@ -984,7 +983,6 @@ const {projects} = useTypedSelector(state => state.project)
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
                   const labelId = `enhanced-table-checkbox-${index}`;
-
                   return (
                       <Row 
                         key={index} 
@@ -1002,7 +1000,6 @@ const {projects} = useTypedSelector(state => state.project)
                         accumCollapseUser={accumCollapseUser}
                         color={color}
                         />
-                    
                   );
                 })}
             </TableBody>

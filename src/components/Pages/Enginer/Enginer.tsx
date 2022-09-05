@@ -19,6 +19,7 @@ import Z from '../../components/Z';
 import Info from '../../components/Info/Info';
 import MultiplayHours from '../../components/HoursComponents/MultiplayHours/MultiplayHours';
 import { Box } from '@mui/system';
+import { IUser } from '../../IDataInterface/IDataInterface';
 
 
 interface TabPanelProps {
@@ -119,8 +120,8 @@ const Enginer:  React.FC<Props> = ({value}) => {
                     </Box>
                 </TabPanel>
                 <TabPanel value={value} index={2}>
-                    <Box sx={{ width: "100%",maxHeight: '780px',overflow: 'auto'}}> 
-                        <Paper sx={{ width: "100%", mb: 2}}>
+                    <Box sx={{ width: "100%",height: '100%'}}> 
+                        <Paper sx={{ width: "100%",height: '100%', mb: 2}}>
                             <MultiplayHours/>
                         </Paper>
                     </Box>

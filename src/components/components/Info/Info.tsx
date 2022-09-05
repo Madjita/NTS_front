@@ -19,7 +19,7 @@ type Props = {
     value?: any
 }
  
-export interface OldNewUser{
+export interface IOldNewUser{
     oldUser: IUser,
     newUser: IUser 
 }
@@ -45,7 +45,7 @@ const Info:  React.FC<Props> = ({value}) => {
     const [valueex, setValue] = React.useState(0);
     const [edit, setEdit] = React.useState<string>()
     const {userLogin} = useTypedSelector(state => state.userLogin)
-    const [newwUser, ChangeInfo] = useState<OldNewUser>({      
+    const [newwUser, ChangeInfo] = useState<IOldNewUser>({      
         oldUser: userLogin as IUser,
         newUser: new Object as IUser
     })
@@ -84,7 +84,7 @@ const Info:  React.FC<Props> = ({value}) => {
     }
     
         return(
-            <div className='test'>
+            <div className='infoDiv'>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <Tabs 
                 value={valueex} onChange={handleChange} 
@@ -120,7 +120,7 @@ const Info:  React.FC<Props> = ({value}) => {
                                 type="name"
                                 fullWidth
                                 size='small'
-                                variant="standard"
+                                variant="outlined"
                                 color="primary" focused 
                                 value ={userLogin?.secondName}
                                 inputProps={{ style: { textAlign: 'center',color:'black' }}} 
@@ -175,7 +175,7 @@ const Info:  React.FC<Props> = ({value}) => {
                                 size='small'
                                 variant="outlined"
                                 color="primary" focused 
-                                value ={edit || ''}
+                                value ={userLogin?.middleName || ''}
                                 inputProps={{ style: { textAlign: 'center' }}} 
                                 onChange={e =>{
                                     setEdit( e.target.value)                   
@@ -201,7 +201,7 @@ const Info:  React.FC<Props> = ({value}) => {
                                 size='small'
                                 variant="outlined"
                                 color="primary" focused 
-                                value ={edit || ''}
+                                value ={new Date(userLogin!.profile.date).toLocaleDateString("en-US") || ''}
                                 inputProps={{ style: { textAlign: 'center' }}} 
                                 onChange={e =>{
                                     setEdit( e.target.value)                   
@@ -342,7 +342,7 @@ const Info:  React.FC<Props> = ({value}) => {
                     alt='NTS'
                     loading="lazy"/>
                 </div>
-        </div>
+            </div>
                 <div className='Buttons'>
                 <div className='handleClickChange'><Button size="small" variant="outlined"  onClick = {handleClickChange} disabled = {change}> {"Редактировать"}</Button></div>
                 <div className='handleClickSave'><Button size="small" variant="outlined"  onClick = {handleClickSave} disabled = {!change}> {"Сохранить изменения"}</Button></div> 

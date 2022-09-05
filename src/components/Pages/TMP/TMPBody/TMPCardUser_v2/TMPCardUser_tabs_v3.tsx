@@ -4,7 +4,7 @@ import { useActions } from '../../../../../redux/hooks/userActions';
 import { useTypedSelector } from '../../../../../redux/hooks/useTypedSelector';
 import { findUser } from '../../../../../redux/store/action-creators/userLoginAction';
 import { GetSessionEmail, GetSesstionToken } from '../../../../../settings/settings';
-import { OldNewUser } from '../../../../components/Info/Info';
+import { IOldNewUser } from '../../../../components/Info/Info';
 import { IUser } from '../../../../IDataInterface/IDataInterface';
 import { TabPanel } from '../../../Enginer/Enginer';
 import UserInfo from '../TMPCardUser/TMPDataUser/MainInfo/UserInfo';
@@ -65,7 +65,7 @@ function getStyle (isActive : any) {
     const {userLogin, errorLogin, loadingLogin} = useTypedSelector(state => state.userLogin)
     
     const init = () => {
-        let newUser = new Object as OldNewUser;
+        let newUser = new Object as IOldNewUser;
             if(userLogin != undefined)
             {
                 if(userLogin.profile != undefined)
@@ -78,7 +78,7 @@ function getStyle (isActive : any) {
         return newUser;
     }
     
-    const [newUser, ChangeInfo] = React.useState<OldNewUser>({
+    const [newUser, ChangeInfo] = React.useState<IOldNewUser>({
         newUser: userLogin as IUser,
         oldUser: userLogin as IUser
     })

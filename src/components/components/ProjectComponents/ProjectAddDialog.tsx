@@ -19,7 +19,7 @@ import arSaLocale from 'date-fns/locale/ar-SA';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 
-const localeMap = {
+export const localeMap = {
   en: enLocale,
   fr: frLocale,
   de: deLocale,

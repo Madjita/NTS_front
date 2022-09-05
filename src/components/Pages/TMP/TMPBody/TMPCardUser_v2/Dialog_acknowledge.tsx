@@ -2,13 +2,13 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/
 import React from 'react';
 import { useActions } from '../../../../../redux/hooks/userActions';
 import { GetSesstionToken } from '../../../../../settings/settings';
-import { OldNewUser } from '../../../../components/Info/Info';
+import { IOldNewUser } from '../../../../components/Info/Info';
 
 
 type Props = {
     open?: any,
     setOpen?: any,
-    newUser?: OldNewUser,
+    newUser?: IOldNewUser,
     setNewUser?:any,
 }
 

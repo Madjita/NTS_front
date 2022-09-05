@@ -3,7 +3,7 @@ import {UserLoginAction, UserLoginActionTypes,} from "../../types/userLoginRedux
 import {Dispatch} from "redux";
 import axios from "axios";
 import GetConnectionString, { sleepLoader } from "../../../settings/settings";
-import { OldNewUser } from "../../../components/components/Info/Info";
+import { IOldNewUser } from "../../../components/components/Info/Info";
 
 export const findUser = (sessionToken: any,email: string) => {
     return async (dispatch: Dispatch<UserLoginAction>) => {
@@ -32,7 +32,7 @@ export const findUser = (sessionToken: any,email: string) => {
     }
 }
 
-export const changeUser = (sessionToken: any,newUser: OldNewUser) => {
+export const changeUser = (sessionToken: any,newUser: IOldNewUser) => {
     return async (dispatch: Dispatch<UserLoginAction>) => {
         try {
 

@@ -23,11 +23,18 @@ function Copyright() {
 
 let theme = createTheme({
     palette: {
+      background: {
+        default: '#d0d1d4'
+      },
       primary: {
         light: '#63ccff',
         main: '#009be5',
         dark: '#006db3',
       },
+      secondary: {
+        main: '#143054',
+        light: '#748BA7',
+      }
     },
     typography: {
       h5: {
@@ -191,15 +198,12 @@ const Layout:  React.FC<Props> = ({children,title}) => {
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
       };
-
-
-
-  
+      
     let newChildernWithTabPosition = React.cloneElement(children, {value});
 
     return(
         <ThemeProvider theme={theme}>
-        <Box sx={{ display: 'flex', minHeight: '100vh' }}>
+        <Box sx={{ display: 'flex', minHeight: '100vh' ,}}>
           <CssBaseline />
           <Box
             component="nav"
@@ -212,7 +216,7 @@ const Layout:  React.FC<Props> = ({children,title}) => {
                 variant="temporary"
                 open={mobileOpen}
                 onClose={handleDrawerToggle}
-              />
+            />
             {/*
 
              {isSmUp ? null : (
@@ -234,10 +238,10 @@ const Layout:  React.FC<Props> = ({children,title}) => {
           </Box>
           <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
             <Header2 onDrawerToggle={handleDrawerToggle} title={title} value={value} handleChange={handleChange} />
-            <Box component="main" sx={{ flex: 1, py: 1, px: 1, bgcolor: '#eaeff1' }}>
+            <Box component="main" sx={{ flex: 1, py: 1, px: 1 }}>
                {newChildernWithTabPosition}
             </Box>
-            <Box component="footer" sx={{ p: 2, bgcolor: '#eaeff1' }}>
+            <Box component="footer" sx={{ p: 2 }}>
               <Copyright />
             </Box>
           </Box>

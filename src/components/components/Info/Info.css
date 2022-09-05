@@ -1,24 +1,15 @@
 .TestInfo{
     background-color: LightCyan;
 }
-.handleClickChange{
-    margin: 7px;
-}
 
+.infoDiv{
+    background-color: white;
+    color: black;
+}
 .Buttons{
+    display: flex;
     flex-wrap: wrap;
-    display: flex;
     gap: 20px 5px;
-}
     padding: 10px;
-.handleClickSave{
-    margin: 7px; 
 }
-
-.handleClickCancel{
-    margin: 7px; 
-}
-
-.Buttons{
-    display: flex;
-}
+    

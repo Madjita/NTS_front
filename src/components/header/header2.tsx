@@ -48,9 +48,10 @@ export default function Header2(props: HeaderProps) {
 
 let tabs = createTabs(title ? title:'');
 
+let colorPallet = "primary" as any; //secondary
   return (
     <React.Fragment>
-      <AppBar color="primary" position="sticky" elevation={0} sx={{justifyContent: 'center'}} >
+      <AppBar color={colorPallet} position="sticky" elevation={0} sx={{justifyContent: 'center'}} >
         <Toolbar>
           <Grid container spacing={1} alignItems="center">
             <Grid>
@@ -88,7 +89,7 @@ let tabs = createTabs(title ? title:'');
       </AppBar>
       <AppBar
         component="div"
-        color="primary"
+        color={colorPallet}
         position="static"
         elevation={0}
         sx={{ zIndex: 0 }}
@@ -120,9 +121,8 @@ let tabs = createTabs(title ? title:'');
           </Grid>
         </Toolbar>
       </AppBar>
-      <AppBar component="div" position="static" elevation={0} sx={{ zIndex: 0 }}>
+      <AppBar color={colorPallet} component="div" position="static" elevation={0} sx={{ zIndex: 0 }}>
         <Tabs value={value} onChange={handleChange} textColor="inherit">
-
           {
             tabs.map((item,index)=>{
               return <Tab key={index} label={item} />
