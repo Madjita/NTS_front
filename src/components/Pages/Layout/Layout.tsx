@@ -24,7 +24,7 @@ function Copyright() {
 let theme = createTheme({
     palette: {
       background: {
-        default: '#d0d1d4'
+        default: '#f3f4f6'
       },
       primary: {
         light: '#63ccff',
