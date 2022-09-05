@@ -2,3 +2,9 @@
     background-color: LightCyan;
 }
 
+.Buttons{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px 5px;
+    padding: 10px;
+}
