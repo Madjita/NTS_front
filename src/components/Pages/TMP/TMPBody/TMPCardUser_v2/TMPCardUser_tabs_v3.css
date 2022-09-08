@@ -1,0 +1,23 @@
+/*.handleClickChange{
+    margin: 7px;
+}
+
+.handleClickSave{
+    margin: 7px; 
+}
+
+.handleClickCancel{
+    margin: 7px; 
+}
+
+.Buttons{
+    display: flex;
+}
+*/
+.Buttons{
+    flex-wrap: wrap;
+    display: flex;
+    gap: 20px 5px;
+    padding: 10px;
+}
+  

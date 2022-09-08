@@ -71,7 +71,8 @@ export interface IProfile{
     snils: string,
     inn: number,
     phone: string,
-    image: string
+    imageName: string
+    photoByte: any
 } 
 
 export interface ICompany{
