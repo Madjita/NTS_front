@@ -18,6 +18,7 @@ import { useNavigate } from 'react-router-dom';
 import { IProject } from '../../IDataInterface/IDataInterface';
 import ProjectUserDialog from '../Widget/ProjectUserComponents/ProjectUserDialog';
 import AddIcon from '@mui/icons-material/Add';
+import Delete from '@mui/icons-material/Delete';
 
 type Props = {
     className?: string,
@@ -95,6 +96,12 @@ const TableMenu_AllProject:  React.FC<Props> = ({handleClick,handleClose,anchorE
               <Logout fontSize="small" />
             </ListItemIcon>
             Редактировать
+          </MenuItem>
+          <MenuItem onClick={handleClick} data-my-value={3}>
+            <ListItemIcon>
+              <Delete fontSize="small" />
+            </ListItemIcon>
+            Удалить
           </MenuItem>
         </Menu>
       </React.Fragment>

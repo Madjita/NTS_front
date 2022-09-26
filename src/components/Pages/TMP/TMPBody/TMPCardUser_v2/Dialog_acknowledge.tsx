@@ -2,7 +2,7 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/
 import React from 'react';
 import { useActions } from '../../../../../redux/hooks/userActions';
 import { GetSesstionToken } from '../../../../../settings/settings';
-import { IOldNewUser } from '../../../../components/Info/Info';
+import { IOldNewUser } from '../../../../IDataInterface/IDataInsideInterface';
 
 
 type Props = {

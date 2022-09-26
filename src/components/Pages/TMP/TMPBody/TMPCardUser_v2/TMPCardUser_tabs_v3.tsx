@@ -4,7 +4,6 @@ import { useActions } from '../../../../../redux/hooks/userActions';
 import { useTypedSelector } from '../../../../../redux/hooks/useTypedSelector';
 import { findUser } from '../../../../../redux/store/action-creators/userLoginAction';
 import { GetSessionEmail, GetSesstionToken } from '../../../../../settings/settings';
-import { IOldNewUser } from '../../../../components/Info/Info';
 import { IUser } from '../../../../IDataInterface/IDataInterface';
 import { TabPanel } from '../../../Enginer/Enginer';
 import UserInfo from '../TMPCardUser/TMPDataUser/MainInfo/UserInfo';
@@ -15,6 +14,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import PreviewIcon from '@mui/icons-material/Preview';
 import Dialog_copy from './Dialog_copy';
 import Dialog_acknowledge from './Dialog_acknowledge';
+import { IOldNewUser } from '../../../../IDataInterface/IDataInsideInterface';
 
 type Props = {
     className?: string,

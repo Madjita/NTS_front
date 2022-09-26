@@ -128,8 +128,11 @@ const Enginer:  React.FC<Props> = ({value}) => {
                     </Box>
                 </TabPanel>
                 <TabPanel value={value} index={3}>
-                    Чеки для командировки
-                    <ChecksForProject/>
+                    <Box sx={{ position:'relative', width: "100%",height: '100%'}}>
+                        <Paper sx={{ width: "100%", height: '100%', mb: 2}}>
+                            <ChecksForProject/>
+                        </Paper>
+                    </Box>
                 </TabPanel>
                 <TabPanel value={value} index={4}>
                     Информация

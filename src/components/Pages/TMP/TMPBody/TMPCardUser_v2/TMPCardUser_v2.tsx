@@ -61,8 +61,8 @@ const TMPCardUser_v2:  React.FC<Props> = () => {
                             fetchProject={fetchProject} 
                             editProject={editProject}
                             addUserHoursProject={addUserHoursProject} 
-                            outSideCountView={7}
-                            color={'white'}
+                            /*outSideCountView={7}
+                            color={'white'}*/
                 />
             </div>
          
