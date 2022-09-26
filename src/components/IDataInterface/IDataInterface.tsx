@@ -69,7 +69,7 @@ export interface IProfile{
     ulmTaked: string,
     ulmPlaceBorned: string,
     snils: string,
-    inn: number,
+    inn: string,
     phone: string,
     imageName: string
     photoByte: any

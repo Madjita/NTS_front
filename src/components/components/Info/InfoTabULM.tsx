@@ -131,11 +131,6 @@ const InfoTabULM:  React.FC<Props> = ({value, change, handleClickChange, handleC
                             <p></p>
                         </div>
                         <div className='center'>
-                                <div style={{paddingRight: '15px'}}>
-                                    <FileUploadIcon/>
-                                    <DownloadIcon/>
-                                    <PreviewIcon/>
-                                </div>
                                 <div style={{display: 'flex',width: '694px'}}>
                                 <TextField            
                                         disabled={!change}

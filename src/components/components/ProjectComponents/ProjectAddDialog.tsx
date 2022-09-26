@@ -66,7 +66,6 @@ const ProjectAddDialog:  React.FC<Props> = ({title,handleAdd,handleEdit,selectPr
 
    
   const handleClickOpen = () => {
-    console.log("Я заебался")
     setChangeDialog(true);
   };
 

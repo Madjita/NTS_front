@@ -16,7 +16,8 @@ import PreviewIcon from '@mui/icons-material/Preview';
 import DownloadPhoto from '../../Pages/TMP/TMPBody/TMPCardUser_v2/DownloudPhoto';
 import { IOldNewUser } from '../../IDataInterface/IDataInsideInterface';
 import label from "../../../img/sSDlvDEX5z8.jpg";
-import { PatternFormat } from 'react-number-format';
+import { PatternFormat, NumericFormat } from 'react-number-format';
+
 
 
 
@@ -178,19 +179,16 @@ const InfoTabUser:  React.FC<Props> = ({value, change, handleClickChange, handle
                             </div>
                             <div>
                                 <div className='center'>
-                                    <div style={{paddingRight: '20px'}}>
-                                        <FileUploadIcon/>
-                                        <DownloadIcon/>
-                                        <PreviewIcon/>
-                                    </div>
                                     <div>
-                                    <TextField            
+                                    <PatternFormat
+                                        format={'###-###-### ##'}
+                                        customInput={TextField}             
                                         disabled={!change}
                                         autoFocus
                                         margin="dense"
                                         id="name"
                                         label= "Снилс"
-                                        type="name"
+                                        type="text"
                                         fullWidth
                                         size='small'
                                         variant="outlined"
@@ -214,19 +212,16 @@ const InfoTabUser:  React.FC<Props> = ({value, change, handleClickChange, handle
                             </div>
                             <div>
                                 <div className='center'>
-                                    <div style={{paddingRight: '20px'}}>
-                                        <FileUploadIcon/>
-                                        <DownloadIcon/>
-                                        <PreviewIcon/>
-                                    </div>
                                     <div>
-                                        <TextField            
+                                        <PatternFormat 
+                                        format={'############'}
+                                        customInput={TextField}         
                                         disabled={!change}
                                         autoFocus
                                         margin="dense"
                                         id="name"
                                         label= "ИНН"
-                                        type="name"
+                                        type="text"
                                         fullWidth
                                         size='small'
                                         variant="outlined"
@@ -234,9 +229,10 @@ const InfoTabUser:  React.FC<Props> = ({value, change, handleClickChange, handle
                                         value={ userLogin!.newUser ? userLogin!.newUser.profile.inn : "ИНН"} 
                                         inputProps={{ style: { textAlign: 'center' }}} 
                                         onChange={e=>{
-                                            userLogin!.newUser.profile.inn = parseInt(e.target.value);
+                                            userLogin!.newUser.profile.inn = e.target.value;
                                             handlerEdit({...userLogin})                 
-                                        }}/>
+                                        }}
+                                        />
                                     </div>
                                 </div>
                             </div>
