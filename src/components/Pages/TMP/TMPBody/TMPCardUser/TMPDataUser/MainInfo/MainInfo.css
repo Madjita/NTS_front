@@ -67,32 +67,3 @@
     height: 30px;
     color: white;
 }
-
-
-.styleMenuUserInfoConteiner{
-    position: absolute;
-    margin-top: 200px;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    top: 0;
-    background: rgba(29,32,34,.7);
-    opacity: 0;
-    transition: all ease 0.8s;
-}
-.styleMenuUserInfoConteiner:hover{
-    opacity: 1;
-}
-.styleMenuUserInfo
-{
-    display: grid;
-    gap: 10px;
-
-    opacity: 0;
-    transition: all ease 0.8s;
-
-}
-
-.styleMenuUserInfo:hover{
-    opacity: 1;
-}

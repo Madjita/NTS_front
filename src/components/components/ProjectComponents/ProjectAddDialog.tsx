@@ -40,6 +40,7 @@ type Props = {
 
     user?: IUser
     selectProject?: IProject
+<<<<<<< HEAD
 
     flagChangeUserDialog: boolean,
     setChangeDialog : React.Dispatch<React.SetStateAction<boolean>>,
@@ -48,6 +49,23 @@ type Props = {
 
 
 const ProjectAddDialog:  React.FC<Props> = ({title,handleAdd,handleEdit,selectProject,projectName,user, flagChangeUserDialog , setChangeDialog}) =>
+=======
+}
+
+
+export interface IProjectSendApi {
+  code: string, //Код проекта может быть с символами
+  nameProject: string,
+  maxHours: number,     // Количество часов выделенное на проект
+  dateStart: string, // Дата старта
+  dateStop: string,  // Дата завершения
+  status: string,    // Статус проекта ( план, в работе, в архиве)
+  enginerCreater?: string // Тот кто создал проект
+  description: string,
+}
+
+const ProjectAddDialog:  React.FC<Props> = ({title,handleAdd,handleEdit,selectProject,projectName,user}) =>
+>>>>>>> main
 {
   const [locale, setLocale] = React.useState<keyof typeof localeMap>('ru');
 
@@ -127,7 +145,18 @@ const ProjectAddDialog:  React.FC<Props> = ({title,handleAdd,handleEdit,selectPr
   return (
     <React.Fragment>
 
+<<<<<<< HEAD
       
+=======
+      {handleEdit ? 
+        <ModeEditIcon  onClick={handleClickOpen}>
+        Редактировать
+        </ModeEditIcon>:
+        <Button size="small" variant="outlined" onClick={handleClickOpen}>
+        {title}
+        </Button> 
+      }
+>>>>>>> main
 
       <Dialog open={flagChangeUserDialog} onClose={handleClose}>
 
