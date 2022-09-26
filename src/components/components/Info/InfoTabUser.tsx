@@ -16,6 +16,8 @@ import PreviewIcon from '@mui/icons-material/Preview';
 import DownloadPhoto from '../../Pages/TMP/TMPBody/TMPCardUser_v2/DownloudPhoto';
 import { IOldNewUser } from '../../IDataInterface/IDataInsideInterface';
 import label from "../../../img/sSDlvDEX5z8.jpg";
+import { PatternFormat } from 'react-number-format';
+
 
 
 
@@ -247,13 +249,15 @@ const InfoTabUser:  React.FC<Props> = ({value, change, handleClickChange, handle
                                 <p>Телефон</p>
                             </div>
                             <div className='center'>
-                            <TextField            
+                            <PatternFormat 
+                                format={'+# (###) ### ## ##'}
+                                customInput={TextField}
                                 disabled={!change}
                                 autoFocus
                                 margin="dense"
                                 id="name"
                                 label= "Телефон"
-                                type="name"
+                                type="text"
                                 fullWidth
                                 size='small'
                                 variant="outlined"
@@ -263,7 +267,8 @@ const InfoTabUser:  React.FC<Props> = ({value, change, handleClickChange, handle
                                 onChange={e=>{
                                     userLogin!.newUser.profile.phone = e.target.value;
                                     handlerEdit({...userLogin})                    
-                                }}/>
+                                }}
+                            />
                             </div>
                         </div>
                     </div>
