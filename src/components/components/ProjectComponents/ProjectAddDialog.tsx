@@ -39,8 +39,7 @@ type Props = {
     indexEdit?: any;
 
     user?: IUser
-    selectProject?: IProject,
-    color?: string;
+    selectProject?: IProject
 }
 
 
@@ -52,11 +51,10 @@ export interface IProjectSendApi {
   dateStop: string,  // Дата завершения
   status: string,    // Статус проекта ( план, в работе, в архиве)
   enginerCreater?: string // Тот кто создал проект
-  description: string;
-
+  description: string,
 }
 
-const ProjectAddDialog:  React.FC<Props> = ({title,handleAdd,handleEdit,selectProject,color}) =>
+const ProjectAddDialog:  React.FC<Props> = ({title,handleAdd,handleEdit,selectProject,projectName,user}) =>
 {
   const [locale, setLocale] = React.useState<keyof typeof localeMap>('ru');
 
@@ -140,10 +138,10 @@ const ProjectAddDialog:  React.FC<Props> = ({title,handleAdd,handleEdit,selectPr
     <React.Fragment>
 
       {handleEdit ? 
-        <ModeEditIcon  onClick={handleClickOpen} style={{color: color}}>
+        <ModeEditIcon  onClick={handleClickOpen}>
         Редактировать
         </ModeEditIcon>:
-        <Button size="small" variant="text" onClick={handleClickOpen} style={{color: color}}>
+        <Button size="small" variant="outlined" onClick={handleClickOpen}>
         {title}
         </Button> 
       }

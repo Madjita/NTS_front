@@ -44,10 +44,9 @@ type Props = {
     title?: string,
     selectProject?:IProject,
     handleAdd?: any;
-    color?: string;
 }
 
-const HoursAddDialog:  React.FC<Props> = ({title,handleAdd,selectProject,color}) =>
+const HoursAddDialog:  React.FC<Props> = ({title,handleAdd,selectProject}) =>
 {
 
   const {users} = useTypedSelector(state => state.users)
@@ -214,7 +213,7 @@ const HoursAddDialog:  React.FC<Props> = ({title,handleAdd,selectProject,color})
 
   return (
     <React.Fragment>
-      <Button size="small" variant="text" onClick={handleClickOpen} style={{color: color}}>
+      <Button size="small" variant="outlined" onClick={handleClickOpen}>
         {title}
       </Button>
       <Dialog open={open} onClose={handleClose}>
