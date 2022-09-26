@@ -21,6 +21,7 @@ import { Checkbox, DialogActions } from '@mui/material';
 
 const emails = ['username@gmail.com', 'user02@gmail.com'];
 
+
 export interface SimpleDialogProps {
   open: boolean;
   selectedValue: Array<IUserProject> | undefined;
@@ -151,12 +152,14 @@ type Props = {
 
 
 const  ProjectUserDialog: React.FC<Props> = ({project,reload,setReload,flagProjectUserDialog,setFlagProjectUserDialog}) => {
+  
   const [open, setOpen] = React.useState(false);
   const [selectedValue, setSelectedValue] = React.useState<Array<IUserProject>>();
 
   const handleClickOpen = () => {
     setOpen(true);
-  };
+  }; 
+  
 
   const {userProjects, error, loading} = useTypedSelector(state => state.userProject)
   const {addUserProject} = useActions()

@@ -2,7 +2,8 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/
 import React from 'react';
 import { useActions } from '../../../../../redux/hooks/userActions';
 import { GetSesstionToken } from '../../../../../settings/settings';
-import { OldNewUser } from '../../../../components/Info/Info';
+import { OldNewUser } from './TMPCardUser_tabs_v3';
+
 
 
 type Props = {

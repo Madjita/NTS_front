@@ -3,7 +3,7 @@ import {UserLoginAction, UserLoginActionTypes,} from "../../types/userLoginRedux
 import {Dispatch} from "redux";
 import axios from "axios";
 import GetConnectionString, { sleepLoader } from "../../../settings/settings";
-import { OldNewUser } from "../../../components/components/Info/Info";
+import { OldNewUser } from "../../../components/Pages/TMP/TMPBody/TMPCardUser_v2/TMPCardUser_tabs_v3";
 
 export const findUser = (sessionToken: any,email: string) => {
     return async (dispatch: Dispatch<UserLoginAction>) => {

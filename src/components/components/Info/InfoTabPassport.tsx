@@ -14,6 +14,7 @@ import DownloadIcon from '@mui/icons-material/Download';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import PreviewIcon from '@mui/icons-material/Preview';
 import DownloadPhoto from '../../Pages/TMP/TMPBody/TMPCardUser_v2/DownloudPhoto';
+import { IOldNewUser } from '../../IDataInterface/IDataInsideInterface';
 
 type Props = {
     className?: string,
@@ -22,12 +23,14 @@ type Props = {
     handleClickChange:  () => void,
     handleClickSave:  () => void,
     handleClickCancel:  () => void
+    handlerEdit: any
+    userLogin?: IOldNewUser
 }
 
-const InfoTabPassport:  React.FC<Props> = ({value, change, handleClickChange, handleClickSave, handleClickCancel}) => {
+const InfoTabPassport:  React.FC<Props> = ({value, change, handleClickChange, handleClickSave, handleClickCancel, handlerEdit, userLogin}) => {
 
-    const {userLogin} = useTypedSelector(state => state.userLogin)
     const [edit, setEdit] = React.useState<string>()
+    
 
     return(
         <React.Fragment>
@@ -35,7 +38,7 @@ const InfoTabPassport:  React.FC<Props> = ({value, change, handleClickChange, ha
                 <div style={{height:'50px',display:'flex'}}>
                     <div style={{width:'100%',display:'flex',justifyContent: 'space-between'}} >
                         <div className='center'>
-                            <p>Паспорт загран</p>
+                            <p>Паспорт РФ</p>
                         </div>
                         <div className='center'>
                             <div style={{display: 'flex'}}>
@@ -46,18 +49,38 @@ const InfoTabPassport:  React.FC<Props> = ({value, change, handleClickChange, ha
                                         autoFocus
                                         margin="dense"
                                         id="name"
-                                        label="Серия номер"
+                                        label="Серия"
                                         type="name"
                                         fullWidth
                                         size='small'
                                         variant="outlined"
                                         color="primary" focused 
-                                        value ={edit || ''}
+                                        value ={ userLogin!.newUser ? userLogin!.newUser.profile.prfSeries : "Серия"} 
                                         inputProps={{ style: { textAlign: 'center' }}} 
-                                        onChange={e =>{
-                                            setEdit( e.target.value)                   
+                                        onChange={e=>{
+                                            userLogin!.newUser.profile.prfSeries = parseInt(e.target.value);
+                                            handlerEdit({...userLogin})                 
                                         }}/>
-                                    </div>         
+                                    </div>
+                                    <div style={{paddingLeft: '10px'}}>
+                                    <TextField            
+                                        disabled={!change}
+                                        autoFocus
+                                        margin="dense"
+                                        id="name"
+                                        label="Номер"
+                                        type="name"
+                                        fullWidth
+                                        size='small'
+                                        variant="outlined"
+                                        color="primary" focused 
+                                        value ={ userLogin!.newUser ? userLogin!.newUser.profile.prfNumber : "Номер"} 
+                                        inputProps={{ style: { textAlign: 'center' }}} 
+                                        onChange={e=>{
+                                            userLogin!.newUser.profile.prfNumber = parseInt(e.target.value);
+                                            handlerEdit({...userLogin})                    
+                                        }}/>
+                                    </div>          
                                     <div style={{paddingLeft: '10px'}}>
                                     <TextField            
                                         disabled={!change}
@@ -70,10 +93,11 @@ const InfoTabPassport:  React.FC<Props> = ({value, change, handleClickChange, ha
                                         size='small'
                                         variant="outlined"
                                         color="primary" focused 
-                                        value ={edit || ''}
+                                        value ={ userLogin!.newUser ? userLogin!.newUser.profile.prfDateTaked : "Дата выдачи"} 
                                         inputProps={{ style: { textAlign: 'center' }}} 
-                                        onChange={e =>{
-                                            setEdit( e.target.value)                   
+                                        onChange={e=>{
+                                            userLogin!.newUser.profile.prfDateTaked = e.target.value;
+                                            handlerEdit({...userLogin})                   
                                     }}/>
                                     </div>
                                     <p style={{margin: '0px',padding: '5px'}}>-</p>
@@ -89,10 +113,11 @@ const InfoTabPassport:  React.FC<Props> = ({value, change, handleClickChange, ha
                                         size='small'
                                         variant="outlined"
                                         color="primary" focused 
-                                        value ={edit || ''}
+                                        value ={ userLogin!.newUser ? userLogin!.newUser.profile.prfDateBack : "Дата окончания"}
                                         inputProps={{ style: { textAlign: 'center' }}} 
-                                        onChange={e =>{
-                                            setEdit( e.target.value)                   
+                                        onChange={e=>{
+                                            userLogin!.newUser.profile.prfDateBack = e.target.value;
+                                            handlerEdit({...userLogin})                   
                                     }}/>
                                     </div>
                                     <div style={{paddingLeft: '10px'}}>
@@ -101,16 +126,17 @@ const InfoTabPassport:  React.FC<Props> = ({value, change, handleClickChange, ha
                                         autoFocus
                                         margin="dense"
                                         id="name"
-                                        label="Дата окончания"
+                                        label="Код подразделения"
                                         type="name"
                                         fullWidth
                                         size='small'
                                         variant="outlined"
                                         color="primary" focused 
-                                        value ={edit || ''}
+                                        value ={ userLogin!.newUser ? userLogin!.newUser.profile.prfCode : "Код подразделения"}
                                         inputProps={{ style: { textAlign: 'center' }}} 
-                                        onChange={e =>{
-                                            setEdit( e.target.value)                   
+                                        onChange={e=>{
+                                            userLogin!.newUser.profile.prfCode = parseInt(e.target.value);
+                                            handlerEdit({...userLogin})                   
                                     }}/>
                                     </div>
                                 </div>
@@ -142,10 +168,11 @@ const InfoTabPassport:  React.FC<Props> = ({value, change, handleClickChange, ha
                                         size='small'
                                         variant="outlined"
                                         color="primary" focused 
-                                        value ={edit || ''}
+                                        value ={ userLogin!.newUser ? userLogin!.newUser.profile.prfTaked : "Кем выдан"}
                                         inputProps={{ style: { textAlign: 'center' }}} 
-                                        onChange={e =>{
-                                            setEdit( e.target.value)                   
+                                        onChange={e=>{
+                                            userLogin!.newUser.profile.prfTaked = e.target.value;
+                                            handlerEdit({...userLogin})                     
                                     }}/>
                                 </div>
                         </div>
@@ -168,10 +195,63 @@ const InfoTabPassport:  React.FC<Props> = ({value, change, handleClickChange, ha
                                         size='small'
                                         variant="outlined"
                                         color="primary" focused 
-                                        value ={edit || ''}
+                                        value ={ userLogin!.newUser ? userLogin!.newUser.profile.prfPlaceBorned : "Место рождения"}
                                         inputProps={{ style: { textAlign: 'center' }}} 
-                                        onChange={e =>{
-                                            setEdit( e.target.value)                   
+                                        onChange={e=>{
+                                            userLogin!.newUser.profile.prfPlaceBorned = e.target.value;
+                                            handlerEdit({...userLogin})                    
+                                    }}/>
+                        </div>
+                    </div>
+                </div>
+                <div style={{height:'50px',display:'flex'}}>
+                    <div style={{width:'100%',display:'flex',justifyContent: 'space-between'}} >
+                        <div className='center'>
+                            <p></p>
+                        </div>
+                        <div style={{width: '694px'}} className='center'>
+                        <TextField            
+                                        disabled={!change}
+                                        autoFocus
+                                        margin="dense"
+                                        id="name"
+                                        label="Место прописки"
+                                        type="name"
+                                        fullWidth
+                                        size='small'
+                                        variant="outlined"
+                                        color="primary" focused 
+                                        value ={ userLogin!.newUser ? userLogin!.newUser.profile.prfPlaceRegistration : "Место прописки"}
+                                        inputProps={{ style: { textAlign: 'center' }}} 
+                                        onChange={e=>{
+                                            userLogin!.newUser.profile.prfPlaceRegistration = e.target.value;
+                                            handlerEdit({...userLogin})                     
+                                    }}/>
+                        </div>
+                    </div>
+                </div>
+                <div style={{height:'50px',display:'flex'}}>
+                    <div style={{width:'100%',display:'flex',justifyContent: 'space-between'}} >
+                        <div className='center'>
+                            <p></p>
+                        </div>
+                        <div style={{width: '694px'}} className='center'>
+                        <TextField            
+                                        disabled={!change}
+                                        autoFocus
+                                        margin="dense"
+                                        id="name"
+                                        label="Место проживания"
+                                        type="name"
+                                        fullWidth
+                                        size='small'
+                                        variant="outlined"
+                                        color="primary" focused 
+                                        value ={ userLogin!.newUser ? userLogin!.newUser.profile.prfPlaceLived : "Место проживания"}
+                                        inputProps={{ style: { textAlign: 'center' }}} 
+                                        onChange={e=>{
+                                            userLogin!.newUser.profile.prfPlaceLived = e.target.value;
+                                            handlerEdit({...userLogin})                   
                                     }}/>
                         </div>
                     </div>

@@ -3,24 +3,12 @@ import React, { useEffect, useState } from 'react';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
-import CommentIcon from '@mui/icons-material/Comment';
 import { IUser,IUserProject } from '../../IDataInterface/IDataInterface';
-
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import TextField from '@mui/material/TextField';
-import Tooltip from '@mui/material/Tooltip';
-import IconButton from '@mui/material/IconButton';
-import SearchIcon from '@mui/icons-material/Search';
-import RefreshIcon from '@mui/icons-material/Refresh';
 import { Grid } from '@mui/material';
-import SettingsIcon from '@mui/icons-material/Settings';
-import { Box } from '@mui/system';
 import Divider from '@mui/material/Divider';
-import { useTypedSelector } from '../../../redux/hooks/useTypedSelector';
-import { useActions } from '../../../redux/hooks/userActions';
 import { GetSesstionToken,GetSessionEmail } from '../../../settings/settings';
-
 import axios from "axios";
 import GetConnectionString from "../../../settings/settings";
 

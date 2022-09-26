@@ -14,6 +14,9 @@ import DownloadIcon from '@mui/icons-material/Download';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import PreviewIcon from '@mui/icons-material/Preview';
 import DownloadPhoto from '../../Pages/TMP/TMPBody/TMPCardUser_v2/DownloudPhoto';
+import { IOldNewUser } from '../../IDataInterface/IDataInsideInterface';
+import label from "../../../img/sSDlvDEX5z8.jpg";
+
 
 
 type Props = {
@@ -23,12 +26,15 @@ type Props = {
     handleClickChange:  () => void,
     handleClickSave:  () => void,
     handleClickCancel:  () => void
+    handlerEdit: any
+    userLogin?: IOldNewUser
 }
 
-const InfoTabUser:  React.FC<Props> = ({value, change, handleClickChange, handleClickSave, handleClickCancel}) => {
+const InfoTabUser:  React.FC<Props> = ({value, change, handleClickChange, handleClickSave, handleClickCancel, handlerEdit, userLogin}) => {
 
-    const {userLogin} = useTypedSelector(state => state.userLogin)
     const [edit, setEdit] = React.useState<string>()
+
+
 
     return(
         <React.Fragment>
@@ -45,16 +51,17 @@ const InfoTabUser:  React.FC<Props> = ({value, change, handleClickChange, handle
                                 autoFocus
                                 margin="dense"
                                 id="name"
-                                label= {change ? userLogin?.secondName : "Фамилия"}
+                                label= "Фамилия"
                                 type="name"
                                 fullWidth
                                 size='small'
-                                variant="standard"
+                                variant="outlined"
                                 color="primary" focused 
-                                value ={userLogin?.secondName}
+                                value={ userLogin!.newUser ? userLogin!.newUser.secondName : "Фамилия"} 
                                 inputProps={{ style: { textAlign: 'center',color:'black' }}} 
-                                onChange={e =>{
-                                    setEdit( e.target.value)                   
+                                onChange={e=>{
+                                    userLogin!.newUser.secondName = e.target.value;
+                                    handlerEdit({...userLogin})
                                 }}/>
                             </div>
                         </div>
@@ -72,16 +79,17 @@ const InfoTabUser:  React.FC<Props> = ({value, change, handleClickChange, handle
                                 autoFocus
                                 margin="dense"
                                 id="name"
-                                label="Имя"
+                                label= "Имя"
                                 type="name"
                                 fullWidth
                                 size='small'
                                 variant="outlined"
                                 color="primary" focused 
-                                value ={userLogin?.firstName || ''}
+                                value={ userLogin!.newUser ? userLogin!.newUser.firstName : "Имя"} 
                                 inputProps={{ style: { textAlign: 'center' }}} 
-                                onChange={e =>{
-                                    setEdit( e.target.value)                   
+                                onChange={e=>{
+                                    userLogin!.newUser.firstName = e.target.value;
+                                    handlerEdit({...userLogin})                 
                                 }}/>
                             </div>
                         </div>
@@ -98,16 +106,17 @@ const InfoTabUser:  React.FC<Props> = ({value, change, handleClickChange, handle
                                 autoFocus
                                 margin="dense"
                                 id="name"
-                                label="Отчество"
+                                label= "Отчество"
                                 type="name"
                                 fullWidth
                                 size='small'
                                 variant="outlined"
                                 color="primary" focused 
-                                value ={edit || ''}
+                                value={ userLogin!.newUser ? userLogin!.newUser.middleName : "Отчество"} 
                                 inputProps={{ style: { textAlign: 'center' }}} 
-                                onChange={e =>{
-                                    setEdit( e.target.value)                   
+                                onChange={e=>{
+                                    userLogin!.newUser.middleName = e.target.value;
+                                    handlerEdit({...userLogin})                  
                                 }}/>
                             </div>
                         </div>
@@ -124,16 +133,17 @@ const InfoTabUser:  React.FC<Props> = ({value, change, handleClickChange, handle
                                 autoFocus
                                 margin="dense"
                                 id="name"
-                                label="Дата рождения"
+                                label= "Дата"
                                 type="name"
                                 fullWidth
                                 size='small'
                                 variant="outlined"
                                 color="primary" focused 
-                                value ={edit || ''}
+                                value={ userLogin!.newUser ? userLogin!.newUser.profile.date : "Дата"} 
                                 inputProps={{ style: { textAlign: 'center' }}} 
-                                onChange={e =>{
-                                    setEdit( e.target.value)                   
+                                onChange={e=>{
+                                    userLogin!.newUser.profile.date = e.target.value;
+                                    handlerEdit({...userLogin})                   
                                 }}/>
                             </div>
                         </div>
@@ -177,16 +187,17 @@ const InfoTabUser:  React.FC<Props> = ({value, change, handleClickChange, handle
                                         autoFocus
                                         margin="dense"
                                         id="name"
-                                        label="Снилс"
+                                        label= "Снилс"
                                         type="name"
                                         fullWidth
                                         size='small'
                                         variant="outlined"
                                         color="primary" focused 
-                                        value ={edit || ''}
+                                        value={ userLogin!.newUser ? userLogin!.newUser.profile.snils : "Снилс"} 
                                         inputProps={{ style: { textAlign: 'center' }}} 
-                                        onChange={e =>{
-                                            setEdit( e.target.value)                   
+                                        onChange={e=>{
+                                            userLogin!.newUser.profile.snils = e.target.value;
+                                            handlerEdit({...userLogin})                   
                                         }}/>
                                     </div>
                                 </div>
@@ -212,16 +223,17 @@ const InfoTabUser:  React.FC<Props> = ({value, change, handleClickChange, handle
                                         autoFocus
                                         margin="dense"
                                         id="name"
-                                        label="ИНН"
+                                        label= "ИНН"
                                         type="name"
                                         fullWidth
                                         size='small'
                                         variant="outlined"
                                         color="primary" focused 
-                                        value ={edit || ''}
+                                        value={ userLogin!.newUser ? userLogin!.newUser.profile.inn : "ИНН"} 
                                         inputProps={{ style: { textAlign: 'center' }}} 
-                                        onChange={e =>{
-                                            setEdit( e.target.value)                   
+                                        onChange={e=>{
+                                            userLogin!.newUser.profile.inn = parseInt(e.target.value);
+                                            handlerEdit({...userLogin})                 
                                         }}/>
                                     </div>
                                 </div>
@@ -240,16 +252,17 @@ const InfoTabUser:  React.FC<Props> = ({value, change, handleClickChange, handle
                                 autoFocus
                                 margin="dense"
                                 id="name"
-                                label="Телефон"
+                                label= "Телефон"
                                 type="name"
                                 fullWidth
                                 size='small'
                                 variant="outlined"
                                 color="primary" focused 
-                                value ={edit || ''}
+                                value={ userLogin!.newUser ? userLogin!.newUser.profile.phone : "Телефон"} 
                                 inputProps={{ style: { textAlign: 'center' }}} 
-                                onChange={e =>{
-                                    setEdit( e.target.value)                   
+                                onChange={e=>{
+                                    userLogin!.newUser.profile.phone = e.target.value;
+                                    handlerEdit({...userLogin})                    
                                 }}/>
                             </div>
                         </div>
@@ -267,7 +280,7 @@ const InfoTabUser:  React.FC<Props> = ({value, change, handleClickChange, handle
                     justifyContent: 'center',
                     }}>
                     <img 
-                     style={{
+                        style={{
                         width:'203px',
                         height:'400px',
                         background: 'white',
@@ -276,7 +289,7 @@ const InfoTabUser:  React.FC<Props> = ({value, change, handleClickChange, handle
                         alignItems: 'center',
                         justifyContent: 'center',
                     }} 
-                    src={`data:image/png;base64,${userLogin!.profile.photoByte}`}
+                    src={userLogin!.newUser.profile.photoByte != null || undefined ? `data:image/png;base64,${userLogin!.newUser.profile.photoByte}` : label}
                     alt='NTS'
                     loading="lazy"/>
                 </div>
