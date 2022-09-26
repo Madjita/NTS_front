@@ -3,7 +3,7 @@ import ProjectAddDialog from "../../ProjectComponents/ProjectAddDialog";
 import ExpandCircleDownIcon from '@mui/icons-material/ExpandCircleDown';
 import SettingsIcon from '@mui/icons-material/Settings';
 import React from "react";
-
+import AddCircleIcon from '@mui/icons-material/AddCircle'
 
 type Props = {
     numSelected: number;
@@ -39,12 +39,14 @@ type Props = {
       </div>
     
       <div style={{float: 'right'}}>
-        <ProjectAddDialog title='Добавить проект' handleAdd={handleAddProject} flagChangeUserDialog = {flagChangeUserDialog} setChangeDialog = {setChangeDialog}/>
-        <Tooltip title="Settings">
-          <IconButton style={{color: TableEventually? 'green': ''}}  onClick={() => setTableEventually(!TableEventually)} >
-              <SettingsIcon color="inherit" sx={{ display: 'block' }} />
+      <Tooltip title="Добавить">
+          <IconButton style={{color: flagChangeUserDialog? 'green': ''}}  onClick={() => {
+            setChangeDialog(!flagChangeUserDialog)
+          }} >
+              <AddCircleIcon color="inherit" sx={{ display: 'block' }} />
           </IconButton>
-        </Tooltip>
+      </Tooltip>
+      <ProjectAddDialog title='Добавить проект' handleAdd={handleAddProject} flagChangeUserDialog = {flagChangeUserDialog} setChangeDialog = {setChangeDialog}/>
       </div>
      
       </Toolbar>
