@@ -13,11 +13,7 @@ import { TabPanel } from '../../Pages/Enginer/Enginer';
 import DownloadIcon from '@mui/icons-material/Download';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import PreviewIcon from '@mui/icons-material/Preview';
-<<<<<<< HEAD
 import { IOldNewUser } from '../../IDataInterface/IDataInsideInterface';
-=======
-import DownloadPhoto from '../../Pages/TMP/TMPBody/TMPCardUser_v2/DownloudPhoto';
->>>>>>> main
 
 type Props = {
     className?: string,
@@ -26,20 +22,12 @@ type Props = {
     handleClickChange:  () => void,
     handleClickSave:  () => void,
     handleClickCancel:  () => void
-<<<<<<< HEAD
     handlerEdit: any
     userLogin?: IOldNewUser
 }
 
 const InfoTabULM:  React.FC<Props> = ({value, change, handleClickChange, handleClickSave, handleClickCancel, handlerEdit, userLogin}) => {
 
-=======
-}
-
-const InfoTabULM:  React.FC<Props> = ({value, change, handleClickChange, handleClickSave, handleClickCancel}) => {
-
-    const {userLogin} = useTypedSelector(state => state.userLogin)
->>>>>>> main
     const [edit, setEdit] = React.useState<string>()
 
     return(
@@ -59,28 +47,17 @@ const InfoTabULM:  React.FC<Props> = ({value, change, handleClickChange, handleC
                                         autoFocus
                                         margin="dense"
                                         id="name"
-<<<<<<< HEAD
                                         label="Номер"
-=======
-                                        label="Серия номер"
->>>>>>> main
                                         type="name"
                                         fullWidth
                                         size='small'
                                         variant="outlined"
                                         color="primary" focused 
-<<<<<<< HEAD
                                         value={ userLogin!.newUser ? userLogin!.newUser.profile.ulmNumber : "Номер"}
                                         inputProps={{ style: { textAlign: 'center' }}} 
                                         onChange={e=>{
                                             userLogin!.newUser.profile.ulmNumber = parseInt(e.target.value);
                                             handlerEdit({...userLogin})                  
-=======
-                                        value ={edit || ''}
-                                        inputProps={{ style: { textAlign: 'center' }}} 
-                                        onChange={e =>{
-                                            setEdit( e.target.value)                   
->>>>>>> main
                                     }}/>
                                     </div>         
                                     <div style={{paddingLeft: '10px'}}>
@@ -95,18 +72,11 @@ const InfoTabULM:  React.FC<Props> = ({value, change, handleClickChange, handleC
                                         size='small'
                                         variant="outlined"
                                         color="primary" focused 
-<<<<<<< HEAD
                                         value={ userLogin!.newUser ? new Date(userLogin!.newUser.profile.ulmDateTaked).toLocaleDateString(): "Дата выдачи"}
                                         inputProps={{ style: { textAlign: 'center' }}} 
                                         onChange={e=>{
                                             userLogin!.newUser.profile.ulmDateTaked = e.target.value;
                                             handlerEdit({...userLogin})                    
-=======
-                                        value ={edit || ''}
-                                        inputProps={{ style: { textAlign: 'center' }}} 
-                                        onChange={e =>{
-                                            setEdit( e.target.value)                   
->>>>>>> main
                                     }}/>
                                     </div>
                                     <p style={{margin: '0px',padding: '5px'}}>-</p>
@@ -122,18 +92,11 @@ const InfoTabULM:  React.FC<Props> = ({value, change, handleClickChange, handleC
                                         size='small'
                                         variant="outlined"
                                         color="primary" focused 
-<<<<<<< HEAD
                                         value={ userLogin!.newUser ? new Date(userLogin!.newUser.profile.ulmDateBack).toLocaleTimeString() : "Дата окончания"}
                                         inputProps={{ style: { textAlign: 'center' }}} 
                                         onChange={e=>{
                                             userLogin!.newUser.profile.ulmDateBack = e.target.value;
                                             handlerEdit({...userLogin})                 
-=======
-                                        value ={edit || ''}
-                                        inputProps={{ style: { textAlign: 'center' }}} 
-                                        onChange={e =>{
-                                            setEdit( e.target.value)                   
->>>>>>> main
                                     }}/>
                                     </div>
                                     <div style={{paddingLeft: '10px'}}>
@@ -148,18 +111,11 @@ const InfoTabULM:  React.FC<Props> = ({value, change, handleClickChange, handleC
                                         size='small'
                                         variant="outlined"
                                         color="primary" focused 
-<<<<<<< HEAD
                                         value={ userLogin!.newUser ? userLogin!.newUser.profile.ulmCode : "Код подразделения"}
                                         inputProps={{ style: { textAlign: 'center' }}} 
                                         onChange={e=>{
                                             userLogin!.newUser.profile.ulmCode = parseInt(e.target.value);
                                             handlerEdit({...userLogin})                   
-=======
-                                        value ={edit || ''}
-                                        inputProps={{ style: { textAlign: 'center' }}} 
-                                        onChange={e =>{
-                                            setEdit( e.target.value)                   
->>>>>>> main
                                     }}/>
                                     </div>
                                 </div>
@@ -191,18 +147,11 @@ const InfoTabULM:  React.FC<Props> = ({value, change, handleClickChange, handleC
                                         size='small'
                                         variant="outlined"
                                         color="primary" focused 
-<<<<<<< HEAD
                                         value={ userLogin!.newUser ? userLogin!.newUser.profile.ulmTaked : "Кем выдан"}
                                         inputProps={{ style: { textAlign: 'center' }}} 
                                         onChange={e=>{
                                             userLogin!.newUser.profile.ulmTaked = e.target.value;
                                             handlerEdit({...userLogin})                      
-=======
-                                        value ={edit || ''}
-                                        inputProps={{ style: { textAlign: 'center' }}} 
-                                        onChange={e =>{
-                                            setEdit( e.target.value)                   
->>>>>>> main
                                     }}/>
                                 </div>
                         </div>
@@ -225,18 +174,11 @@ const InfoTabULM:  React.FC<Props> = ({value, change, handleClickChange, handleC
                                         size='small'
                                         variant="outlined"
                                         color="primary" focused 
-<<<<<<< HEAD
                                         value={ userLogin!.newUser ? userLogin!.newUser.profile.ulmPlaceBorned : "Место рождения"}
                                         inputProps={{ style: { textAlign: 'center' }}} 
                                         onChange={e=>{
                                             userLogin!.newUser.profile.ulmPlaceBorned = e.target.value;
                                             handlerEdit({...userLogin})                    
-=======
-                                        value ={edit || ''}
-                                        inputProps={{ style: { textAlign: 'center' }}} 
-                                        onChange={e =>{
-                                            setEdit( e.target.value)                   
->>>>>>> main
                                     }}/>
                         </div>
                     </div>

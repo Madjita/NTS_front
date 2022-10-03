@@ -46,9 +46,9 @@ type Props = {
             </IconButton>
           </TableCell>
           <TableCell align="center">
-            {rowUserCollapse?.firstName}
+            {rowUserCollapse?.secondName}
           </TableCell>
-          <TableCell align="center">{rowUserCollapse?.secondName}</TableCell>
+          <TableCell align="center">{rowUserCollapse?.firstName}</TableCell>
           <TableCell align="center">{rowUserCollapse?.email}</TableCell>
           <TableCell align="center">{getAllHours()}</TableCell>
           <TableCell align='center'>
