@@ -11,11 +11,10 @@ import { GetSesstionToken,GetSessionEmail } from '../../../settings/settings';
 
 //
 
-import { Button, Grid } from '@mui/material';
+import { Button, Grid, Paper } from '@mui/material';
 import Content from '../../components/Content/Content';
 import ProjectCardComponent from '../../components/ProjectComponents/ProjectCardComponent';
 import TableMaterialUICollapsibleTable_AllProject from '../../components/TableMaterialUICollapsibleTable/TableMaterialUICollapsibleTable_AllProject';
-import Z from '../../components/Z';
 import Info from '../../components/Info/Info';
 import MultiplayHours from '../../components/HoursComponents/MultiplayHours/MultiplayHours';
 import { Box } from '@mui/system';
@@ -32,10 +31,13 @@ interface TabPanelProps {
 export function TabPanel(props: TabPanelProps) {
     const { children, value, index, ...other } = props;
   
+    let flagHidden = value !== index;
+
     return (
       <div
+        style={{height: flagHidden ? '':'100%'}}
         role="tabpanel"
-        hidden={value !== index}
+        hidden={flagHidden}
         id={`simple-tabpanel-${index}`}
         aria-labelledby={`simple-tab-${index}`}
         {...other}
@@ -68,7 +70,8 @@ const Enginer:  React.FC<Props> = ({value}) => {
         {
             findUser(sessionToken,sessionEmail)
             fetchUsers(sessionToken)
-            fetchProject(sessionToken)            
+            fetchProject(sessionToken)
+            
         }
     },[value])
 
@@ -103,14 +106,18 @@ const Enginer:  React.FC<Props> = ({value}) => {
                     }
                     </Grid>
                 </TabPanel>
-                    <TabPanel value={value} index={1}>
-                        <TableMaterialUICollapsibleTable_AllProject 
-                        addProject={addProject} 
-                        removeProject={removeProject} 
-                        fetchProject={fetchProject} 
-                        editProject={editProject}
-                        addUserHoursProject={addUserHoursProject}
-                    />
+                <TabPanel value={value} index={1}>
+                    <Box sx={{ position:'relative', width: "100%",height: '100%'}}>
+                        <Paper sx={{ width: "100%", height: '100%', mb: 2}}>
+                            <TableMaterialUICollapsibleTable_AllProject 
+                            addProject={addProject} 
+                            removeProject={removeProject} 
+                            fetchProject={fetchProject} 
+                            editProject={editProject}
+                            addUserHoursProject={addUserHoursProject} 
+                            />
+                        </Paper>
+                    </Box>
                 </TabPanel>
                 <TabPanel value={value} index={2}>
                     <Box sx={{ width: "100%",height: '100%'}}> 

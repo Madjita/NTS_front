@@ -3,6 +3,7 @@ import * as UserLoginActionCreators from './userLoginAction'
 import * as CompanyActionCreators from './companyAction'
 import * as ProjectActionCreators from './projectAction'
 import * as UserProjectActionCreators from './userProjectAction'
+import * as BuisnessTripCreators from './businessTripAction'
 
 export default {
     ...UserActionCreators,
@@ -10,4 +11,5 @@ export default {
     ...ProjectActionCreators,
     ...UserProjectActionCreators,
     ...UserLoginActionCreators,
+    ...BuisnessTripCreators,
 }

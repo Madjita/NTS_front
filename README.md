@@ -49,5 +49,8 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 HTTPS=true  HOST=0.0.0.0  SSL_CRT_FILE=localhost.pem SSL_KEY_FILE=localhost-key.pem 
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> sergei_test
 ![Alt text](Screenshot.png?raw=true "NTS")

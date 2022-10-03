@@ -89,7 +89,7 @@ type Props = {
 
    
 
-    const handleClickItem = (e: any) =>{
+    const handleClickItem = (e: any) => {
       let { myValue } = e.currentTarget.dataset;
       
 

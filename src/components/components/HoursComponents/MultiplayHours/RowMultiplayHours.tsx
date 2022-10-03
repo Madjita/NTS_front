@@ -12,8 +12,40 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { localeMap } from '../HoursAddDialog';
 import { TimePicker } from '@mui/x-date-pickers';
 
-function RowMultiplayHours(props: { row: IUserProject, labelId: any,handleAddHours?: any,handleRemove?:any ,handleEdit?:any,TableEventually?:any,rowsPerPage?:any,page?:any,index?:any,rowsCount?:any,order?:any,accumCollapseUser?:any,setRowsPerPage?:any}) {
-    const { row,labelId,handleAddHours,handleRemove,handleEdit,TableEventually,rowsPerPage,page,index,rowsCount,order,accumCollapseUser,setRowsPerPage } = props;
+function RowMultiplayHours(props: { 
+        row: IUserProject, 
+        labelId: any,
+        handleAddHours?: any,
+        handleRemove?:any ,
+        handleEdit?:any,
+        TableEventually?:any,
+        rowsPerPage?:any,
+        page?:any,
+        index?:any,
+        rowsCount?:any,
+        order?:any,
+        accumCollapseUser?:any,
+        setRowsPerPage?:any,
+        color?: any
+    }) 
+    {
+    const { 
+        row,
+        labelId,
+        handleAddHours,
+        handleRemove,
+        handleEdit,
+        TableEventually,
+        rowsPerPage,
+        page,
+        index,
+        rowsCount,
+        order,
+        accumCollapseUser,
+        setRowsPerPage,
+        color
+    } = props;
+
     const [open, setOpen] = React.useState(false);
     let indexNormal = index+(page * rowsPerPage)
     let index_with_order = order === 'asc' ? indexNormal : rowsCount-indexNormal-1;
@@ -32,6 +64,7 @@ function RowMultiplayHours(props: { row: IUserProject, labelId: any,handleAddHou
         day: 0,
         hours: 0
     });
+    
     const [dataValue, setDataValue] = React.useState<Date | null>(new Date());
     const [dataValueMonStart, setDataValueMonStart] = React.useState<Date | null>(new Date());
     const [dataValueMonStop, setDataValueMonStop] = React.useState<Date | null>(new Date());
@@ -99,12 +132,14 @@ function RowMultiplayHours(props: { row: IUserProject, labelId: any,handleAddHou
                     type="name"
                     fullWidth
                     variant="standard"
+                    sx={{ input: { color: color } }} 
                     value={newWeek.numberWeek}
                     inputProps={{ style: { textAlign: 'center' }}} 
                     onChange={e =>{
                     newWeek.numberWeek = Number(e.target.value);
                     setNewWeek({...newWeek})
-                }}
+                    }}
+                    
                 />
             </TableCell>
             <TableCell align="center"> 
@@ -117,6 +152,7 @@ function RowMultiplayHours(props: { row: IUserProject, labelId: any,handleAddHou
                     //label="Код"
                     type="select"
                     variant="standard"
+                    sx={{ input: { color: color }}} 
                     value={selectDayOfWeek.day}
                     inputProps={{ style: { textAlign: 'center' }}} 
                     onChange={e =>{
@@ -173,13 +209,13 @@ function RowMultiplayHours(props: { row: IUserProject, labelId: any,handleAddHou
                     <MenuItem value={0}>
                         <em>Все</em>
                     </MenuItem>
-                    <MenuItem value={1}>Понедельник</MenuItem>
-                    <MenuItem value={2}>Вторник</MenuItem>
-                    <MenuItem value={3}>Среда</MenuItem>
-                    <MenuItem value={4}>Четверг</MenuItem>
-                    <MenuItem value={5}>Пятница</MenuItem>
-                    <MenuItem value={6}>Суббота</MenuItem>
-                    <MenuItem value={7}>Воскрессенье</MenuItem>
+                    <MenuItem value={1} >Понедельник</MenuItem>
+                    <MenuItem value={2} >Вторник</MenuItem>
+                    <MenuItem value={3} >Среда</MenuItem>
+                    <MenuItem value={4} >Четверг</MenuItem>
+                    <MenuItem value={5} >Пятница</MenuItem>
+                    <MenuItem value={6} >Суббота</MenuItem>
+                    <MenuItem value={7} >Воскрессенье</MenuItem>
                 </TextField>
             </TableCell>
             <TableCell align="center">
@@ -208,6 +244,7 @@ function RowMultiplayHours(props: { row: IUserProject, labelId: any,handleAddHou
                     //label="Проект"
                     type="select"
                     variant="standard"
+                    sx={{ input: { color: color } }} 
                     value={row.project.code}
                     inputProps={{ style: { textAlign: 'center' }}} 
                     onChange={e =>{
@@ -294,6 +331,7 @@ function RowMultiplayHours(props: { row: IUserProject, labelId: any,handleAddHou
                     //label="Инженер на которого делается почасовка"
                     type="select"
                     variant="standard"
+                    sx={{ input: { color: color } }}
                     value={newWeek!.userSetWeek?.email}
                     inputProps={{ style: { textAlign: 'center' }}} 
                     onChange={e =>{
@@ -341,6 +379,7 @@ function RowMultiplayHours(props: { row: IUserProject, labelId: any,handleAddHou
                 //label="Код"
                 type="select"
                 variant="standard"
+                sx={{ input: { color: color } }}
                 value={newWeek.moHour?.activityCode || 'None'}
                 inputProps={{ style: { textAlign: 'center' }}} 
                 onChange={e =>{
@@ -442,6 +481,7 @@ function RowMultiplayHours(props: { row: IUserProject, labelId: any,handleAddHou
                     type="name"
                     fullWidth
                     variant="standard"
+                    sx={{ input: { color: color } }}
                     value={selectDayOfWeek.hours || ""}
                     inputProps={{ style: { textAlign: 'center' }}} 
                     onChange={e =>{
