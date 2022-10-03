@@ -122,9 +122,15 @@ export interface IUserProject{
 }
 
 export interface IBusinessTrip{
+    id: number,
     spent: number,
+    name: string,
+    descriptions: string,
     userProject: IUserProject,
     reportChecks: IReportCheck[]
+
+    dateStart?: string,
+    dateEnd?: string,
 }
 
 export interface IReportCheck{
