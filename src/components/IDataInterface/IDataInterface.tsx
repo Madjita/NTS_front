@@ -69,7 +69,7 @@ export interface IProfile{
     ulmTaked: string,
     ulmPlaceBorned: string,
     snils: string,
-    inn: number,
+    inn: string,
     phone: string,
     imageName: string
     photoByte: any
@@ -120,6 +120,42 @@ export interface IUserProject{
     project: IProject
     weeks: IWeek[]
 }
+
+export interface IBusinessTrip{
+    spent: number,
+    userProject: IUserProject,
+    reportChecks: IReportCheck[]
+}
+
+export interface IReportCheck{
+    date: string
+    value: number
+    descriptions: string
+    checkBankPhotoName: string //Название файла для чека который пришел от банка
+    checkBankPhotoByte: number[] //Файл в байтах
+    businessTrip: IBusinessTrip
+}
+
+export interface ICheckPlane extends IReportCheck{
+    ticketPhotoName: string //Название файла с его типом  билет бронирования на самолет
+    ticketPhotoByte: number[] //Файл в байтах
+
+    borderTicketPhotoName: string //Название файла с его типом  посадочного билета на самолет
+    borderTicketPhotoByte: number[] //Файл в байтах
+}
+
+export interface ICheckTrain extends IReportCheck{
+
+    borderTicketPhotoName: string //Название файла с его типом  посадочного билета на поезд
+    borderTicketPhotoByte: number[] //Файл в байтах
+}
+
+export interface ICheckHostel extends IReportCheck{
+
+    billPhotoName: string //Название файла с его типом  счет из отеля
+    billPhotoByte: number[] //Файл в байтах
+}
+
 
 
 //интерфейс для загрузки exel файла

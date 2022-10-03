@@ -4,40 +4,25 @@ import React from 'react';
 import DownloadIcon from '@mui/icons-material/Download';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import PreviewIcon from '@mui/icons-material/Preview';
-import '../../../TMPCardUser_v2/TMPCardUser_tabs_v3'
-import './MainInfo.css'
 import { IUser } from '../../../../../../IDataInterface/IDataInterface';
-import { createTheme, TextField } from '@mui/material';
+import { IOldNewUser } from '../../../../../../IDataInterface/IDataInsideInterface';
+import { disabledStyle } from './UserInfo';
 
 type Props = {
     className?: string,
-    userLogin?: IUser | null
-    change?: boolean
+    userLogin?: IOldNewUser
+    handlerEdit? : any
+    edit? : boolean
 }
 
 
 
  
-const UserPasportInternational:  React.FC<Props> = ({change, userLogin} : Props) => {
+const UserPasportInternational:  React.FC<Props> = ({userLogin,handlerEdit,edit}) => {
 
-    const [edit, setEdit] = React.useState<string>()
-
-    const theme = createTheme({
-        palette: {
-          primary: {
-            // Purple and green play nicely together.
-            main: '#FFFFFF',
-          },
-          secondary: {
-            // This is green.A700 as hex.
-            main: '#009BE5',
-          },
-        },
-      });
-      
     return(
         <div style={{padding: '13px'}}>
-                <div style={{height:'50px',display:'flex'}}>
+                <div style={{height:'30px',display:'flex'}}>
                     <div style={{width:'100%',display:'flex',justifyContent: 'space-between'}} >
                         <div className='center'>
                             <p>Паспорт загран</p>
@@ -46,77 +31,94 @@ const UserPasportInternational:  React.FC<Props> = ({change, userLogin} : Props)
                             <div style={{display: 'flex'}}>
                                 <div className='center'>
                                     <div>
-                                    <TextField            
-                                        disabled={!change}
-                                        autoFocus
-                                        margin="dense"
-                                        id="name"
-                                        label="Серия номер"
-                                        type="name"
-                                        fullWidth
-                                        size='small'
-                                        variant="outlined"
-                                        color="primary" focused 
-                                        value ={edit || ''}
-                                        inputProps={{ style: { textAlign: 'center' }}} 
-                                        onChange={e =>{
-                                            setEdit( e.target.value)                   
-                                        }}/>
-                                    </div>         
+                                        {/*
+                                            edit ?
+                                            <input className='origin' style={{width:'97px'}} type="text" value={userLogin?.newUser ? userLogin?.newUser.profile.ipNumber : "-"}
+                                            onChange={e=>{
+                                                userLogin!.newUser!.profile.ipNumber = Number(e.target.value)
+                                                handlerEdit({...userLogin});
+                                            }}/>
+                                            :
+                                            <p>{userLogin?.newUser ? userLogin?.newUser.profile.ipNumber : "-"}</p>
+                                            */
+                                        }
+
+                                        <input className='origin'  type="text" value={userLogin?.newUser ? userLogin?.newUser.profile.ipNumber : "-"}
+                                            onChange={e=>{
+                                                userLogin!.newUser!.profile.ipNumber = Number(e.target.value)
+                                                handlerEdit({...userLogin});
+                                         }}
+                                        disabled={!edit}
+                                        style={edit ? {width: '97px'}:{width: '97px', ...disabledStyle}}
+                                        />
+                                       
+                                    </div>    
+                                   
                                     <div style={{paddingLeft: '10px'}}>
-                                    <TextField            
-                                        disabled={!change}
-                                        autoFocus
-                                        margin="dense"
-                                        id="name"
-                                        label="Дата выдачи"
-                                        type="name"
-                                        fullWidth
-                                        size='small'
-                                        variant="outlined"
-                                        color="primary" focused 
-                                        value ={edit || ''}
-                                        inputProps={{ style: { textAlign: 'center' }}} 
-                                        onChange={e =>{
-                                            setEdit( e.target.value)                   
-                                    }}/>
+                                        {/*
+                                            edit ?
+                                            <input className='origin' style={{width:'80px'}} type="text" value={userLogin?.newUser ? new Date(userLogin?.newUser.profile.ipDateTaked).toLocaleDateString("en-US"): "-"}
+                                            onChange={e=>{
+                                                userLogin!.newUser!.profile.ipDateTaked = e.target.value
+                                                handlerEdit({...userLogin});
+                                            }}/>
+                                            :
+                                            <p>{userLogin?.newUser ? new Date(userLogin?.newUser.profile.ipDateTaked).toLocaleDateString("en-US") : "-"}</p>
+                                            */
+                                        }
+                                        <input className='origin' type="text" value={userLogin?.newUser ? new Date(userLogin?.newUser.profile.ipDateTaked).toLocaleDateString("en-US"): "-"}
+                                            onChange={e=>{
+                                                userLogin!.newUser!.profile.ipDateTaked = e.target.value
+                                                handlerEdit({...userLogin});
+                                        }}
+                                        disabled={!edit}
+                                        style={edit ? {width: '80px'}:{width: '80px', ...disabledStyle}}
+                                        />
+                                       
                                     </div>
                                     <p style={{margin: '0px',padding: '5px'}}>-</p>
+                                     
                                     <div>
-                                    <TextField            
-                                        disabled={!change}
-                                        autoFocus
-                                        margin="dense"
-                                        id="name"
-                                        label="Дата окончания"
-                                        type="name"
-                                        fullWidth
-                                        size='small'
-                                        variant="outlined"
-                                        color="primary" focused 
-                                        value ={edit || ''}
-                                        inputProps={{ style: { textAlign: 'center' }}} 
-                                        onChange={e =>{
-                                            setEdit( e.target.value)                   
-                                    }}/>
+                                        {/*
+                                            edit ?
+                                            <input className='origin' style={{width:'84px'}} type="text" value={userLogin?.newUser ? new Date(userLogin?.newUser.profile.ipDateBack).toLocaleDateString("en-US"): "-"}
+                                            onChange={e=>{
+                                                userLogin!.newUser!.profile.ipDateBack = e.target.value
+                                                handlerEdit({...userLogin});
+                                            }}/>
+                                            :
+                                            <p>{userLogin?.newUser ? new Date(userLogin?.newUser.profile.ipDateBack).toLocaleDateString("en-US") : "-"}</p>
+                                            */
+                                        }
+                                        <input className='origin' type="text" value={userLogin?.newUser ? new Date(userLogin?.newUser.profile.ipDateBack).toLocaleDateString("en-US"): "-"}
+                                            onChange={e=>{
+                                                userLogin!.newUser!.profile.ipDateBack = e.target.value
+                                                handlerEdit({...userLogin});
+                                        }}
+                                        disabled={!edit}
+                                        style={edit ? {width: '84px'}:{width: '84px', ...disabledStyle}}
+                                        />
                                     </div>
                                     <div style={{paddingLeft: '10px'}}>
-                                    <TextField            
-                                        disabled={!change}
-                                        autoFocus
-                                        margin="dense"
-                                        id="name"
-                                        label="Дата окончания"
-                                        type="name"
-                                        fullWidth
-                                        size='small'
-                                        variant="outlined"
-                                        color="primary" focused 
-                                        value ={edit || ''}
-                                        inputProps={{ style: { textAlign: 'center' }}} 
-                                        onChange={e =>{
-                                            setEdit( e.target.value)                   
-                                    }}/>
+                                        {/*
+                                            edit ?
+                                            <input className='origin' style={{width:'80px'}} type="text" value={userLogin?.newUser ? userLogin?.newUser.profile.ipCode : "-"}
+                                            onChange={e=>{
+                                                userLogin!.newUser!.profile.ipCode = Number(e.target.value)
+                                                handlerEdit({...userLogin});
+                                            }}/>
+                                            :
+                                            <p>{userLogin?.newUser ? userLogin?.newUser.profile.ipCode : "-"}</p>
+                                            */
+                                        }
+                                        <input className='origin' type="text" value={userLogin?.newUser ? userLogin?.newUser.profile.ipCode : "-"}
+                                            onChange={e=>{
+                                                userLogin!.newUser!.profile.ipCode = Number(e.target.value)
+                                                handlerEdit({...userLogin});
+                                        }}
+                                        disabled={!edit}
+                                        style={edit ? {width: '80px'}:{width: '80px', ...disabledStyle}}
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -124,7 +126,7 @@ const UserPasportInternational:  React.FC<Props> = ({change, userLogin} : Props)
                     </div>
                 </div>
 
-                <div style={{height:'50px',display:'flex'}}>
+                <div style={{height:'55px',display:'flex'}}>
                     <div style={{width:'100%',display:'flex',justifyContent: 'space-between'}} >
                         <div className='center'>
                             <p></p>
@@ -135,52 +137,60 @@ const UserPasportInternational:  React.FC<Props> = ({change, userLogin} : Props)
                                     <DownloadIcon/>
                                     <PreviewIcon/>
                                 </div>
-                                <div style={{display: 'flex',width: '694px'}}>
-                                <TextField            
-                                        disabled={!change}
-                                        autoFocus
-                                        margin="dense"
-                                        id="name"
-                                        label="Кем выдан"
-                                        type="name"
-                                        fullWidth
-                                        size='small'
-                                        variant="outlined"
-                                        color="primary" focused 
-                                        value ={edit || ''}
-                                        inputProps={{ style: { textAlign: 'center' }}} 
-                                        onChange={e =>{
-                                            setEdit( e.target.value)                   
-                                    }}/>
+                                <div  style={{width: '401px',paddingRight: '8px'}}>
+                                    {/*
+                                        edit ?
+                                        <textarea className='origin' style={{width: '100%',resize:'none'}}  value={userLogin?.newUser ? userLogin?.newUser.profile.ipTaked: "кем выдан"}
+                                        onChange={e=>{
+                                            userLogin!.newUser!.profile.ipTaked = e.target.value
+                                            handlerEdit({...userLogin});
+                                        }}/>
+                                        :
+                                        <p>{userLogin?.newUser ? userLogin?.newUser.profile.ipTaked: "кем выдан"}</p>
+                                        */
+                                    }
+                                    <textarea className='origin'  value={userLogin?.newUser ? userLogin?.newUser.profile.ipTaked: "кем выдан"}
+                                        onChange={e=>{
+                                            userLogin!.newUser!.profile.ipTaked = e.target.value
+                                            handlerEdit({...userLogin});
+                                        }}
+                                        disabled={!edit}
+                                        style={edit ? {width: '100%',resize:'none'}:{width: '100%',resize:'none',...disabledStyle}}
+                                    />
                                 </div>
                         </div>
                     </div>
                 </div>
-                <div style={{height:'50px',display:'flex'}}>
+
+                <div style={{height:'30px',display:'flex'}}>
                     <div style={{width:'100%',display:'flex',justifyContent: 'space-between'}} >
                         <div className='center'>
                             <p></p>
                         </div>
-                        <div style={{width: '694px'}} className='center'>
-                                    <TextField            
-                                        disabled={!change}
-                                        autoFocus
-                                        margin="dense"
-                                        id="name"
-                                        label="Место рождения"
-                                        type="name"
-                                        fullWidth
-                                        size='small'
-                                        variant="outlined"
-                                        color="primary" focused 
-                                        value ={edit || ''}
-                                        inputProps={{ style: { textAlign: 'center' }}} 
-                                        onChange={e =>{
-                                            setEdit( e.target.value)                   
-                                    }}/>
+                        <div style={{width: '408px'}} className='center'>
+                            {/*
+                                edit ?
+                                <input className='origin' style={{width: '100%'}} type="text" value={userLogin?.newUser ? userLogin?.newUser.profile.ipPlaceBorned: "место рождения"}
+                                onChange={e=>{
+                                    userLogin!.newUser!.profile.ipPlaceBorned = e.target.value
+                                    handlerEdit({...userLogin});
+                                }}/>
+                                :
+                                <p>{userLogin?.newUser ? userLogin?.newUser.profile.ipPlaceBorned: "место рождения"}</p>
+                                */
+                            }
+                             <input className='origin' type="text" value={userLogin?.newUser ? userLogin?.newUser.profile.ipPlaceBorned: "место рождения"}
+                                onChange={e=>{
+                                    userLogin!.newUser!.profile.ipPlaceBorned = e.target.value
+                                    handlerEdit({...userLogin});
+                                }}
+                                disabled={!edit}
+                                style={edit ? {width: '100%'}:{width: '100%', ...disabledStyle}}
+                                />
                         </div>
                     </div>
-                </div>                
+                </div>    
+                      
         </div>
     )
 }

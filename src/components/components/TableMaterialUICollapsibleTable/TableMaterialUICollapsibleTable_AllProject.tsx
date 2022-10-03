@@ -16,10 +16,7 @@ import EnhancedTableHead from './TableMaterialUiCollapsibleTable_AllProject/Enha
 import Row from './TableMaterialUiCollapsibleTable_AllProject/Row';
 import { IProjectSendApi } from '../../IDataInterface/IDataInsideInterface';
 
-<<<<<<< HEAD
 
-=======
->>>>>>> main
 interface Data {
   id: number,
   codeProject: string;
@@ -137,480 +134,7 @@ const headCells:  HeadCell[] = [
   
 ];
 
-<<<<<<< HEAD
 
-=======
-interface EnhancedTableProps {
-  numSelected: number;
-  onRequestSort: (event: React.MouseEvent<unknown>, property: keyof IProject) => void;
-  onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  order: Order;
-  orderBy: string;
-  rowCount: number;
-  TableEventually: any;
-}
-
-function EnhancedTableHead(props: EnhancedTableProps) {
-  const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort,TableEventually } =
-    props;
-  const createSortHandler =
-    (property: keyof IProject) => (event: React.MouseEvent<unknown>) => {
-      onRequestSort(event, property);
-    };
-
-  return (
-    <TableHead>
-      <TableRow>
-        <TableCell>
-        </TableCell>
-        {headCells.map((headCell) => (
-          <TableCell
-            key={headCell.id}
-            align={'center'}
-            padding={headCell.disablePadding ? 'none' : 'normal'}
-            sortDirection={orderBy === headCell.id ? order : false}
-
-          >
-            <TableSortLabel
-              active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : 'asc'}
-              onClick={createSortHandler(headCell.id)}
-            >
-              {headCell.label}
-              {orderBy === headCell.id ? (
-                <Box component="span" sx={visuallyHidden}>
-                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                </Box>
-              ) : null}
-            </TableSortLabel>
-          </TableCell>
-        ))}
-        <TableCell align="center">Добавить часы</TableCell>
-        {/*{TableEventually ? <TableCell align="center">Добавить инженера</TableCell>:null}*/}
-        {TableEventually ? <TableCell align="center">Редактировать</TableCell>:null}
-        {TableEventually ? <TableCell align="center">Удалить</TableCell>:null}
-      </TableRow>
-    </TableHead>
-  );
-}
-
-interface EnhancedTableToolbarProps {
-  numSelected: number;
-  handleAddProject: any;
-
-  TableEventually: any;
-  setTableEventually: any;
-  accumCollapseUser: any;
-}
-
-const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
-  const { numSelected,handleAddProject,TableEventually, setTableEventually,accumCollapseUser} = props;
-
-  return (
-    <Toolbar
-      sx={{
-        pl: { sm: 2 },
-       // width: '100%',
-        display: 'block',
-      }}
-    >
-    <div style={{float: 'left'}}>
-      <Tooltip title="Закрыть все открытые таблицы пользователей">
-        <IconButton style={{color: TableEventually? 'green': ''}}  onClick={() => {
-          accumCollapseUser.funcitonClose()
-        }} >
-            <ExpandCircleDownIcon color="inherit" sx={{ display: 'block' }} />
-        </IconButton>
-      </Tooltip>
-    </div>
-  
-    <div style={{float: 'right'}}>
-      <ProjectAddDialog title='Добавить проект' handleAdd={handleAddProject}/>
-      <Tooltip title="Settings">
-        <IconButton style={{color: TableEventually? 'green': ''}}  onClick={() => setTableEventually(!TableEventually)} >
-            <SettingsIcon color="inherit" sx={{ display: 'block' }} />
-        </IconButton>
-      </Tooltip>
-    </div>
-   
-    </Toolbar>
-  );
-};
-
-
-type PropsRowUsersWeekCollapseCollapse = {
-  className?: string,
-  child?: any
-
-  user?: IUser,
-  rowUserWeekCollapse?: IWeek
-  indexUserWeek?: number
-  donwloadProjectUserWeekExel?: any
-}
-
-
-
-//для вложенной таблицы строки
-const RowUsersWeekCollapse: React.FC<PropsRowUsersWeekCollapseCollapse> =({user,rowUserWeekCollapse,indexUserWeek,donwloadProjectUserWeekExel})=>{
-  const [open, setOpen] = React.useState(false);
-
-  return (
-    <React.Fragment>
-      <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
-        <TableCell align="center">
-          {rowUserWeekCollapse?.numberWeek || "-"}
-        </TableCell>
-        <TableCell align="center">
-          {rowUserWeekCollapse?.moHour?.wtHour || "-"}
-        </TableCell>
-        <TableCell align="center">
-          {rowUserWeekCollapse?.tuHour?.wtHour || "-"}
-        </TableCell>
-        <TableCell align="center">
-          {rowUserWeekCollapse?.weHour?.wtHour || "-"}
-        </TableCell>
-        <TableCell align="center">
-          {rowUserWeekCollapse?.thHour?.wtHour || "-"}
-        </TableCell>
-        <TableCell align="center">
-          {rowUserWeekCollapse?.frHour?.wtHour || "-"}
-        </TableCell>
-        <TableCell align="center">
-          {rowUserWeekCollapse?.saHour?.wtHour || "-"}
-        </TableCell>
-        <TableCell align="center">
-          {rowUserWeekCollapse?.suHour?.wtHour || "-"}
-        </TableCell>
-        <TableCell align="center">
-          {rowUserWeekCollapse?.sumHour || "-"}
-        </TableCell>
-        <TableCell align='center'>
-          <Button size="small" variant="outlined" onClick={()=>{
-            donwloadProjectUserWeekExel(user?.email,rowUserWeekCollapse)
-          }}>
-            Скачать Exel
-          </Button>
-        </TableCell>
-      </TableRow>
-    </React.Fragment>
-  )
-}
-
-
-type PropsRowUsersCollapse = {
-  className?: string,
-  child?: any
-
-  addProject?: (sessionToken: any,project: IProject) => {}
-  removeProject?: (sessionToken: any,name: string) => {}
-  editProject?:  (sessionToken: any,oldProjectInfromation: any,newProjectInfromation: any) => {}
-  addUserHoursProject?: (sessionToken: any,userProject: IUserProject) => {}
-  rowUserCollapse?: IUser
-  indexUser?: number
-  donwloadProjectUserWeekExel?: any
-  donwloadProjectUserAllWeekExel?: any
-}
-
-//для вложенной таблицы строки
-const RowUsersCollapse:   React.FC<PropsRowUsersCollapse> = ({rowUserCollapse,indexUser,donwloadProjectUserWeekExel,donwloadProjectUserAllWeekExel}) => {
-  const [open, setOpen] = React.useState(false);
-
-  const getAllHours = () => {
-    let sumHour = 0;
-    if(rowUserCollapse?.weeks != undefined)
-    {
-      sumHour = rowUserCollapse?.weeks.reduce((accum,item) => accum + item.sumHour, 0)
-    }
-    return sumHour
-  }
-
-  return (
-    <React.Fragment>
-      <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
-        <TableCell padding="checkbox">
-          <IconButton
-                aria-label="expand row"
-                size="small"
-                onClick={() => setOpen(!open)}
-              >
-                {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-          </IconButton>
-        </TableCell>
-        <TableCell align="center">
-          {rowUserCollapse?.firstName}
-        </TableCell>
-        <TableCell align="center">{rowUserCollapse?.secondName}</TableCell>
-        <TableCell align="center">{rowUserCollapse?.email}</TableCell>
-        <TableCell align="center">{getAllHours()}</TableCell>
-        <TableCell align='center'>
-          <Button size="small" variant="outlined" onClick={()=>{
-            donwloadProjectUserAllWeekExel(rowUserCollapse?.email)
-          }}>
-            Скачать архив
-          </Button>
-        </TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={15}>
-          <Collapse in={open} timeout="auto" unmountOnExit>
-            <Box sx={{ margin: 1 }}>
-              <Typography variant="h6" gutterBottom component="div">
-                Почасовки инженера
-              </Typography>
-              <Table size="small" aria-label="purchases">
-                <TableHead>
-                  <TableRow>
-                    <TableCell align="center">№ недели</TableCell>
-                    <TableCell align="center">Понедельник</TableCell>
-                    <TableCell align="center">Вторник</TableCell>
-                    <TableCell align="center">Среда</TableCell>
-                    <TableCell align="center">Четверг</TableCell>
-                    <TableCell align="center">Пятница</TableCell>
-                    <TableCell align="center">Суббота</TableCell>
-                    <TableCell align="center">Воскрессенье</TableCell>
-                    <TableCell align="center">Сумма часов за неделю</TableCell>
-                    <TableCell align='center'>Скачать Exel</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                {
-                  rowUserCollapse?.weeks.map((itemUserWeek,index)=>{
-                    return (
-
-                      <RowUsersWeekCollapse
-                      key={index}
-                      rowUserWeekCollapse={itemUserWeek}
-                      indexUserWeek={index}
-                      donwloadProjectUserWeekExel={donwloadProjectUserWeekExel}
-                      user={rowUserCollapse}
-                      />
-
-                    )
-                  })
-                }
-                </TableBody>
-              </Table>
-            </Box>
-          </Collapse>
-        </TableCell>
-      </TableRow>
-    </React.Fragment>
-  )
-}
-
-
-function Row(props: { row: IProject, labelId: any,handleAddHours: any,handleRemove:any ,handleEdit:any,TableEventually:any,rowsPerPage:any,page:any,index:any,rowsCount:any,order:any,accumCollapseUser:any}) {
-  const { row,labelId,handleAddHours,handleRemove,handleEdit,TableEventually,rowsPerPage,page,index,rowsCount,order,accumCollapseUser } = props;
-  const [open, setOpen] = React.useState(false);
-
-
-  const dataString = (dataIoString:string) => {
-
-    let data = new Date(dataIoString)
-    return data.toLocaleDateString('en-GB');
-  }
-
-  const getActualHours = () =>{
-
-    let actual = row.actualHour ? row.actualHour: 0;
-    return actual + " / "+ row.maxHour;
-  }
-
-  const {donwloadProjectUserWeekExel_fetch,donwloadProjectUserAllWeekExel_fetch} = useActions()
-
-  const donwloadProjectUserWeekExel = (userEmail: string,week: IWeek) =>{
-    
-    let sessionToken = GetSesstionToken();
-
-    let downloadExel = new Object as IDownloadProjectUserWeekExel;
-    downloadExel.projectCode = row.code;
-    downloadExel.userEmail = userEmail;
-    downloadExel.numberWeek = week.numberWeek;
-    downloadExel.yearWeek = week.year;
-
-    donwloadProjectUserWeekExel_fetch(sessionToken,downloadExel);
-
-  }
-
-  const donwloadProjectUserAllWeekExel =(userEmail: string) => {
-
-    let sessionToken = GetSesstionToken();
-
-    let downloadExel = new Object as IDownloadProjectUserWeekExel;
-    downloadExel.projectCode = row.code;
-    downloadExel.userEmail = userEmail;
-
-    donwloadProjectUserAllWeekExel_fetch(sessionToken,downloadExel);
-  }
-
-
-  //For dialog menu
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [mouseEvent, setMouseEvent] = React.useState<React.MouseEvent<HTMLElement> | null >(null);
-  const handleClick = (event: React.MouseEvent<HTMLElement>,row: any) => {
-    event.preventDefault();
-    setMouseEvent(event)
-    setAnchorEl(event.currentTarget);
-  };
-  const navigate = useNavigate();
-
-  const[flagProjectUserDialog, setFlagProjectUserDialog] = React.useState(false)
-  const handleClickItem = (e: any) =>{
-    let { myValue } = e.currentTarget.dataset;
-
-    switch(Number(myValue))
-    {
-      case 0:
-      {
-        //navigate('/admin')
-        window.open('/SelectProject?Code='+row.code,'_blank')?.focus()
-        break;
-      }
-      case 1:
-      {
-        setFlagProjectUserDialog(true);
-        break;
-      }
-      case 2:
-        break;
-      case 3:
-        break
-      default:
-        break;
-    }
-
-    setAnchorEl(null);
-  }
-  const handleClose = () => {
-      setAnchorEl(null);
-  };
-
-
-  return (
-    <React.Fragment>
-      <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}
-      hover
-      onContextMenu={(event) => handleClick(event, row)}
-      >
-      <TableCell padding="checkbox">
-        <IconButton
-              aria-label="expand row"
-              size="small"
-              onClick={() => {
-                setOpen(!open)
-                accumCollapseUser.functionAdd(open,setOpen)
-              }}
-            >
-              {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-        </IconButton>
-      </TableCell>
-      <TableCell
-        component="th"
-        id={labelId}
-        scope="row"
-        padding="none"
-        align="center"
-      >
-        {row.indexAdd}
-      </TableCell>
-      <TableCell align="center">
-        {row.code}
-      </TableCell>
-      <TableCell align="center">{row.title}</TableCell>
-      <TableCell align="center">{row.description}</TableCell>
-      <TableCell align="center">{dataString(row.dateStart)}</TableCell>
-      <TableCell align="center">{dataString(row.dateStop)}</TableCell>
-      <TableCell align="center">{getActualHours()}</TableCell>
-      <TableCell align="center">
-        <HoursAddDialog title='Добавить почасовку' handleAdd={handleAddHours} selectProject={row}/>
-      </TableCell>
-      {
-        TableEventually ? 
-        <React.Fragment>
-          { /*<TableCell align="center">
-            <ProjectUserDialog project={row}/>
-          </TableCell>*/}
-          <TableCell align="center">
-            <ProjectAddDialog indexEdit={()=>{
-                let indexNormal = index+(page * rowsPerPage)
-                let index_with_order = order === 'asc' ? indexNormal : rowsCount-indexNormal-1
-                return index_with_order;
-            }}
-            handleEdit={handleEdit}
-            selectProject={row ? row : undefined}/>
-          </TableCell>
-          <TableCell align="center">
-            <IconDelete onClick={()=>{
-            let indexNormal = index+(page * rowsPerPage)
-            let index_with_order = order === 'asc' ? indexNormal : rowsCount-indexNormal-1
-            handleRemove(index_with_order)
-            }}/>
-          </TableCell>
-        </React.Fragment>
-        :null
-      }
-      </TableRow>
-
-      <ProjectUserDialog 
-      project={row} 
-      flagProjectUserDialog={flagProjectUserDialog} 
-      setFlagProjectUserDialog={setFlagProjectUserDialog}
-      />
-
-      <TableMenu_AllProject 
-      handleClick={handleClickItem} 
-      handleClose={handleClose} 
-      anchorEl={anchorEl} 
-      mouseEvent={mouseEvent} 
-      row={row}
-      />
-
-
-
-      <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={15}>
-          <Collapse in={open} timeout="auto" unmountOnExit>
-            <Box sx={{ margin: 1 }}>
-              <Typography variant="h6" gutterBottom component="div">
-                Инженеры участвующие в проекте
-              </Typography>
-              <Table size="small" aria-label="purchases">
-                <TableHead>
-                  <TableRow>
-                    <TableCell></TableCell>
-                    <TableCell align="center">Фамилия</TableCell>
-                    <TableCell align="center">Имя</TableCell>
-                    <TableCell align="center">Почта</TableCell>
-                    <TableCell align="center">Общее количество часов по проекту</TableCell>
-                    <TableCell align='center'>Скачать архив почасовок</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                {
-                  row.users.map((itemUser,index)=>{
-                    return (
-
-                      <RowUsersCollapse
-                      key={index}
-                      rowUserCollapse={itemUser}
-                      indexUser={index}
-                      donwloadProjectUserWeekExel={donwloadProjectUserWeekExel}
-                      donwloadProjectUserAllWeekExel={donwloadProjectUserAllWeekExel}
-                      />
-
-                    )
-                  })
-                }
-                </TableBody>
-              </Table>
-            </Box>
-          </Collapse>
-        </TableCell>
-      </TableRow>
-    </React.Fragment>
-  );
-}
->>>>>>> main
 
 type Props = {
   className?: string,
@@ -802,9 +326,8 @@ const {projects} = useTypedSelector(state => state.project)
     
 
   return (
-    <Box sx={{ width: "100%",maxHeight: '780px',overflow: 'auto' }}>
-      <Paper sx={{ width: "100%", mb: 2}}>
-
+    <Box sx={{ width: "100%", height: '100%',position: 'relative',}}>
+      <div style={{position: 'relative',width: "100%",overflow: 'auto',maxHeight: '760px'}}>
         <EnhancedTableToolbar 
         numSelected={selected.length}  
         handleAddProject={handleAddProject} 
@@ -826,23 +349,8 @@ const {projects} = useTypedSelector(state => state.project)
               onRequestSort={handleRequestSort}
               rowCount={projects.length}
               TableEventually={TableEventually}
-<<<<<<< HEAD
               headCells={headCells}
             />
-=======
-            />
-<<<<<<< HEAD
-           </Table>
-           </div>
-           <div
-            style={{maxHeight: height-100}}>
-           <Table
-            aria-labelledby="tableTitle"
-            size={dense ? "small" : "medium"}
-          >
-=======
->>>>>>> alex_test
->>>>>>> main
             <TableBody>
               {/* if you don't need to support IE11, you can replace the `stableSort` call with:
               rows.slice().sort(getComparator(order, orderBy)) */}
@@ -865,34 +373,15 @@ const {projects} = useTypedSelector(state => state.project)
                         TableEventually={TableEventually}
                         rowsCount={projects.length}
                         order={order} 
-<<<<<<< HEAD
                         accumCollapseUser={accumCollapseUser}/>
                     
-=======
-<<<<<<< HEAD
-                        accumCollapseUser={accumCollapseUser}
-                        color={color}
-                        />
-=======
-                        accumCollapseUser={accumCollapseUser}/>
-                    
->>>>>>> alex_test
->>>>>>> main
                   );
                 })}
-              {emptyRows > 0 && (
-                <TableRow
-                  style={{
-                    height: (dense ? 43 : 63) * emptyRows
-                  }}
-                >
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
             </TableBody>
           </Table>
         </TableContainer>
-        <TablePagination
+      </div>
+      <TablePagination
           rowsPerPageOptions={[14]}
           component="div"
           count={projects.length}
@@ -900,8 +389,14 @@ const {projects} = useTypedSelector(state => state.project)
           page={page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
+          style={{
+            bottom: '0',
+            position: 'absolute',
+            overflow: 'hidden',
+            width: '100%',
+            backgroundColor: 'white',
+          }}
         />
-      </Paper>
     </Box>
   );
 }

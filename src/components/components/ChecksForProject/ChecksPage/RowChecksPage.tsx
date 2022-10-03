@@ -1,42 +1,45 @@
 import { Button, TableCell, TableRow, TextField } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 
-import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
-import { IBusinessTrip } from '../../IDataInterface/IDataInterface';
-
-
 type Props = {
-    row: IBusinessTrip;
-    handleSelectProject: (row: IBusinessTrip) => void;
+    page: any;
+    rowsPerPage: any;
+    index: any;
+    row: any;
+    labelId: any;
+    rowsCount: any;
+    order: any;
     handleRemove: any;
     setRowsPerPage: any;
-
-    index: number;
     color: any;
 }
 
-const RowProjectForChecks:  React.FC<Props> = (props) => {
+const RowChecksPage:  React.FC<Props> = (props) => {
 
     const {
+        page,
+        rowsPerPage,
+        index,
         row,
-        handleSelectProject,
+        labelId,
+        rowsCount,
+        order,
         handleRemove,
         setRowsPerPage,
-        index,
         color,
     } = props;
 
    return (
     <React.Fragment>
-    <TableRow>
+    <TableRow hover sx={{ '& > *': { borderBottom: 'unset' } }}>
         <TableCell align="center"> 
-            {index}
+            {"1"}
         </TableCell>
         <TableCell align="center"> 
-            {row.userProject.project.code}
+            {"12345654432"}
         </TableCell>
         <TableCell align="center"> 
-            {row.userProject.project.title}
+            {"Аргентина"}
         </TableCell>
         <TableCell align="center"> 
             {"20/12/2022"}
@@ -45,27 +48,21 @@ const RowProjectForChecks:  React.FC<Props> = (props) => {
             {"20/12/2023"}
         </TableCell>
         <TableCell align="center"> 
-            {row.reportChecks.length}
+           {"5"}
         </TableCell>
         <TableCell align="center"> 
-            {row.spent}
+           {"20000"}
         </TableCell>
         <TableCell align="center"> 
             <Button>
                 Скачать архив
             </Button>
         </TableCell>
-        <TableCell align="center"> 
-            <ArrowRightAltIcon 
-            onClick={(event) => {
-                handleSelectProject(row);
-            }}/>
-        </TableCell>
     </TableRow>
     </React.Fragment>
    )
 }
 
-export default RowProjectForChecks;
+export default RowChecksPage;
 
 

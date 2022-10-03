@@ -4,10 +4,7 @@ import './controlledLayout.css';
 import LayoutColumn from './LayoutColumn/LayoutColumn'
 
 
-import F from '../../../components/F'
-import Z from '../../../components/Z'
-import H from '../../../components/H'
-import X from '../../../components/X'
+import Z from '../../../components/Empty'
 import Table from '../../../components/Table/Table'
 
 import {ITableData,ITableDataLines} from '../../../components/Table/TableInterface/TableInterface'
@@ -72,19 +69,13 @@ const ControlledLayout:  React.FC<Props> = (props) => {
     let mas = []
 
     mas.push(<Table key={1} data={data }/>);
-    mas.push(<F key={0}/>);
-    mas.push(<F key={2}/>);
-    mas.push(<F key={3}/>);
 
     let mas2 = []
 
-    mas2.push(<H key={0}/>);
-    mas2.push(<X key={1}/>);
   
     return(
             <div className='controlledLayout Layout'>
                 <LayoutColumn children= {mas} flexGrow={2}/>
-                <LayoutColumn children= {mas2}  flexGrow={1}/>
             </div>
     )
 }
