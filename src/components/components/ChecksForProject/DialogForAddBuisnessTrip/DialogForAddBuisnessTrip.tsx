@@ -18,13 +18,20 @@ import {
   DialogActions,
   Button,
 } from "@mui/material";
-import { IProfile, IProject } from "../../../IDataInterface/IDataInterface";
+import {
+  IBusinessTrip,
+  IProfile,
+  IProject,
+  IUserProject,
+} from "../../../IDataInterface/IDataInterface";
 import { useTypedSelector } from "../../../../redux/hooks/useTypedSelector";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { localeMap } from "../../HoursComponents/HoursAddDialog";
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
+import { GetSesstionToken } from "../../../../settings/settings";
+import { useActions } from "../../../../redux/hooks/userActions";
 
 type Props = {
   className?: string;
@@ -46,10 +53,12 @@ const DialogForAddBuisnessTrip: React.FC<Props> = (props) => {
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let findItem = filter.projects.filter((x) => x.code === e.target.value)[0];
     setSelected({
       index: e.target.value,
-      item: filter.projects.filter((x) => x.code === e.target.value)[0],
+      item: findItem,
     });
+    setNewObject({ ...newObject, userProject: {...newObject.userProject, project: findItem} });
   };
   //
 
@@ -87,14 +96,41 @@ const DialogForAddBuisnessTrip: React.FC<Props> = (props) => {
 
   //
 
-  const [dataStart, setDataStart] = React.useState<Date | null>(
-    new Date()
-  );
+  const [dataStart, setDataStart] = React.useState<Date | null>(new Date());
   const [dataValueMonStop, setDataValueMonStop] = React.useState<Date | null>(
     new Date()
   );
   let timeFormat = { hour: "2-digit", minute: "2-digit" } as any;
   //
+
+  const {userLogin} = useTypedSelector(state => state.userLogin)
+  const {fetchBusinessTrips_add} = useActions()
+  //
+  const [newObject, setNewObject] = React.useState<IBusinessTrip>({
+    id: 0,
+    name: "",
+    spent: 0,
+    descriptions: "",
+    userProject: {
+      user: userLogin,
+      project: selected
+    } as unknown as IUserProject,
+    reportChecks: []
+  } as IBusinessTrip);
+  //
+
+  const handleAddClose = () => {
+    //Добавить
+    console.log("handleAddClose = ",newObject)
+    let sessionToken = GetSesstionToken();
+    if(sessionToken)
+    {
+        fetchBusinessTrips_add(sessionToken,newObject)
+
+    }
+    handleClose();
+  };
+
   return (
     <React.Fragment>
       <Dialog open={dialog.flag} onClose={handleClose}>
@@ -201,7 +237,7 @@ const DialogForAddBuisnessTrip: React.FC<Props> = (props) => {
                     if (isNaN(date.getTime())) {
                       return false;
                     }
-
+                    setNewObject({ ...newObject, dateStart: date.toISOString()});
                     //selected!.newUser.profile.date = e;
                     //handlerEdit({ ...userLogin });
                   }
@@ -209,10 +245,39 @@ const DialogForAddBuisnessTrip: React.FC<Props> = (props) => {
               />
             </div>
           </LocalizationProvider>
+
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Название проекта"
+            type="name"
+            fullWidth
+            variant="standard"
+            value={newObject?.name}
+            inputProps={{ style: { textAlign: "center" } }}
+            onChange={(e) => {
+                setNewObject({ ...newObject, name: e.target.value });
+            }}
+          />
+          <TextField
+            autoFocus
+            multiline
+            fullWidth
+            margin="dense"
+            id="name"
+            label="Описание"
+            type="name"
+            rows={4}
+            value={newObject?.descriptions}
+            onChange={(e) => {
+                setNewObject({ ...newObject, descriptions: e.target.value });
+            }}
+          />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Отменить</Button>
-          <Button >Добавить</Button>
+          <Button onClick={handleAddClose}>Добавить</Button>
         </DialogActions>
       </Dialog>
     </React.Fragment>

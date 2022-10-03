@@ -8,6 +8,7 @@ import { IBusinessTrip } from '../../IDataInterface/IDataInterface';
 type Props = {
     row: IBusinessTrip;
     handleSelectProject: (row: IBusinessTrip) => void;
+    handleCloseBuisnessTrip: (row: IBusinessTrip) => void,
     handleRemove: any;
     setRowsPerPage: any;
 
@@ -20,6 +21,7 @@ const RowProjectForChecks:  React.FC<Props> = (props) => {
     const {
         row,
         handleSelectProject,
+        handleCloseBuisnessTrip,
         handleRemove,
         setRowsPerPage,
         index,
@@ -39,10 +41,20 @@ const RowProjectForChecks:  React.FC<Props> = (props) => {
             {row.userProject.project.title}
         </TableCell>
         <TableCell align="center"> 
-            {"20/12/2022"}
+            {row.name}
         </TableCell>
         <TableCell align="center"> 
-            {"20/12/2023"}
+            {row.descriptions}
+        </TableCell>
+        <TableCell align="center"> 
+            {row.dateStart ? new Date(row.dateStart).toLocaleDateString(): "-"}
+        </TableCell>
+        <TableCell align="center"> 
+            {
+            row.dateEnd ? new Date(row.dateEnd).toLocaleDateString()
+            :
+            <Button onClick={()=>{handleCloseBuisnessTrip(row)}}>Завершить командировку</Button>
+            }
         </TableCell>
         <TableCell align="center"> 
             {row.reportChecks.length}
