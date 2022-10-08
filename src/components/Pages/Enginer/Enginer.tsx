@@ -113,7 +113,6 @@ const Enginer:  React.FC<Props> = ({value}) => {
                     <MultiplayHours/>
                 </TabPanel>
                 <TabPanel value={value} index={3}>
-                    Информация
                     <Info/>
                 </TabPanel>
             </React.Fragment>
@@ -123,67 +122,3 @@ const Enginer:  React.FC<Props> = ({value}) => {
 
 export default Enginer;
 
-
-/*
-  let data = new Object as ITableData
-    data.headers = []
-    data.lines = []
-
-    for (let i = 0; i < 10; i++) {
-        data.headers.push("Column "+i);
-    }
-
-    for (let i = 0; i < 10; i++) {
-
-        let cells = []
-
-        for (let j = 0; j < 10; j++) {
-
-            cells.push("Row "+i+" Column"+j)
-        }
-
-        data.lines.push({cells});
-    }
-
-<div>
-                <Header/>
-                <div className='wrapper'>
-                    <div className='enginer'>
-                        <div className='grid-widgets'>
-                            <Widget
-                            
-                            header={
-
-                                <div>
-                                    <h2>Все проекты</h2>
-                                </div>
-                            }
-
-                            children={
-                                <div>
-                                     <Table2 data={data}/>
-                                </div>
-                            }/>
-                            <Widget 
-
-                            header={
-
-                                <div>
-                                    <h2>Информация о пользователе</h2>
-                                </div>
-                            }
-                            
-                            
-                            
-                            children={
-
-                                <div>
-                                    <p>Информация о пользователе</p>
-                                </div>
-                            }/>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-*/

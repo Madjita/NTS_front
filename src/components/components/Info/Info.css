@@ -2,3 +2,41 @@
     background-color: LightCyan;
 }
 
+.test{
+    width: 65%;
+}
+
+.Mainpart{
+    width: 100%;
+    height: 50%;
+    display: flex;
+}
+
+.MainpartWithoutPhoto{
+    width: 70%;
+    height: 100%;
+    margin: 13px;
+    margin-right: 0px;
+}
+
+.Columns{
+    width: 100%;
+    height: 50px;
+    display: flex;
+}
+
+.Lines{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.Photo{
+    width: 303px;
+    height: 400px;
+    background: white;
+    margin: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

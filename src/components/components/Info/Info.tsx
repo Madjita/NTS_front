@@ -1,24 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import './Info.css'
-
-import TextField from '@mui/material/TextField';
-import { Box, Button, FormControl, FormControlLabel, Radio, RadioGroup, Tab, Tabs } from '@mui/material';
-
+import { Box, Tab, Tabs } from '@mui/material';
 import {IUser} from '../../IDataInterface/IDataInterface'
 import { useTypedSelector } from '../../../redux/hooks/useTypedSelector';
 import { GetSesstionToken } from '../../../settings/settings';
 import { useActions } from '../../../redux/hooks/userActions';
-import TMPCardUser_tabs_v3, { OldNewUser } from '../../Pages/TMP/TMPBody/TMPCardUser_v2/TMPCardUser_tabs_v3';
 import { TabPanel } from '../../Pages/Enginer/Enginer';
-import DownloadIcon from '@mui/icons-material/Download';
-import FileUploadIcon from '@mui/icons-material/FileUpload';
-import PreviewIcon from '@mui/icons-material/Preview';
-import DownloadPhoto from '../../Pages/TMP/TMPBody/TMPCardUser_v2/DownloudPhoto';
 import InfoTabUser from './InfoTabUser';
 import InfoTabPassport from './InfoTabPassport';
 import InfoTabInternation from './InfoTabInternational';
 import InfoTabULM from './InfoTabULM';
 import { IOldNewUser } from '../../IDataInterface/IDataInsideInterface';
+import InfoDialog from './InfoDialog/InfoDialog';
 
 type Props = {
     className?: string,
@@ -36,11 +29,11 @@ const tabStyle = {
     }
 };
 
-const Info:  React.FC<Props> = ({value}) => {
+const Info:  React.FC<Props> = ({}) => {
 
     const [valueex, setValue] = React.useState(0);
 
-    const {userLogin, errorLogin, loadingLogin} = useTypedSelector(state => state.userLogin)
+    const {userLogin} = useTypedSelector(state => state.userLogin)
     const init = () => {
         let newUser = new Object as IOldNewUser;
             if(userLogin != undefined)
@@ -54,6 +47,7 @@ const Info:  React.FC<Props> = ({value}) => {
             }
         return newUser;
     }
+
     const [newUser, ChangeInfo] = React.useState<IOldNewUser>({
         newUser: userLogin as IUser,
         oldUser: userLogin as IUser
@@ -105,11 +99,6 @@ const Info:  React.FC<Props> = ({value}) => {
         changeButton(!change)
     }
 
-    
-    
-    
-    
-
     function getStyle (isActive : any) {
         return isActive ? tabStyle.active_tab : tabStyle.default_tab
     }
@@ -134,21 +123,20 @@ const Info:  React.FC<Props> = ({value}) => {
                 </Tabs>
             </Box>
             <TabPanel index={0} value={valueex}>
-                <InfoTabUser  change = {change} handleClickChange = {handleClickChange} 
-                handleClickSave = {handleClickSave} handleClickCancel = {handleClickCancel} handlerEdit={handlerEdit} userLogin={newUser}/>
+                <InfoTabUser  handleClickChange = {handleClickChange} userLogin={newUser} />
             </TabPanel>
             <TabPanel index={1} value={valueex}>
-                <InfoTabPassport  change = {change} handleClickChange = {handleClickChange} 
-                handleClickSave = {handleClickSave} handleClickCancel = {handleClickCancel} handlerEdit={handlerEdit} userLogin={newUser}/>
+                <InfoTabPassport  handleClickChange = {handleClickChange} userLogin={newUser}/>
             </TabPanel>
             <TabPanel index={2} value={valueex}>
                 <InfoTabInternation  change = {change} handleClickChange = {handleClickChange} 
                 handleClickSave = {handleClickSave} handleClickCancel = {handleClickCancel} handlerEdit={handlerEdit} userLogin={newUser}/>
             </TabPanel>
             <TabPanel index={3} value={valueex}>
-                <InfoTabULM  change = {change} handleClickChange = {handleClickChange} 
-                handleClickSave = {handleClickSave} handleClickCancel = {handleClickCancel} handlerEdit={handlerEdit} userLogin={newUser}/>
-            </TabPanel>                       
+                <InfoTabULM  handleClickChange = {handleClickChange}  userLogin={newUser}/>
+            </TabPanel>
+            <InfoDialog open={change} onClose={changeButton} userLogin={newUser} handleClickSave = {handleClickSave} handleClickCancel = {handleClickCancel} 
+            ChangeInfo = {ChangeInfo}/>                       
             </div>
         )
 }
