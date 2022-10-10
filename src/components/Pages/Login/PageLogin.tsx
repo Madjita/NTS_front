@@ -8,6 +8,8 @@ import './PageLogin.css';
 import {registerUser,loginUser} from '../../../api/api'
 import { useActions } from '../../../redux/hooks/userActions';
 import { useTypedSelector } from '../../../redux/hooks/useTypedSelector';
+import { FormControl, IconButton, Input, InputAdornment, InputLabel, OutlinedInput } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 type Props = {
     className?: string
@@ -19,9 +21,19 @@ type Props = {
 
 const PageLogin:  React.FC<Props> = ({setRole,setUser}) => {
   const [LoginData, setLoginData] = useState<Login>({email: '', password: ''});
+  const [showPassword,setShowPassword] = useState(false);
   const [RegiserData, setRegisterData] = useState<Register>({email: '', password: '',company: '',firstName:'',secondName:'',middleName:''});
   const [BadMessage,setBadMessage] = useState(null);
   const [signup, setSignup] = useState<boolean>(false);
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+  };
+
+
   const navigate = useNavigate();
 
   const {userLogin, errorLogin, loadingLogin} = useTypedSelector(state => state.userLogin)
@@ -92,15 +104,53 @@ const PageLogin:  React.FC<Props> = ({setRole,setUser}) => {
                                     }
                                     <form onSubmit={handleSubmit}>
                                         <label htmlFor="Email">Email</label>
-                                        <input data-automation="username-input" id="Email" onChange={e => setLoginData((prevState) => ({
+                                        <FormControl sx={{ m: 1, width: '100%',margin:'0',marginBottom: '20px' }} variant="filled">
+                                        <Input
+                                            id="Email"
+                                            data-automation="username-input"
+                                            value={LoginData.email}
+                                            onChange={e => setLoginData((prevState) => ({
+                                                ...prevState,
+                                                 email: e.target.value as any
+                                            } as Login))}
+                                        />
+                                        </FormControl>
+                                       {/*
+                                        <input  className='InputLogin' data-automation="username-input" id="Email" onChange={e => setLoginData((prevState) => ({
                                             ...prevState,
                                              email: e.target.value as any
                                             } as Login))}/>
+                                       
+                                       */}
                                         <label htmlFor="Password">Password</label>
-                                        <input data-automation="password-input" id="Password" type="Password" onChange={e => setLoginData((prevState)=> ({
+                                        <FormControl sx={{ m: 1, width: '100%',margin:'0' }} variant="filled">
+                                        <Input
+                                            id="Password"
+                                            type={showPassword ? 'text' : 'password'}
+                                            value={LoginData.password}
+                                            onChange={e => setLoginData((prevState)=> ({
+                                                ...prevState,
+                                                password: e.target.value as any
+                                            }) as Login)}
+                                            endAdornment={
+                                            <InputAdornment position="end">
+                                                <IconButton
+                                                aria-label="toggle password visibility"
+                                                onClick={handleClickShowPassword}
+                                                onMouseDown={handleMouseDownPassword}
+                                                >
+                                                {showPassword ? <VisibilityOff /> : <Visibility />}
+                                                </IconButton>
+                                            </InputAdornment>
+                                            }
+                                        />
+                                        </FormControl>
+                                       {/*
+                                        <input className='InputLogin' data-automation="password-input" id="Password" type="Password" onChange={e => setLoginData((prevState)=> ({
                                             ...prevState,
                                             password: e.target.value as any
                                         }) as Login)}/>
+                                       */}
                                         <p style={{textAlign: 'center',color: 'red'}}>{BadMessage}</p>
                                         <button type="submit" className='Button'>
                                             {
@@ -111,6 +161,7 @@ const PageLogin:  React.FC<Props> = ({setRole,setUser}) => {
                                             }
                                         </button>
                                     </form>
+                                    
                                 </div>
                             </div>
                             <a className='hint' href="/login/forgot/en">Forgot your password?</a>

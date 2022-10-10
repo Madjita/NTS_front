@@ -28,12 +28,12 @@
 .MuiTableSortLabel-icon {
   color: inherit !important;
 }
-
+/*
 .MuiIconButton-root.Mui-disabled
 {
     color: gray !important;
 }
-
+*/
 @media  (max-width: 891px),(max-width: 1244px) {
     .grid{
         display: grid;

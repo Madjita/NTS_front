@@ -11,14 +11,12 @@ import Typography from '@mui/material/Typography';
 import Tooltip from '@mui/material/Tooltip';
 import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
-import Logout from '@mui/icons-material/Logout';
-import KeyboardTabIcon from '@mui/icons-material/KeyboardTab';
+
 
 import { useNavigate } from 'react-router-dom';
 import { IProject } from '../../IDataInterface/IDataInterface';
 import ProjectUserDialog from '../Widget/ProjectUserComponents/ProjectUserDialog';
-import AddIcon from '@mui/icons-material/Add';
-import Delete from '@mui/icons-material/Delete';
+;
 
 type Props = {
     className?: string,
@@ -27,28 +25,32 @@ type Props = {
     anchorEl: any,
     mouseEvent: React.MouseEvent<HTMLElement> | null,
 
-    row: IProject
+    row: any,
+    actionTitleList: {
+      title: string;
+      icon: JSX.Element;
+      divider: boolean;
+    }[];
 }
 
 
 
  
-const TableMenu_AllProject:  React.FC<Props> = ({handleClick,handleClose,anchorEl,mouseEvent,row}) => {
+const TableMenu_AllProject:  React.FC<Props> = (props) => {
+
+  const {handleClick,handleClose,anchorEl,mouseEvent,row,actionTitleList} = props
 
     const open = Boolean(anchorEl);
-    
     return(
-        <React.Fragment>
         <Menu
           anchorEl={anchorEl}
           id="account-menu"
           open={open}
           onClose={handleClose}
-          //onClick={handleClose}
           PaperProps={{
             elevation: 0,
             style:{
-              transform: 'translateX('+ (mouseEvent ? mouseEvent!.clientX-25 : 0)+'px)',
+             transform: 'translateX('+ (mouseEvent ? mouseEvent!.clientX-25 : 0)+'px)',
             },
             sx: {
               
@@ -78,6 +80,30 @@ const TableMenu_AllProject:  React.FC<Props> = ({handleClick,handleClose,anchorE
           transformOrigin={{ horizontal: 'left', vertical: 'top' }}
           anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
         >
+          {
+            actionTitleList.map((item,i)=>{
+              return (
+              <div key={item.title}>
+                <MenuItem onClick={handleClick} data-my-value={i}>
+                <ListItemIcon>
+                  {item.icon}
+                </ListItemIcon>
+                {item.title}
+                </MenuItem>
+                {item.divider && <Divider/>}
+              </div>
+              )
+            })
+          }
+        </Menu>
+    )
+}
+
+export default TableMenu_AllProject;
+
+
+
+/*
           <MenuItem onClick={handleClick} data-my-value={0}>
             <ListItemIcon>
               <KeyboardTabIcon fontSize="small" />
@@ -103,9 +129,4 @@ const TableMenu_AllProject:  React.FC<Props> = ({handleClick,handleClose,anchorE
             </ListItemIcon>
             Удалить
           </MenuItem>
-        </Menu>
-      </React.Fragment>
-    )
-}
-
-export default TableMenu_AllProject;
+         */

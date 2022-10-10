@@ -137,6 +137,12 @@ const headCells:  HeadCell[] = [
     disablePadding: false,
     label: 'Затрачено',
   },
+  {
+    id: 'status',
+    numeric: true,
+    disablePadding: false,
+    label: 'Статус',
+  }
   
 ];
 
@@ -251,14 +257,10 @@ const {projects} = useTypedSelector(state => state.project)
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - projects.length) : 0;
 
 
-
-
   const handleAddHours = async (newObject: IWeek) => {
       let sessionToken =  GetSesstionToken()
       if(newObject != null)
       {
-      
-
         let object = new Object() as IUserProject
         object.weeks = new Array() as IWeek[]
 

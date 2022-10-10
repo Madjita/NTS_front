@@ -148,7 +148,6 @@ function RowMultiplayHours(props: {
                     select
                     fullWidth
                     margin="dense"
-                    id="select"
                     //label="Код"
                     type="select"
                     variant="standard"
@@ -240,7 +239,6 @@ function RowMultiplayHours(props: {
                     select
                     fullWidth
                     margin="dense"
-                    id="select"
                     //label="Проект"
                     type="select"
                     variant="standard"
@@ -327,7 +325,6 @@ function RowMultiplayHours(props: {
                     select
                     fullWidth
                     margin="dense"
-                    id="select"
                     //label="Инженер на которого делается почасовка"
                     type="select"
                     variant="standard"
@@ -375,7 +372,6 @@ function RowMultiplayHours(props: {
                 select
                 fullWidth
                 margin="dense"
-                id="select"
                 //label="Код"
                 type="select"
                 variant="standard"

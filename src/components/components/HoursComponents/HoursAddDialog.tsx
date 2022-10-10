@@ -255,7 +255,6 @@ const HoursAddDialog:  React.FC<Props> = ({title,handleAdd,selectProject,color})
               select
               fullWidth
               margin="dense"
-              id="select"
               label="Инженер кто добавлет"
               type="select"
               variant="standard"
@@ -318,7 +317,6 @@ const HoursAddDialog:  React.FC<Props> = ({title,handleAdd,selectProject,color})
               select
               fullWidth
               margin="dense"
-              id="select"
               label="Код"
               type="select"
               variant="standard"

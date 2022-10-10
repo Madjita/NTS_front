@@ -41,6 +41,7 @@ type Props = {
 const ChecksForProject: React.FC<Props> = (props: Props) => {
   const { color, outSideCountView } = props;
 
+
   //choose Project
   const [chooseProject, setChooseProject] = React.useState(false);
   const [selectChooseProject, setSelectChooseProject] = React.useState<IBusinessTrip | undefined>(undefined);
@@ -70,7 +71,7 @@ const ChecksForProject: React.FC<Props> = (props: Props) => {
   ]);
 
   const businessTripHook = useTypedSelector(state => state.businessTrip)
-  const {fetchBusinessTrips} = useActions()
+  const {fetchBusinessTrips, fetchBusinessTrip_delete} = useActions()
 
   useEffect(()=>{
     let sessionToken = GetSesstionToken()
@@ -92,8 +93,9 @@ const ChecksForProject: React.FC<Props> = (props: Props) => {
   };
 
   const handleRemove = async (index: number) => {
-    list.splice(index, 1);
-    setList((list) => [...list]);
+
+    fetchBusinessTrip_delete(GetSesstionToken(),businessTripHook.businessTrips[index])
+
   };
 
   const {fetchBusinessTrips_finish} = useActions()
@@ -111,6 +113,9 @@ const ChecksForProject: React.FC<Props> = (props: Props) => {
   const handleSelectReturn = () => {
     setChooseProject(false);
   }
+
+
+ 
 
   return (
     <div
@@ -193,13 +198,17 @@ const ChecksForProject: React.FC<Props> = (props: Props) => {
                       <RowProjectForChecks
                         key={index}
                         row={row as any}
-                        index={index+1}
+                        index={index + 1}
                         handleSelectProject={handleSelectProject}
                         handleRemove={handleRemove}
                         setRowsPerPage={setRowsPerPage}
                         handleCloseBuisnessTrip={handleCloseBuisnessTrip}
                         color={color}
-                      />
+                        order={order}
+                        rowsCount={businessTripHook.businessTrips.length} 
+                        rowsPerPage={rowsPerPage}
+                        page={page}                      
+                        />
                     );
                   })}
               </TableBody>

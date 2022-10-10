@@ -51,7 +51,6 @@ const HoursCode:  React.FC<Props> = ({setNewWeek,newWeek,sumHours}) =>
               select
               fullWidth
               margin="dense"
-              id="select"
               label="Код"
               type="select"
               variant="standard"
@@ -100,7 +99,6 @@ const HoursCode:  React.FC<Props> = ({setNewWeek,newWeek,sumHours}) =>
               select
               fullWidth
               margin="dense"
-              id="select"
               label="Код"
               type="select"
               variant="standard"
@@ -148,7 +146,6 @@ const HoursCode:  React.FC<Props> = ({setNewWeek,newWeek,sumHours}) =>
               select
               fullWidth
               margin="dense"
-              id="select"
               label="Код"
               type="select"
               variant="standard"
@@ -197,7 +194,6 @@ const HoursCode:  React.FC<Props> = ({setNewWeek,newWeek,sumHours}) =>
               select
               fullWidth
               margin="dense"
-              id="select"
               label="Код"
               type="select"
               variant="standard"
@@ -247,7 +243,6 @@ const HoursCode:  React.FC<Props> = ({setNewWeek,newWeek,sumHours}) =>
               select
               fullWidth
               margin="dense"
-              id="select"
               label="Код"
               type="select"
               variant="standard"
@@ -296,7 +291,6 @@ const HoursCode:  React.FC<Props> = ({setNewWeek,newWeek,sumHours}) =>
               select
               fullWidth
               margin="dense"
-              id="select"
               label="Код"
               type="select"
               variant="standard"
@@ -345,7 +339,6 @@ const HoursCode:  React.FC<Props> = ({setNewWeek,newWeek,sumHours}) =>
               select
               fullWidth
               margin="dense"
-              id="select"
               label="Код"
               type="select"
               variant="standard"
