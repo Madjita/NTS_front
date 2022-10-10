@@ -13,6 +13,11 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import IconDelete from '@mui/icons-material/Delete'
 import RowUsersCollapse from "./RowUsersCollapse";
 
+import AddIcon from '@mui/icons-material/Add'
+import Delete from '@mui/icons-material/Delete';
+import Logout from '@mui/icons-material/Logout';
+import KeyboardTabIcon from '@mui/icons-material/KeyboardTab';
+import Edit from "@mui/icons-material/Edit";
 
 type Props = {
     row: IProject, 
@@ -108,7 +113,6 @@ type Props = {
         case 2:
         {
           setChangeDialog(true);
-          console.log(flagChangeUserDialog);
           break;
         }
         case 3:
@@ -124,9 +128,18 @@ type Props = {
   
       setAnchorEl(null);
     }
+
+    
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+    const [actionTitleList, setActionTitleList] = React.useState([
+      {title: "Открыть в новой вкладке",icon: <KeyboardTabIcon fontSize="small" /> ,divider: true},
+      {title: "Добавить инженера", icon: <AddIcon fontSize="small" />,divider: false},
+      {title: "Редактировать",icon: <Edit fontSize="small" />,divider: false},
+      {title: "Удалить",icon: <Delete fontSize="small" />,divider: false},
+    ])
   
   
     return (
@@ -164,6 +177,7 @@ type Props = {
         <TableCell align="center">{dataString(row.dateStart)}</TableCell>
         <TableCell align="center">{dataString(row.dateStop)}</TableCell>
         <TableCell align="center">{getActualHours()}</TableCell>
+        <TableCell align="center">{row.status}</TableCell>
         <TableCell align="center">
           <HoursAddDialog title='Добавить почасовку' handleAdd={handleAddHours} selectProject={row}/>
         </TableCell>
@@ -192,10 +206,8 @@ type Props = {
         anchorEl={anchorEl} 
         mouseEvent={mouseEvent} 
         row={row}
+        actionTitleList={actionTitleList}
         />
-  
-  
-  
         <TableRow>
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={15}>
             <Collapse in={opened} timeout="auto" unmountOnExit>

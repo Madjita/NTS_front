@@ -24,7 +24,7 @@ type Props = {
       (property: keyof IProject) => (event: React.MouseEvent<unknown>) => {
         onRequestSort(event, property);
       };
-  
+
     return (
       <TableHead>
         <TableRow>

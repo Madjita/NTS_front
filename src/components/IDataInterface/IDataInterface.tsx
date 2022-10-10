@@ -122,40 +122,58 @@ export interface IUserProject{
 }
 
 export interface IBusinessTrip{
+    id: number,
     spent: number,
+    name: string,
+    descriptions: string,
     userProject: IUserProject,
     reportChecks: IReportCheck[]
+
+    dateStart?: string,
+    dateEnd?: string,
 }
 
 export interface IReportCheck{
+    id: number
+    name: string
     date: string
     value: number
+    discriminator: string
     descriptions: string
     checkBankPhotoName: string //Название файла для чека который пришел от банка
-    checkBankPhotoByte: number[] //Файл в байтах
-    businessTrip: IBusinessTrip
+    checkBankPhotoByte?: File//number[] //Файл в байтах
+    businessTrip?: IBusinessTrip
+
+    ticketPhotoName: string 
+    ticketPhotoByte?: File
+    borderTicketPhotoName: string
+    borderTicketPhotoByte?: File
+
+    billPhotoName: string
+    billPhotoByte?: File
 }
 
+/*
 export interface ICheckPlane extends IReportCheck{
     ticketPhotoName: string //Название файла с его типом  билет бронирования на самолет
-    ticketPhotoByte: number[] //Файл в байтах
+    ticketPhotoByte?: File//number[] //Файл в байтах
 
     borderTicketPhotoName: string //Название файла с его типом  посадочного билета на самолет
-    borderTicketPhotoByte: number[] //Файл в байтах
+    borderTicketPhotoByte?: File//number[] //Файл в байтах
 }
 
 export interface ICheckTrain extends IReportCheck{
 
     borderTicketPhotoName: string //Название файла с его типом  посадочного билета на поезд
-    borderTicketPhotoByte: number[] //Файл в байтах
+    borderTicketPhotoByte?: File//number[] //Файл в байтах
 }
 
 export interface ICheckHostel extends IReportCheck{
 
     billPhotoName: string //Название файла с его типом  счет из отеля
-    billPhotoByte: number[] //Файл в байтах
+    billPhotoByte?: File//number[] //Файл в байтах
 }
-
+*/
 
 
 //интерфейс для загрузки exel файла

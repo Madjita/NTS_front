@@ -129,7 +129,7 @@ export const donwloadProjectUserAllWeekExel_fetch = (sessionToken: any,downloadP
 
             const json = JSON.stringify(downloadProjectUserWeek);
 
-            const response = await (await axios.post(GetConnectionString()+'/Exel/projects/user/week/all/zip',json,{ headers: {
+            const response = await axios.post(GetConnectionString()+'/Exel/projects/user/week/all/zip',json,{ headers: {
                 'Content-Type': 'application/json',
                 'Authorization': sessionToken,
             },
@@ -147,8 +147,6 @@ export const donwloadProjectUserAllWeekExel_fetch = (sessionToken: any,downloadP
 				link.click();
 				link.remove();
               })
-            
-            )
            
 
             

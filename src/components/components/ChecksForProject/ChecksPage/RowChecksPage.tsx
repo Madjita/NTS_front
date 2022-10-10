@@ -1,68 +1,115 @@
-import { Button, TableCell, TableRow, TextField } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import Delete from "@mui/icons-material/Delete";
+import Edit from "@mui/icons-material/Edit";
+import { Button, TableCell, TableRow, TextField } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { useActions } from "../../../../redux/hooks/userActions";
+import { IReportCheck } from "../../../IDataInterface/IDataInterface";
+import TableMenu_AllProject from "../../TableMenu/TableMenu_AllProject";
 
 type Props = {
-    page: any;
-    rowsPerPage: any;
-    index: any;
-    row: any;
-    labelId: any;
-    rowsCount: any;
-    order: any;
-    handleRemove: any;
-    setRowsPerPage: any;
-    color: any;
-}
+  page: any;
+  rowsPerPage: any;
+  index: any;
+  row: IReportCheck;
+  labelId: any;
+  rowsCount: any;
+  order: any;
+  handleRemove: any;
+  setRowsPerPage: any;
+  color: any;
+};
 
-const RowChecksPage:  React.FC<Props> = (props) => {
+const RowChecksPage: React.FC<Props> = (props) => {
+  const {
+    page,
+    rowsPerPage,
+    index,
+    row,
+    labelId,
+    rowsCount,
+    order,
+    handleRemove,
+    setRowsPerPage,
+    color,
+  } = props;
 
-    const {
-        page,
-        rowsPerPage,
-        index,
-        row,
-        labelId,
-        rowsCount,
-        order,
-        handleRemove,
-        setRowsPerPage,
-        color,
-    } = props;
 
-   return (
+  //For dialog menu
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [mouseEvent, setMouseEvent] =
+    React.useState<React.MouseEvent<HTMLElement> | null>(null);
+  const handleClick = (event: React.MouseEvent<HTMLElement>, row: any) => {
+    event.preventDefault();
+    setMouseEvent(event);
+    setAnchorEl(event.currentTarget);
+  };
+  //menu
+  const handleClickItem = (e: any) => {
+    let { myValue } = e.currentTarget.dataset;
+
+    switch (Number(myValue)) {
+      case 0: {
+        //Редактировать
+        //window.open('/SelectProject?Code='+row.code,'_blank')?.focus()
+        break;
+      }
+      case 1: {
+        //Удалить
+        let indexNormal = index + page * rowsPerPage;
+        let index_with_order = 
+            order === "asc" ? indexNormal : rowsCount - indexNormal - 1;
+        handleRemove(index_with_order);
+        break;
+      }
+      default:
+        break;
+    }
+
+    setAnchorEl(null);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const [actionTitleList, setActionTitleList] = React.useState([
+    {
+      title: "Редактировать",
+      icon: <Edit fontSize="small" />,
+      divider: false,
+    },
+    { title: "Удалить", icon: <Delete fontSize="small" />, divider: false },
+  ]);
+
+  //
+
+  return (
     <React.Fragment>
-    <TableRow hover sx={{ '& > *': { borderBottom: 'unset' } }}>
-        <TableCell align="center"> 
-            {"1"}
+      <TableRow
+        hover
+        sx={{ "& > *": { borderBottom: "unset" } }}
+        onContextMenu={(event) => handleClick(event, row)}
+      >
+        <TableCell align="center">{index + 1}</TableCell>
+        <TableCell align="center">{row.name}</TableCell>
+        <TableCell align="center">{row.discriminator}</TableCell>
+        <TableCell align="center">{row.date}</TableCell>
+        <TableCell align="center">{row.descriptions}</TableCell>
+        <TableCell align="center">{row.value}</TableCell>
+        <TableCell align="center">
+          <Button>Скачать чек</Button>
         </TableCell>
-        <TableCell align="center"> 
-            {"12345654432"}
-        </TableCell>
-        <TableCell align="center"> 
-            {"Аргентина"}
-        </TableCell>
-        <TableCell align="center"> 
-            {"20/12/2022"}
-        </TableCell>
-        <TableCell align="center"> 
-            {"20/12/2023"}
-        </TableCell>
-        <TableCell align="center"> 
-           {"5"}
-        </TableCell>
-        <TableCell align="center"> 
-           {"20000"}
-        </TableCell>
-        <TableCell align="center"> 
-            <Button>
-                Скачать архив
-            </Button>
-        </TableCell>
-    </TableRow>
+      </TableRow>
+      <TableMenu_AllProject
+        handleClick={handleClickItem}
+        handleClose={handleClose}
+        anchorEl={anchorEl}
+        mouseEvent={mouseEvent}
+        row={row}
+        actionTitleList={actionTitleList}
+      />
     </React.Fragment>
-   )
-}
+  );
+};
 
 export default RowChecksPage;
-
-

@@ -41,6 +41,7 @@ type Props = {
 const ChecksForProject: React.FC<Props> = (props: Props) => {
   const { color, outSideCountView } = props;
 
+
   //choose Project
   const [chooseProject, setChooseProject] = React.useState(false);
   const [selectChooseProject, setSelectChooseProject] = React.useState<IBusinessTrip | undefined>(undefined);
@@ -70,7 +71,7 @@ const ChecksForProject: React.FC<Props> = (props: Props) => {
   ]);
 
   const businessTripHook = useTypedSelector(state => state.businessTrip)
-  const {fetchBusinessTrips} = useActions()
+  const {fetchBusinessTrips, fetchBusinessTrip_delete} = useActions()
 
   useEffect(()=>{
     let sessionToken = GetSesstionToken()
@@ -92,25 +93,18 @@ const ChecksForProject: React.FC<Props> = (props: Props) => {
   };
 
   const handleRemove = async (index: number) => {
-    list.splice(index, 1);
-    setList((list) => [...list]);
+
+    fetchBusinessTrip_delete(GetSesstionToken(),businessTripHook.businessTrips[index])
+
   };
 
-  const handleAddHours = (e: any) => {
-    console.log("newWeek list = ", list);
-  };
-
-  const handleAddRowInList = (e: any) => {
-    /*setList(list => [...list, {
-            project: new Object as IProject,
-            user: new Object as IUser,
-            weeks: [{
-                numberWeek: 32+count
-            }] as IWeek[]
-        }]);
-
-        setCount(count+1);*/
-  };
+  const {fetchBusinessTrips_finish} = useActions()
+  
+  const handleCloseBuisnessTrip = (row: IBusinessTrip) => {
+    row.dateEnd = new Date().toISOString();
+    setSelectChooseProject(row);
+    fetchBusinessTrips_finish(GetSesstionToken(),row);
+  }
 
   const handleSelectProject = (row: IBusinessTrip) => {
     setChooseProject(true);
@@ -119,6 +113,9 @@ const ChecksForProject: React.FC<Props> = (props: Props) => {
   const handleSelectReturn = () => {
     setChooseProject(false);
   }
+
+
+ 
 
   return (
     <div
@@ -138,7 +135,7 @@ const ChecksForProject: React.FC<Props> = (props: Props) => {
             <Table aria-labelledby="tableTitle" size="small">
               <TableHead>
                 <TableRow>
-                 <TableCell colSpan={8} sx={{ textAlign: "center" }}>
+                 <TableCell colSpan={10} sx={{ textAlign: "center" }}>
                     <Typography></Typography>
                   </TableCell>
                   <TableCell colSpan={1} sx={{ textAlign: "center"}}>
@@ -164,6 +161,12 @@ const ChecksForProject: React.FC<Props> = (props: Props) => {
                   </TableCell>
                   <TableCell align="center" style={{ color: color }}>
                     Название проекта
+                  </TableCell>
+                  <TableCell align="center" style={{ color: color }}>
+                    Название командирвоки
+                  </TableCell>
+                  <TableCell align="center" style={{ color: color }}>
+                    Описание
                   </TableCell>
                   <TableCell align="center" style={{ color: color }}>
                     Начало командировки
@@ -195,21 +198,19 @@ const ChecksForProject: React.FC<Props> = (props: Props) => {
                       <RowProjectForChecks
                         key={index}
                         row={row as any}
-                        index={index+1}
+                        index={index + 1}
                         handleSelectProject={handleSelectProject}
                         handleRemove={handleRemove}
                         setRowsPerPage={setRowsPerPage}
+                        handleCloseBuisnessTrip={handleCloseBuisnessTrip}
                         color={color}
-                      />
+                        order={order}
+                        rowsCount={businessTripHook.businessTrips.length} 
+                        rowsPerPage={rowsPerPage}
+                        page={page}                      
+                        />
                     );
                   })}
-                <TableRow hover sx={{ "& > *": { borderBottom: "unset" } }}>
-                  <TableCell colSpan={13} sx={{ textAlign: "center" }}>
-                    <Button onClick={handleAddRowInList}>
-                      Добавить командировку
-                    </Button>
-                  </TableCell>
-                </TableRow>
               </TableBody>
             </Table>
           </TableContainer>

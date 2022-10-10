@@ -69,6 +69,12 @@ export function getComparator<Key extends keyof any>(
 // This method is created for cross-browser compatibility, if you don't
 // need to support IE11, you can use Array.prototype.sort() directly
 export function stableSort<T>(array:  T[], comparator: (a: T, b: T) => number) {
+
+  if(!Array.isArray(array))
+  {
+    return [];
+  }
+
   const stabilizedThis = array.map((el, index) => [el, index] as [T, number]);
   stabilizedThis.sort((a, b) => {
     const order = comparator(a[0], b[0]);
@@ -131,6 +137,12 @@ const headCells:  HeadCell[] = [
     disablePadding: false,
     label: 'Затрачено',
   },
+  {
+    id: 'status',
+    numeric: true,
+    disablePadding: false,
+    label: 'Статус',
+  }
   
 ];
 
@@ -245,14 +257,10 @@ const {projects} = useTypedSelector(state => state.project)
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - projects.length) : 0;
 
 
-
-
   const handleAddHours = async (newObject: IWeek) => {
       let sessionToken =  GetSesstionToken()
       if(newObject != null)
       {
-      
-
         let object = new Object() as IUserProject
         object.weeks = new Array() as IWeek[]
 

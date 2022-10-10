@@ -9,7 +9,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   IBusinessTrip,
   IProject,
@@ -24,6 +24,9 @@ import {
 } from "../../TableMaterialUICollapsibleTable/TableMaterialUICollapsibleTable_AllProject";
 import RowChecksPage from "./RowChecksPage";
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
+import DialogForAddBuisnessTrip_Check from "./DialogForAddBuisnessTrip_Check/DialogForAddBuisnessTrip_Check";
+import { useActions } from "../../../../redux/hooks/userActions";
+import { GetSesstionToken } from "../../../../settings/settings";
 
 type Props = {
   className?: string;
@@ -41,24 +44,16 @@ const ChecksPage: React.FC<Props> = (props: Props) => {
     handleSelectReturn
  } = props;
 
+  //Dialog BuisnessTrip_check
+  const [showDialog_BuisnessTripCheck,setShowDialog_BuisnessTripCheck] = React.useState(false);
+  //
+
   const [order, setOrder] = React.useState<Order>("asc");
   const [orderBy, setOrderBy] = React.useState<keyof IProject>("indexAdd");
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(
     outSideCountView ? outSideCountView : 14
   );
-
-  const [list, setList] = React.useState<IUserProject[]>([
-    {
-      project: new Object() as IProject,
-      user: new Object() as IUser,
-      weeks: [
-        {
-          numberWeek: 32,
-        },
-      ] as IWeek[],
-    },
-  ]);
 
   const handleChangeRowsPerPage = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -71,27 +66,35 @@ const ChecksPage: React.FC<Props> = (props: Props) => {
     setPage(newPage);
   };
 
+  const { fetchBusinessTripsChecks_selected_all, fetchBusinessTripCheck_delete } = useActions();
+
   const handleRemove = async (index: number) => {
-    list.splice(index, 1);
-    setList((list) => [...list]);
+
+    console.log("fetchBusinessTripCheck_delete index = ",index,project?.reportChecks[index])
+    if(project)
+    {
+      fetchBusinessTripCheck_delete(GetSesstionToken(),project?.reportChecks[index]);
+    }
+   
   };
 
   const handleAddHours = (e: any) => {
-    console.log("newWeek list = ", list);
+    console.log("newWeek list = ", project?.reportChecks);
   };
 
   const handleAddRowInList = (e: any) => {
-    /*setList(list => [...list, {
-            project: new Object as IProject,
-            user: new Object as IUser,
-            weeks: [{
-                numberWeek: 32+count
-            }] as IWeek[]
-        }]);
-
-        setCount(count+1);*/
+    setShowDialog_BuisnessTripCheck(true)
   };
 
+
+  React.useEffect(()=>{
+    let sessionToken = GetSesstionToken()
+    if(sessionToken && project != undefined)
+    {
+     
+      fetchBusinessTripsChecks_selected_all(sessionToken,project);
+    }
+  },[]);
   return (
     <div
       style={{
@@ -115,22 +118,19 @@ const ChecksPage: React.FC<Props> = (props: Props) => {
                 №
               </TableCell>
               <TableCell align="center" style={{ color: color }}>
-                Код проекта
+                Название чека
               </TableCell>
               <TableCell align="center" style={{ color: color }}>
-                Название проекта
+                Тип чека 
               </TableCell>
               <TableCell align="center" style={{ color: color }}>
-                Начало командировки
+                Дата оплаты
               </TableCell>
               <TableCell align="center" style={{ color: color }}>
-                Окончание командировки
+                Описание
               </TableCell>
               <TableCell align="center" style={{ color: color }}>
-                Количество отчетных документов
-              </TableCell>
-              <TableCell align="center" style={{ color: color }}>
-                Потраченно в рублях
+                Стоимость
               </TableCell>
               <TableCell align="center" style={{ color: color }}>
                 Скачать архив
@@ -138,7 +138,7 @@ const ChecksPage: React.FC<Props> = (props: Props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {stableSort(list as any, getComparator(order, orderBy))
+            {stableSort(project?.reportChecks as any, getComparator(order, orderBy))
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row, index) => {
                 const labelId = `enhanced-table-checkbox-${index}`;
@@ -151,7 +151,7 @@ const ChecksPage: React.FC<Props> = (props: Props) => {
                     index={index}
                     row={row as any}
                     labelId={labelId}
-                    rowsCount={list.length}
+                    rowsCount={project?.reportChecks.length}
                     order={order}
                     handleRemove={handleRemove}
                     setRowsPerPage={setRowsPerPage}
@@ -162,8 +162,15 @@ const ChecksPage: React.FC<Props> = (props: Props) => {
             <TableRow hover sx={{ "& > *": { borderBottom: "unset" } }}>
               <TableCell colSpan={13} sx={{ textAlign: "center" }}>
                 <Button onClick={handleAddRowInList}>
-                  Добавить командировку
+                  Добавить чек
                 </Button>
+                <DialogForAddBuisnessTrip_Check 
+                 selectBuisnesTrip={project}
+                 dialog={{
+                  flag: showDialog_BuisnessTripCheck,
+                  setFlag: setShowDialog_BuisnessTripCheck
+                }}
+                />
               </TableCell>
             </TableRow>
           </TableBody>
@@ -172,7 +179,7 @@ const ChecksPage: React.FC<Props> = (props: Props) => {
       <TablePagination
         rowsPerPageOptions={[outSideCountView ? outSideCountView : 14]}
         component="div"
-        count={list.length}
+        count={project?.reportChecks.length as number}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}

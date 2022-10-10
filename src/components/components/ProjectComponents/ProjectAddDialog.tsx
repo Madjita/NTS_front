@@ -219,7 +219,6 @@ const ProjectAddDialog:  React.FC<Props> = ({title,handleAdd,handleEdit,selectPr
             select
             fullWidth
             margin="dense"
-            id="select"
             label="Статус"
             type="select"
             variant="standard"
