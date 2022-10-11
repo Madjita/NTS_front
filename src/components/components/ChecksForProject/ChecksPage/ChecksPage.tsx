@@ -13,6 +13,7 @@ import React, { useEffect, useState } from "react";
 import {
   IBusinessTrip,
   IProject,
+  IReportCheck,
   IUser,
   IUserProject,
   IWeek,
@@ -27,6 +28,14 @@ import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import DialogForAddBuisnessTrip_Check from "./DialogForAddBuisnessTrip_Check/DialogForAddBuisnessTrip_Check";
 import { useActions } from "../../../../redux/hooks/userActions";
 import { GetSesstionToken } from "../../../../settings/settings";
+
+export interface IShowDialog_ReportCheck{
+  typeEdit: boolean,
+  selectItem?: IReportCheck,
+  flag: boolean,
+  setFlag: React.Dispatch<React.SetStateAction<IShowDialog_ReportCheck>>
+}
+
 
 type Props = {
   className?: string;
@@ -45,7 +54,20 @@ const ChecksPage: React.FC<Props> = (props: Props) => {
  } = props;
 
   //Dialog BuisnessTrip_check
-  const [showDialog_BuisnessTripCheck,setShowDialog_BuisnessTripCheck] = React.useState(false);
+  const [showDialog_BuisnessTripCheck,setShowDialog_BuisnessTripCheck] = React.useState<IShowDialog_ReportCheck>();
+
+  useEffect(()=>{
+    setShowDialog_BuisnessTripCheck( () =>{
+      let obj =  {
+        typeEdit: false,
+        selectItem: undefined,
+        flag: false,
+        setFlag: setShowDialog_BuisnessTripCheck
+      } as IShowDialog_ReportCheck
+  
+      return obj;
+    })
+  },[setShowDialog_BuisnessTripCheck])
   //
 
   const [order, setOrder] = React.useState<Order>("asc");
@@ -83,7 +105,11 @@ const ChecksPage: React.FC<Props> = (props: Props) => {
   };
 
   const handleAddRowInList = (e: any) => {
-    setShowDialog_BuisnessTripCheck(true)
+    if(showDialog_BuisnessTripCheck)
+    {
+      setShowDialog_BuisnessTripCheck({...showDialog_BuisnessTripCheck, flag: true})
+    }
+
   };
 
 
@@ -156,6 +182,7 @@ const ChecksPage: React.FC<Props> = (props: Props) => {
                     handleRemove={handleRemove}
                     setRowsPerPage={setRowsPerPage}
                     color={color}
+                    dialogEdit={showDialog_BuisnessTripCheck}
                   />
                 );
               })}
@@ -166,10 +193,7 @@ const ChecksPage: React.FC<Props> = (props: Props) => {
                 </Button>
                 <DialogForAddBuisnessTrip_Check 
                  selectBuisnesTrip={project}
-                 dialog={{
-                  flag: showDialog_BuisnessTripCheck,
-                  setFlag: setShowDialog_BuisnessTripCheck
-                }}
+                 dialog={showDialog_BuisnessTripCheck}
                 />
               </TableCell>
             </TableRow>

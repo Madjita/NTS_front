@@ -85,6 +85,29 @@ export const businessTripReducer = (
       };
     }
 
+    case BusinessTripActionTypes.FETCH_BUSINESS_TRIP_CHECK_EDIT: {
+        let index = state.businessTrips.findIndex(
+          (x) => x.id == action.select.id
+        );
+        let obj = state.businessTrips[index];
+  
+        if(action.old.value != action.edit.value)
+        {
+            obj.spent -= action.old.value; //Данный код нужен чтоб добавть значение к завтраченно не запрашивая у сервера
+            obj.spent += action.edit.value; //Данный код нужен чтоб добавть значение к завтраченно не запрашивая у сервера
+        }
+        
+        let indexReplace = obj.reportChecks.findIndex(x=> x.id === action.old.id);
+
+        obj.reportChecks[indexReplace] = action.edit;
+  
+        return {
+          loading: false,
+          error: null,
+          businessTrips: state.businessTrips,
+        };
+      }
+
     default:
       return state;
   }

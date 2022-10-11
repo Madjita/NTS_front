@@ -62,15 +62,18 @@ const DialogPreView_check: React.FC<Props> = (props) => {
     dialog.setFlag(false);
   };
 
-
   return (
     <React.Fragment>
       <Dialog open={dialog.flag} onClose={handleClose}   fullWidth={true}
         maxWidth={"lg"}>
         <DialogTitle>{title}</DialogTitle>
         <DialogContent className="center">
-        {!pdf && file && <img src={window.URL.createObjectURL(file)}  width="50%" height="800px"  style={{objectFit: 'contain'}}/> }
-        {pdf &&  file && <embed src={window.URL.createObjectURL(file)}  width="50%" height="800px" style={{objectFit: 'contain'}}/> }
+        {!pdf && typeof(file) === "object" && <img src={window.URL.createObjectURL(file)}  width="50%" height="800px"  style={{objectFit: 'contain'}}/> }
+        {pdf &&  typeof(file) === "object" && <embed src={window.URL.createObjectURL(file)}  width="50%" height="800px" style={{objectFit: 'contain'}}/> }
+        
+        {!pdf && typeof(file) === "string" && <img src={`data:image/png;base64,${file}`}  width="50%" height="800px"  style={{objectFit: 'contain'}}/> }
+        {pdf &&  typeof(file) === "string" && <embed src={`data:application/pdf;base64,${file}`}  width="50%" height="800px" style={{objectFit: 'contain'}}/> }
+        
         </DialogContent>
       </Dialog>
     </React.Fragment>

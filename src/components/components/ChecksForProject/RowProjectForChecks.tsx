@@ -9,6 +9,7 @@ import Delete from "@mui/icons-material/Delete";
 import Edit from "@mui/icons-material/Edit";
 import KeyboardTabIcon from "@mui/icons-material/KeyboardTab";
 import TableMenu_AllProject from "../TableMenu/TableMenu_AllProject";
+import { IShowDialog_BuisnessTrip } from "./ChecksForProject";
 
 type Props = {
   row: IBusinessTrip;
@@ -24,6 +25,7 @@ type Props = {
   page: any,
   order: any,
   rowsCount: any,
+  dialogEdit?:IShowDialog_BuisnessTrip
 };
 
 const RowProjectForChecks: React.FC<Props> = (props) => {
@@ -39,6 +41,7 @@ const RowProjectForChecks: React.FC<Props> = (props) => {
     index,
     rowsCount,
     color,
+    dialogEdit,
   } = props;
 
   //For dialog menu
@@ -57,7 +60,10 @@ const RowProjectForChecks: React.FC<Props> = (props) => {
     switch (Number(myValue)) {
       case 0: {
         //Редактировать
-        //window.open('/SelectProject?Code='+row.code,'_blank')?.focus()
+        if(dialogEdit)
+        {
+          dialogEdit.setFlag({...dialogEdit, flag: true,typeEdit: true, selectItem: row});
+        }
         break;
       }
       case 1: {

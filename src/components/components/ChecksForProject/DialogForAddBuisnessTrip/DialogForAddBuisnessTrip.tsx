@@ -32,15 +32,13 @@ import { localeMap } from "../../HoursComponents/HoursAddDialog";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { GetSesstionToken } from "../../../../settings/settings";
 import { useActions } from "../../../../redux/hooks/userActions";
+import { IShowDialog_BuisnessTrip } from "../ChecksForProject";
 
 type Props = {
   className?: string;
   child?: any;
 
-  dialog: {
-    flag: boolean;
-    setFlag: React.Dispatch<React.SetStateAction<boolean>>;
-  };
+  dialog?: IShowDialog_BuisnessTrip;
 };
 
 const DialogForAddBuisnessTrip: React.FC<Props> = (props) => {
@@ -72,7 +70,10 @@ const DialogForAddBuisnessTrip: React.FC<Props> = (props) => {
   const projectHook = useTypedSelector((state) => state.project);
 
   const handleClose = () => {
-    dialog.setFlag(false);
+    if(dialog)
+    {
+      dialog.setFlag({...dialog, flag: false,typeEdit: false,selectItem: undefined});
+    }
   };
 
   useEffect(() => {
@@ -104,10 +105,10 @@ const DialogForAddBuisnessTrip: React.FC<Props> = (props) => {
   //
 
   const {userLogin} = useTypedSelector(state => state.userLogin)
-  const {fetchBusinessTrips_add} = useActions()
+  const {fetchBusinessTrips_add,fetchBusinessTrips_edit} = useActions()
   //
   const [newObject, setNewObject] = React.useState<IBusinessTrip>({
-    id: 0,
+    id:  0,
     name: "",
     spent: 0,
     descriptions: "",
@@ -117,11 +118,20 @@ const DialogForAddBuisnessTrip: React.FC<Props> = (props) => {
     } as unknown as IUserProject,
     reportChecks: []
   } as IBusinessTrip);
+
+  useEffect(()=>{
+
+    if(dialog?.selectItem && dialog?.typeEdit)
+    {
+      setNewObject(dialog.selectItem)
+      setSelected({item: dialog.selectItem.userProject.project,index:dialog.selectItem.userProject.project.code})
+    }
+   
+  },[dialog?.typeEdit])
   //
 
   const handleAddClose = () => {
     //Добавить
-    console.log("handleAddClose = ",newObject)
     let sessionToken = GetSesstionToken();
     if(sessionToken)
     {
@@ -131,9 +141,19 @@ const DialogForAddBuisnessTrip: React.FC<Props> = (props) => {
     handleClose();
   };
 
+  const handleEditClose = () => {
+     //Изменить
+     let sessionToken = GetSesstionToken();
+     if(sessionToken)
+     {
+         fetchBusinessTrips_edit(sessionToken,newObject,dialog?.selectItem as IBusinessTrip)
+     }
+     handleClose();
+  }
+
   return (
     <React.Fragment>
-      <Dialog open={dialog.flag} onClose={handleClose}>
+      <Dialog open={dialog ? dialog.flag : false} onClose={handleClose}>
         <DialogTitle>Добавить командировку относительно проекта</DialogTitle>
         <DialogContent>
           <DialogContentText>Поиск проекта:</DialogContentText>
@@ -277,7 +297,12 @@ const DialogForAddBuisnessTrip: React.FC<Props> = (props) => {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Отменить</Button>
-          <Button onClick={handleAddClose}>Добавить</Button>
+          {
+            dialog?.typeEdit === false ?
+            <Button onClick={handleAddClose}>Добавить</Button>
+            :
+            <Button onClick={handleEditClose}>Изменить</Button> 
+          }
         </DialogActions>
       </Dialog>
     </React.Fragment>

@@ -32,6 +32,15 @@ import RowProjectForChecks from "./RowProjectForChecks";
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 import DialogForAddBuisnessTrip from "./DialogForAddBuisnessTrip/DialogForAddBuisnessTrip";
 
+
+export interface IShowDialog_BuisnessTrip{
+  typeEdit: boolean,
+  selectItem?: IBusinessTrip,
+  flag: boolean,
+  setFlag: React.Dispatch<React.SetStateAction<IShowDialog_BuisnessTrip>>
+}
+
+
 type Props = {
   className?: string;
   color?: string;
@@ -47,8 +56,34 @@ const ChecksForProject: React.FC<Props> = (props: Props) => {
   const [selectChooseProject, setSelectChooseProject] = React.useState<IBusinessTrip | undefined>(undefined);
   //
 
+ 
+
   //Dialog BuisnessTrip
-  const [showDialog_BuisnessTrip,setShowDialog_BuisnessTrip] = React.useState(false);
+  const [showDialog_BuisnessTrip,setShowDialog_BuisnessTrip] = React.useState<IShowDialog_BuisnessTrip>();
+
+  useEffect(()=>{
+    setShowDialog_BuisnessTrip( () =>{
+      let obj =  {
+        typeEdit: false,
+        selectItem: undefined,
+        flag: false,
+        setFlag: setShowDialog_BuisnessTrip
+      } as IShowDialog_BuisnessTrip
+  
+      return obj;
+    })
+  },[setShowDialog_BuisnessTrip])
+
+  /*const init_showDialog_BuisnessTrip = () =>{
+    let obj =  {
+      typeEdit: false,
+      selectItem: undefined,
+      flag: false,
+      setFlag: setShowDialog_BuisnessTrip
+    } as IShowDialog_BuisnessTrip
+
+    return obj;
+  }*/
   //
 
   const [order, setOrder] = React.useState<Order>("asc");
@@ -140,15 +175,17 @@ const ChecksForProject: React.FC<Props> = (props: Props) => {
                   </TableCell>
                   <TableCell colSpan={1} sx={{ textAlign: "center"}}>
                   <Tooltip title="Добавить">
-                      <IconButton  onClick={()=>setShowDialog_BuisnessTrip(true)}>
+                      <IconButton  onClick={()=>{
+                        if(showDialog_BuisnessTrip)
+                        {
+                          setShowDialog_BuisnessTrip({...showDialog_BuisnessTrip, flag: true})
+                        }
+                      }}>
                             <AddCircleIcon color="inherit" sx={{ display: 'block' }}/>
                       </IconButton>
                   </Tooltip>
                   <DialogForAddBuisnessTrip
-                        dialog={{
-                          flag: showDialog_BuisnessTrip,
-                          setFlag: setShowDialog_BuisnessTrip
-                        }}
+                        dialog={showDialog_BuisnessTrip}
                       />
                   </TableCell>
                 </TableRow>
@@ -207,7 +244,9 @@ const ChecksForProject: React.FC<Props> = (props: Props) => {
                         order={order}
                         rowsCount={businessTripHook.businessTrips.length} 
                         rowsPerPage={rowsPerPage}
-                        page={page}                      
+                        page={page}     
+                        
+                        dialogEdit={showDialog_BuisnessTrip}
                         />
                     );
                   })}

@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { useActions } from "../../../../redux/hooks/userActions";
 import { IReportCheck } from "../../../IDataInterface/IDataInterface";
 import TableMenu_AllProject from "../../TableMenu/TableMenu_AllProject";
+import { IShowDialog_ReportCheck } from "./ChecksPage";
 
 type Props = {
   page: any;
@@ -17,6 +18,7 @@ type Props = {
   handleRemove: any;
   setRowsPerPage: any;
   color: any;
+  dialogEdit?:IShowDialog_ReportCheck
 };
 
 const RowChecksPage: React.FC<Props> = (props) => {
@@ -31,6 +33,7 @@ const RowChecksPage: React.FC<Props> = (props) => {
     handleRemove,
     setRowsPerPage,
     color,
+    dialogEdit,
   } = props;
 
 
@@ -47,10 +50,14 @@ const RowChecksPage: React.FC<Props> = (props) => {
   const handleClickItem = (e: any) => {
     let { myValue } = e.currentTarget.dataset;
 
+    console.log("Number = ", myValue )
     switch (Number(myValue)) {
       case 0: {
         //Редактировать
-        //window.open('/SelectProject?Code='+row.code,'_blank')?.focus()
+        if(dialogEdit)
+        {
+          dialogEdit.setFlag({...dialogEdit, flag: true,typeEdit: true, selectItem: row});
+        }
         break;
       }
       case 1: {

@@ -13,6 +13,7 @@ export enum BusinessTripActionTypes {
 
     FETCH_BUSINESS_TRIP_CHECK_SELECTED_ALL = 'FETCH_BUSINESS_TRIP_CHECK_SELECTED_ALL',
     FETCH_BUSINESS_TRIP_CHECK_ADD = 'FETCH_BUSINESS_TRIP_CHECK_ADD',
+    FETCH_BUSINESS_TRIP_CHECK_EDIT = 'FETCH_BUSINESS_TRIP_CHECK_EDIT',
     FETCH_BUSINESS_TRIP_CHECK_DELETE = 'FETCH_BUSINESS_TRIP_CHECK_DELETE'
 }
 
@@ -53,6 +54,13 @@ interface FetchBusinessTripCheckDeleteAction {
     select: IBusinessTrip;
 }
 
+interface FetchBusinessTripCheckEditAction {
+    type: BusinessTripActionTypes.FETCH_BUSINESS_TRIP_CHECK_EDIT;
+    old: IReportCheck;
+    edit: IReportCheck;
+    select: IBusinessTrip;
+}
+
 
 
 export type BusinessTripAction =    FetchBusinessTripAction         |
@@ -61,5 +69,6 @@ export type BusinessTripAction =    FetchBusinessTripAction         |
                                     FetchBusinessTripDeleteAction   |
                                     FetchBusinessTripCheckSelectedAllAction |
                                     FetchBusinessTripCheckAddAction     |
-                                    FetchBusinessTripCheckDeleteAction  
+                                    FetchBusinessTripCheckDeleteAction  |
+                                    FetchBusinessTripCheckEditAction
                                     

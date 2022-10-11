@@ -36,6 +36,7 @@ import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { GetSesstionToken } from "../../../../../settings/settings";
 import { useActions } from "../../../../../redux/hooks/userActions";
 import DialogPreView_check from "./DialogPreView_check";
+import { IShowDialog_ReportCheck } from "../ChecksPage";
 
 
 /*
@@ -49,10 +50,7 @@ type Props = {
   className?: string;
   child?: any;
 
-  dialog: {
-    flag: boolean;
-    setFlag: React.Dispatch<React.SetStateAction<boolean>>;
-  };
+  dialog?: IShowDialog_ReportCheck
 
   selectBuisnesTrip?: IBusinessTrip
 };
@@ -79,17 +77,9 @@ const DialogForAddBuisnessTrip_Check: React.FC<Props> = (props) => {
   //
 
   //
-  const [selected, setSelected] = React.useState({
-    index: "",
-    item: null as IProject | null,
-  });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let findItem = filter.projects.filter((x) => x.code === e.target.value)[0];
-    setSelected({
-      index: e.target.value,
-      item: findItem,
-    });
     //setNewObject({ ...newObject, userProject: {...newObject.userProject, project: findItem} });
   };
   //
@@ -104,7 +94,10 @@ const DialogForAddBuisnessTrip_Check: React.FC<Props> = (props) => {
   const projectHook = useTypedSelector((state) => state.project);
 
   const handleClose = () => {
-    dialog.setFlag(false);
+    if(dialog)
+    {
+      dialog.setFlag({...dialog, flag: false,typeEdit: false,selectItem: undefined});
+    }
   };
 
   useEffect(() => {
@@ -121,7 +114,6 @@ const DialogForAddBuisnessTrip_Check: React.FC<Props> = (props) => {
           code: "Проект не найден"
         } as IProject,*/
       ];
-      setSelected({ index: "", item: null });
     }
     setFilter({ ...filter, projects: fulterUse });
   }, [filter.filterProject.code]);
@@ -136,7 +128,7 @@ const DialogForAddBuisnessTrip_Check: React.FC<Props> = (props) => {
   //
 
   const { userLogin } = useTypedSelector((state) => state.userLogin);
-  const { fetchBusinessTripsChecks_add } = useActions();
+  const { fetchBusinessTripsChecks_add, fetchBusinessTripsChecks_edit } = useActions();
   //
   const [type, setType] = React.useState<string>("ReportCheck");
   const [newObject, setNewObject] = React.useState<
@@ -158,6 +150,24 @@ const DialogForAddBuisnessTrip_Check: React.FC<Props> = (props) => {
     billPhotoByte: undefined,
     businessTrip: selectBuisnesTrip
   } as IReportCheck);
+
+  useEffect(()=>{
+
+    if(dialog?.selectItem && dialog?.typeEdit)
+    {
+      
+      console.log("dialog.selectItem = ",dialog.selectItem)
+      setNewObject(dialog.selectItem)
+
+      let split = dialog.selectItem.checkBankPhotoName.split(".");
+      if (split[1] === "pdf") {
+        setPdf(true);
+      } else {
+        setPdf(false);
+      }
+    }
+   
+  },[dialog?.typeEdit])
   //
 
   const handleAddClose = () => {
@@ -169,6 +179,17 @@ const DialogForAddBuisnessTrip_Check: React.FC<Props> = (props) => {
     }
     handleClose();
   };
+
+  const handleEditClose = () => {
+    //Изменить
+    let sessionToken = GetSesstionToken();
+    if(sessionToken)
+    {
+      fetchBusinessTripsChecks_edit(sessionToken,newObject,dialog?.selectItem as IReportCheck)
+      
+    }
+    handleClose();
+ }
 
   const onSelectImageHandler = (event: any,type: string) => {
     const file = event.target.files[0];
@@ -218,39 +239,46 @@ const DialogForAddBuisnessTrip_Check: React.FC<Props> = (props) => {
 
   return (
     <React.Fragment>
-      <Dialog open={dialog.flag} onClose={handleClose}>
+      <Dialog open={dialog ? dialog.flag : false} onClose={handleClose}>
         <DialogTitle>Добавить чек для отчетности</DialogTitle>
         <DialogContent>
-          <DialogContentText>Поиск проекта:</DialogContentText>
 
           <LocalizationProvider
             dateAdapter={AdapterDateFns}
             adapterLocale={localeMap["ru"]}
           >
             <div>
+             {
+              dialog?.typeEdit === false ? 
               <TextField
-                autoFocus
-                select
-                fullWidth
-                required
-                margin="dense"
-                label="Тип чека"
-                type="select"
-                variant="standard"
-                value={newObject?.discriminator || "None"}
-                inputProps={{ style: { textAlign: "center" } }}
-                onChange={(e) => {
-                  newObject.discriminator = e.target.value;
+              autoFocus
+              select
+              fullWidth
+              required
+              margin="dense"
+              label="Тип чека"
+              type="select"
+              variant="standard"
+              value={newObject?.discriminator || "None"}
+              inputProps={{ style: { textAlign: "center" } }}
+              onChange={(e) => {
+                newObject.discriminator = e.target.value;
 
-                  setNewObject({ ...newObject });
-                }}
-                
-              >
-                <MenuItem value={"ReportCheck"}>Чек с магазина</MenuItem>
-                <MenuItem value={"CheckPlane"}>Чек с самолета</MenuItem>
-                <MenuItem value={"CheckTrain"}>Чек с поезда</MenuItem>
-                <MenuItem value={"CheckHostel"}>Чек с отеля</MenuItem>
-              </TextField>
+                setNewObject({ ...newObject });
+              }}
+              
+            >
+              <MenuItem value={"ReportCheck"}>Чек с магазина</MenuItem>
+              <MenuItem value={"CheckPlane"}>Чек с самолета</MenuItem>
+              <MenuItem value={"CheckTrain"}>Чек с поезда</MenuItem>
+              <MenuItem value={"CheckHostel"}>Чек с отеля</MenuItem>
+            </TextField>
+            :
+            <>
+              <DialogContentText>Тип чека:</DialogContentText>
+              <p>{newObject.discriminator}</p>
+            </>
+             }
               <DesktopDatePicker
                 label="Дата покупки"
                 value={dataStart}
@@ -345,7 +373,7 @@ const DialogForAddBuisnessTrip_Check: React.FC<Props> = (props) => {
             case "ReportCheck":
               objectReturn = (
                 <div className="center">
-                  {newObject.checkBankPhotoByte ? <p>{newObject.checkBankPhotoByte.name}</p> : <p>Не загружен</p>}
+                  {newObject.checkBankPhotoByte ? <p>{newObject.checkBankPhotoName}</p> : <p>Не загружен</p>}
                   <Divider orientation="vertical" flexItem />
                   <Button component="label">
                     Загрузить чек
@@ -361,7 +389,14 @@ const DialogForAddBuisnessTrip_Check: React.FC<Props> = (props) => {
                     </Button>
                   )}
                     <DialogPreView_check
-                    pdf={pdf}
+                    pdf={()=>{
+                      let split = newObject.ticketPhotoName.split(".");
+                      if (split[1] === "pdf") {
+                        return true
+                      } else {
+                        return false
+                      }
+                    }}
                     file={newObject.checkBankPhotoByte}
                     title={"Предварительный просмотр загруженного чека"}
                     dialog={{
@@ -378,7 +413,7 @@ const DialogForAddBuisnessTrip_Check: React.FC<Props> = (props) => {
                    <p className="center">Файл чека: </p>
                    <Divider/>
                    <div className="center">
-                    {newObject.checkBankPhotoByte ? <p>{newObject.checkBankPhotoByte.name}</p> : <p>Не загружен</p>}
+                    {newObject.checkBankPhotoByte ? <p>{newObject.checkBankPhotoName}</p> : <p>Не загружен</p>}
                     <Divider orientation="vertical" flexItem />
                     <Button component="label">
                       Загрузить чек
@@ -397,7 +432,7 @@ const DialogForAddBuisnessTrip_Check: React.FC<Props> = (props) => {
                   <Divider/>
                   <p className="center">Файл брони билета на самолет: </p>
                   <div className="center">
-                    {newObject.ticketPhotoByte ? <p>{newObject.ticketPhotoByte.name}</p> : <p>Не загружен</p>}
+                    {newObject.ticketPhotoByte ? <p>{newObject.ticketPhotoName}</p> : <p>Не загружен</p>}
                     <Divider orientation="vertical" flexItem />
                     <Button component="label">
                       Загрузить чек
@@ -416,7 +451,7 @@ const DialogForAddBuisnessTrip_Check: React.FC<Props> = (props) => {
                   <Divider/>
                   <p className="center">Файл посадочного талона: </p>
                   <div className="center">
-                   {newObject.borderTicketPhotoByte ? <p>{newObject.borderTicketPhotoByte .name}</p> : <p>Не загружен</p>}
+                   {newObject.borderTicketPhotoByte ? <p>{newObject.borderTicketPhotoName}</p> : <p>Не загружен</p>}
                    <Divider orientation="vertical" flexItem />
                    <Button component="label">
                      Загрузить чек
@@ -432,7 +467,14 @@ const DialogForAddBuisnessTrip_Check: React.FC<Props> = (props) => {
                      </Button>
                    )}
                     <DialogPreView_check
-                    pdf={pdf}
+                    pdf={()=>{
+                      let split = newObject.checkBankPhotoName.split(".");
+                      if (split[1] === "pdf") {
+                        return true
+                      } else {
+                        return false
+                      }
+                    }}
                     file={newObject.checkBankPhotoByte}
                     title={"Предварительный просмотр загруженного чека на самолет"}
                     dialog={{
@@ -441,7 +483,14 @@ const DialogForAddBuisnessTrip_Check: React.FC<Props> = (props) => {
                     }}
                     />
                     <DialogPreView_check
-                    pdf={pdf}
+                    pdf={()=>{
+                      let split = newObject.ticketPhotoName.split(".");
+                      if (split[1] === "pdf") {
+                        return true
+                      } else {
+                        return false
+                      }
+                    }}
                     file={newObject.ticketPhotoByte}
                     title={"Предварительный просмотр загруженного посадочного талона"}
                     dialog={{
@@ -450,7 +499,14 @@ const DialogForAddBuisnessTrip_Check: React.FC<Props> = (props) => {
                     }}
                     />
                     <DialogPreView_check
-                    pdf={pdf}
+                    pdf={()=>{
+                      let split = newObject.borderTicketPhotoName.split(".");
+                      if (split[1] === "pdf") {
+                        return true
+                      } else {
+                        return false
+                      }
+                    }}
                     file={newObject.borderTicketPhotoByte}
                     title={"Предварительный просмотр загруженного посадочного талона"}
                     dialog={{
@@ -468,7 +524,7 @@ const DialogForAddBuisnessTrip_Check: React.FC<Props> = (props) => {
                  <p className="center">Файл чека: </p>
                  <Divider/>
                  <div className="center">
-                  {newObject.checkBankPhotoByte ? <p>{newObject.checkBankPhotoByte.name}</p> : <p>Не загружен</p>}
+                  {newObject.checkBankPhotoByte ? <p>{newObject.checkBankPhotoName}</p> : <p>Не загружен</p>}
                   <Divider orientation="vertical" flexItem />
                   <Button component="label">
                     Загрузить чек
@@ -487,7 +543,7 @@ const DialogForAddBuisnessTrip_Check: React.FC<Props> = (props) => {
                 <Divider/>
                 <p className="center">Файл брони билета на поезд: </p>
                 <div className="center">
-                  {newObject.ticketPhotoByte ? <p>{newObject.ticketPhotoByte.name}</p> : <p>Не загружен</p>}
+                  {newObject.ticketPhotoByte ? <p>{newObject.ticketPhotoName}</p> : <p>Не загружен</p>}
                   <Divider orientation="vertical" flexItem />
                   <Button component="label">
                     Загрузить чек
@@ -503,7 +559,14 @@ const DialogForAddBuisnessTrip_Check: React.FC<Props> = (props) => {
                     </Button>
                   )}
                    <DialogPreView_check
-                  pdf={pdf}
+                  pdf={()=>{
+                    let split = newObject.checkBankPhotoName.split(".");
+                    if (split[1] === "pdf") {
+                      return true
+                    } else {
+                      return false
+                    }
+                  }}
                   file={newObject.checkBankPhotoByte}
                   title={"Предварительный просмотр загруженного чека на поезд"}
                   dialog={{
@@ -512,7 +575,14 @@ const DialogForAddBuisnessTrip_Check: React.FC<Props> = (props) => {
                   }}
                   />
                   <DialogPreView_check
-                  pdf={pdf}
+                  pdf={()=>{
+                    let split = newObject.ticketPhotoName.split(".");
+                    if (split[1] === "pdf") {
+                      return true
+                    } else {
+                      return false
+                    }
+                  }}
                   file={newObject.ticketPhotoByte}
                   title={"Предварительный просмотр загруженного посадочного талона на поезд"}
                   dialog={{
@@ -531,7 +601,7 @@ const DialogForAddBuisnessTrip_Check: React.FC<Props> = (props) => {
                  <p className="center">Файл чека об оплате отеля: </p>
                  <Divider/>
                  <div className="center">
-                  {newObject.checkBankPhotoByte ? <p>{newObject.checkBankPhotoByte.name}</p> : <p>Не загружен</p>}
+                  {newObject.checkBankPhotoByte ? <p>{newObject.checkBankPhotoName}</p> : <p>Не загружен</p>}
                   <Divider orientation="vertical" flexItem />
                   <Button component="label">
                     Загрузить чек
@@ -550,7 +620,7 @@ const DialogForAddBuisnessTrip_Check: React.FC<Props> = (props) => {
                 <Divider/>
                 <p className="center">Файл счета за проживание: </p>
                 <div className="center">
-                  {newObject.billPhotoByte ? <p>{newObject.billPhotoByte.name}</p> : <p>Не загружен</p>}
+                  {newObject.billPhotoByte ? <p>{newObject.billPhotoName}</p> : <p>Не загружен</p>}
                   <Divider orientation="vertical" flexItem />
                   <Button component="label">
                     Загрузить чек
@@ -566,7 +636,14 @@ const DialogForAddBuisnessTrip_Check: React.FC<Props> = (props) => {
                     </Button>
                   )}
                    <DialogPreView_check
-                  pdf={pdf}
+                  pdf={()=>{
+                    let split = newObject.checkBankPhotoName.split(".");
+                    if (split[1] === "pdf") {
+                      return true
+                    } else {
+                      return false
+                    }
+                  }}
                   file={newObject.checkBankPhotoByte}
                   title={"Предварительный просмотр загруженного чека об оплате отеля"}
                   dialog={{
@@ -575,7 +652,14 @@ const DialogForAddBuisnessTrip_Check: React.FC<Props> = (props) => {
                   }}
                   />
                   <DialogPreView_check
-                  pdf={pdf}
+                  pdf={()=>{
+                    let split = newObject.billPhotoName.split(".");
+                    if (split[1] === "pdf") {
+                      return true
+                    } else {
+                      return false
+                    }
+                  }}
                   file={newObject.billPhotoByte}
                   title={"Предварительный просмотр загруженного счета за проживание"}
                   dialog={{
@@ -595,7 +679,12 @@ const DialogForAddBuisnessTrip_Check: React.FC<Props> = (props) => {
 
         <DialogActions>
           <Button onClick={handleClose}>Отменить</Button>
-          <Button onClick={handleAddClose}>Добавить</Button>
+          {
+            dialog?.typeEdit === false ?
+            <Button onClick={handleAddClose}>Добавить</Button>
+            :
+            <Button onClick={handleEditClose}>Изменить</Button> 
+          }
         </DialogActions>
       </Dialog>
     </React.Fragment>

@@ -141,16 +141,16 @@ export interface IReportCheck{
     discriminator: string
     descriptions: string
     checkBankPhotoName: string //Название файла для чека который пришел от банка
-    checkBankPhotoByte?: File//number[] //Файл в байтах
+    checkBankPhotoByte?: File | string//number[] //Файл в байтах
     businessTrip?: IBusinessTrip
 
     ticketPhotoName: string 
-    ticketPhotoByte?: File
+    ticketPhotoByte?: File | string
     borderTicketPhotoName: string
-    borderTicketPhotoByte?: File
+    borderTicketPhotoByte?: File | string
 
     billPhotoName: string
-    billPhotoByte?: File
+    billPhotoByte?: File | string
 }
 
 /*
