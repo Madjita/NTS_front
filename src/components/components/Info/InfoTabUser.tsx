@@ -27,7 +27,7 @@ const InfoTabUser:  React.FC<Props> = ({ handleClickChange, userLogin}) => {
                                 <p>Фамилия</p>
                             </div>
                             <div className='center'>
-                                <p>{userLogin!.newUser.secondName}</p>
+                                <p>{userLogin!.oldUser.secondName}</p>
                             </div>
                         </div>
                     </div>
@@ -39,7 +39,7 @@ const InfoTabUser:  React.FC<Props> = ({ handleClickChange, userLogin}) => {
                                 <p>Имя</p>
                             </div>
                             <div className='center'>
-                                <p>{userLogin!.newUser.firstName}</p>
+                                <p>{userLogin!.oldUser.firstName}</p>
                             </div>
                         </div>
                     </div>
@@ -50,7 +50,7 @@ const InfoTabUser:  React.FC<Props> = ({ handleClickChange, userLogin}) => {
                                 <p>Отчество</p>
                             </div>
                             <div className='center'>
-                                <p>{userLogin!.newUser.middleName}</p>
+                                <p>{userLogin!.oldUser.middleName}</p>
                             </div>
                         </div>
                     </div>
@@ -61,7 +61,7 @@ const InfoTabUser:  React.FC<Props> = ({ handleClickChange, userLogin}) => {
                                 <p>Дата рождения</p>
                             </div>
                             <div className='center'>
-                                <p>{userLogin!.newUser.profile.date.substring(0, 4) + "." + userLogin!.newUser.profile.date.substring(5, 7) + "." + userLogin!.newUser.profile.date.substring(8, 10)}</p>
+                                <p>{userLogin!.oldUser.profile.date.substring(0, 4) + "." + userLogin!.oldUser.profile.date.substring(5, 7) + "." + userLogin!.oldUser.profile.date.substring(8, 10)}</p>
                             </div>
                         </div>
                     </div>
@@ -72,7 +72,7 @@ const InfoTabUser:  React.FC<Props> = ({ handleClickChange, userLogin}) => {
                                 <p>Пол</p>
                             </div>
                             <div className='center'>
-                                <p>{ userLogin!.newUser.profile.sex  ? "Мужской" : "Женский"} </p>
+                                <p>{ userLogin!.oldUser.profile.sex  ? "Мужской" : "Женский"} </p>
                             </div>
                         </div>
                     </div>
@@ -84,7 +84,7 @@ const InfoTabUser:  React.FC<Props> = ({ handleClickChange, userLogin}) => {
                             </div>                           
                                 <div className='center'>
                                     <div>
-                                        <p>{userLogin!.newUser.profile.snils}</p>
+                                        <p>{userLogin!.oldUser.profile.snils}</p>
                                     </div>
                                 </div>                           
                         </div>
@@ -98,7 +98,7 @@ const InfoTabUser:  React.FC<Props> = ({ handleClickChange, userLogin}) => {
                             <div>
                                 <div className='center'>
                                     <div>
-                                        <p>{userLogin!.newUser.profile.inn}</p>
+                                        <p>{userLogin!.oldUser.profile.inn}</p>
                                     </div>
                                 </div>
                             </div>
@@ -111,7 +111,7 @@ const InfoTabUser:  React.FC<Props> = ({ handleClickChange, userLogin}) => {
                                 <p>Телефон</p>
                             </div>
                             <div className='center'>
-                                <p>{userLogin!.newUser.profile.phone}</p>
+                                <p>{userLogin!.oldUser.profile.phone}</p>
                             </div>
                         </div>
                     </div>
@@ -119,7 +119,7 @@ const InfoTabUser:  React.FC<Props> = ({ handleClickChange, userLogin}) => {
                 </div>
                 <div className='Photo'>
                     <img className='Photo'
-                    src={userLogin!.newUser.profile.photoByte != null || undefined ? `data:image/png;base64,${userLogin!.newUser.profile.photoByte}` : label}
+                    src={userLogin!.oldUser.profile.photoByte != null || undefined ? `data:image/png;base64,${userLogin!.oldUser.profile.photoByte}` : label}
                     alt='NTS'
                     loading="lazy"/>
                 </div>

@@ -2,7 +2,9 @@ import React from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { IOldNewUser } from '../../../IDataInterface/IDataInsideInterface';
+import InputMask from 'react-input-mask';
 import { PatternFormat } from 'react-number-format';
+
 
 
 type Props = {
@@ -25,12 +27,9 @@ const InfoTabInternationalDialog:  React.FC<Props> = ({userLogin, handleClickSav
                     <div style={{width:'100%',display:'flex',justifyContent: 'space-between'}} >
                         <div className='center'>
                             <div style={{display: 'flex',height: '50px'}}>
-                                <div className='center'>
-                                    <div>
-                                    <PatternFormat
-                                        format={'#########'}
-                                        mask="_"
-                                        customInput={TextField}             
+                                <div className='center'>  
+                                <div>
+                                    <TextField                                               
                                         autoFocus
                                         margin="dense"
                                         id="name"
@@ -42,10 +41,12 @@ const InfoTabInternationalDialog:  React.FC<Props> = ({userLogin, handleClickSav
                                         color="primary" focused 
                                         value={ userLogin!.newUser ? userLogin!.newUser.profile.ipNumber : "Номер"}
                                         inputProps={{ style: { textAlign: 'center' }}} 
-                                        onChange={e=>{
-                                            userLogin!.newUser.profile.ipNumber = parseInt(e.target.value);
+                                        onChange={e=>{            
+                                            userLogin!.newUser.profile.ipNumber = e.target.value;
                                             handlerEdit({...userLogin})                   
-                                    }}/>
+                                    }}>
+                                        {<InputMask mask="**" maskPlaceholder="_" alwaysShowMask/>}
+                                    </TextField>
                                     </div>         
                                     <div style={{paddingLeft: '10px'}}>
                                     <TextField            
@@ -64,7 +65,7 @@ const InfoTabInternationalDialog:  React.FC<Props> = ({userLogin, handleClickSav
                                             userLogin!.newUser.profile.ipDateTaked = e.target.value;
                                             handlerEdit({...userLogin})                  
                                     }}/>
-                                    </div>
+                                    </div>      
                                     <p style={{margin: '0px',padding: '5px'}}>-</p>
                                     <div>
                                     <TextField            
@@ -101,7 +102,7 @@ const InfoTabInternationalDialog:  React.FC<Props> = ({userLogin, handleClickSav
                                         value={ userLogin!.newUser ? userLogin!.newUser.profile.ipCode : "Код подразделения"}
                                         inputProps={{ style: { textAlign: 'center' }}} 
                                         onChange={e=>{
-                                            userLogin!.newUser.profile.ipCode = parseInt(e.target.value);
+                                            userLogin!.newUser.profile.ipCode = e.target.value;
                                             handlerEdit({...userLogin})                    
                                     }}/>
                                     </div>

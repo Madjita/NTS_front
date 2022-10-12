@@ -97,6 +97,7 @@ const Info:  React.FC<Props> = ({}) => {
 
     const handleClickCancel = () => {
         changeButton(!change)
+        newUser.newUser = newUser.oldUser;
     }
 
     function getStyle (isActive : any) {

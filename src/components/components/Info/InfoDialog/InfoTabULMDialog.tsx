@@ -42,7 +42,7 @@ const InfoTabULMDialog:  React.FC<Props> = ({userLogin, handleClickSave, handleC
                                         value={ userLogin!.newUser ? userLogin!.newUser.profile.ulmNumber : "Номер"}
                                         inputProps={{ style: { textAlign: 'center' }}} 
                                         onChange={e=>{
-                                            userLogin!.newUser.profile.ulmNumber = parseInt(e.target.value);
+                                            userLogin!.newUser.profile.ulmNumber = e.target.value;
                                             handlerEdit({...userLogin})                  
                                     }}/>
                                     </div>         

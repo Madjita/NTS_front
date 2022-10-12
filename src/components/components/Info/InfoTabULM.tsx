@@ -20,7 +20,7 @@ const InfoTabULM:  React.FC<Props> = ({ handleClickChange, userLogin}) => {
                         </div>
                         <div className='center'>
                                 <div style={{display: 'flex',width: '694px'}}>
-                                    <p>{userLogin!.newUser.profile.ulmNumber}</p>
+                                    <p>{userLogin!.oldUser.profile.ulmNumber}</p>
                                 </div>
                         </div>
                     </div>
@@ -32,8 +32,8 @@ const InfoTabULM:  React.FC<Props> = ({ handleClickChange, userLogin}) => {
                         </div>
                         <div className='center'>
                                 <div style={{display: 'flex',width: '694px'}}>
-                                    <p>{userLogin!.newUser.profile.ulmDateTaked.substring(0, 4) + "." + userLogin!.newUser.profile.ulmDateTaked.substring(5, 7) + "." + userLogin!.newUser.profile.ulmDateTaked.substring(8, 10)}</p>            
-                                    <p>{"-" + userLogin!.newUser.profile.ulmDateBack.substring(0, 4) + "." + userLogin!.newUser.profile.ulmDateBack.substring(5, 7) + "." + userLogin!.newUser.profile.ulmDateBack.substring(8, 10)}</p> 
+                                    <p>{userLogin!.oldUser.profile.ulmDateTaked.substring(0, 4) + "." + userLogin!.oldUser.profile.ulmDateTaked.substring(5, 7) + "." + userLogin!.oldUser.profile.ulmDateTaked.substring(8, 10)}</p>            
+                                    <p>{"-" + userLogin!.oldUser.profile.ulmDateBack.substring(0, 4) + "." + userLogin!.oldUser.profile.ulmDateBack.substring(5, 7) + "." + userLogin!.oldUser.profile.ulmDateBack.substring(8, 10)}</p> 
                                 </div>
                         </div>
                     </div>
@@ -44,7 +44,7 @@ const InfoTabULM:  React.FC<Props> = ({ handleClickChange, userLogin}) => {
                             <p>Кем выдан</p>
                         </div>
                             <div style={{width: '694px'}}>
-                                <p>{userLogin!.newUser.profile.ulmTaked}</p>
+                                <p>{userLogin!.oldUser.profile.ulmTaked}</p>
                             </div>
                     </div>
                 </div>
@@ -54,7 +54,7 @@ const InfoTabULM:  React.FC<Props> = ({ handleClickChange, userLogin}) => {
                             <p>Место рождения</p>
                         </div>
                         <div style={{width: '694px'}} >
-                            <p>{userLogin!.newUser.profile.ulmPlaceBorned}</p>
+                            <p>{userLogin!.oldUser.profile.ulmPlaceBorned}</p>
                         </div>
                     </div>
                 </div>                

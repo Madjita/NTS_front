@@ -40,7 +40,7 @@ const InfoTabInternation:  React.FC<Props> = ({ handleClickChange, userLogin}) =
                         </div>
                         <div className='center'>
                                 <div style={{display: 'flex', width: '694px'}}>
-                                    <p>{userLogin!.newUser.profile.ipNumber}</p>
+                                    <p>{userLogin!.oldUser.profile.ipNumber}</p>
                                 </div>
                         </div>
                     </div>
@@ -52,8 +52,8 @@ const InfoTabInternation:  React.FC<Props> = ({ handleClickChange, userLogin}) =
                         </div>
                         <div className='center'>
                                 <div style={{display: 'flex', width: '694px'}}>
-                                <p>{userLogin!.newUser.profile.ipDateTaked.substring(0, 4) + "." + userLogin!.newUser.profile.ipDateTaked.substring(5, 7) + "." + userLogin!.newUser.profile.ipDateTaked.substring(8, 10)}</p>            
-                                    <p>{"-" + userLogin!.newUser.profile.ipDateBack.substring(0, 4) + "." + userLogin!.newUser.profile.ipDateBack.substring(5, 7) + "." + userLogin!.newUser.profile.ipDateBack.substring(8, 10)}</p> 
+                                <p>{userLogin!.oldUser.profile.ipDateTaked.substring(0, 4) + "." + userLogin!.oldUser.profile.ipDateTaked.substring(5, 7) + "." + userLogin!.oldUser.profile.ipDateTaked.substring(8, 10)}</p>            
+                                    <p>{"-" + userLogin!.oldUser.profile.ipDateBack.substring(0, 4) + "." + userLogin!.oldUser.profile.ipDateBack.substring(5, 7) + "." + userLogin!.oldUser.profile.ipDateBack.substring(8, 10)}</p> 
                                 
                                 </div>
                         </div>
@@ -66,7 +66,7 @@ const InfoTabInternation:  React.FC<Props> = ({ handleClickChange, userLogin}) =
                         </div>
                         <div className='center'>
                                 <div style={{display: 'flex', width: '694px'}}>
-                                    <p>{userLogin!.newUser.profile.ipCode}</p>
+                                    <p>{userLogin!.oldUser.profile.ipCode}</p>
                                 </div>
                         </div>
                     </div>
@@ -78,7 +78,7 @@ const InfoTabInternation:  React.FC<Props> = ({ handleClickChange, userLogin}) =
                         </div>
                         <div className='center'>
                                 <div style={{display: 'flex', width: '694px'}}>
-                                    <p>{userLogin!.newUser.profile.ipTaked}</p>
+                                    <p>{userLogin!.oldUser.profile.ipTaked}</p>
                                 </div>
                         </div>
                     </div>
@@ -89,7 +89,7 @@ const InfoTabInternation:  React.FC<Props> = ({ handleClickChange, userLogin}) =
                             <p>Место рождения</p>
                         </div>
                         <div style={{width: '694px'}} className='center'>
-                            <p>{userLogin!.newUser.profile.ipPlaceBorned}</p>
+                            <p>{userLogin!.oldUser.profile.ipPlaceBorned}</p>
                         </div>
                     </div>
                 </div>

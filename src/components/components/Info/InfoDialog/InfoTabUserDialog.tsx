@@ -20,6 +20,7 @@ const InfoTabUserDialog:  React.FC<Props> = ({userLogin, handleClickSave, handle
         ChangeInfo({...e})
     }
 
+
     return (
     <React.Fragment>
     <div className='Mainpart'>

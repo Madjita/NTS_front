@@ -43,7 +43,7 @@ const InfoTabPassportDialog:  React.FC<Props> = ({userLogin, handleClickSave, ha
                                         value ={ userLogin!.newUser ? userLogin!.newUser.profile.prfSeries : "Серия"} 
                                         inputProps={{ style: { textAlign: 'center' }}} 
                                         onChange={e=>{
-                                            userLogin!.newUser.profile.prfSeries = parseInt(e.target.value);
+                                            userLogin!.newUser.profile.prfSeries = e.target.value;
                                             handlerEdit({...userLogin})                 
                                         }}/>
                                     </div>
@@ -64,7 +64,7 @@ const InfoTabPassportDialog:  React.FC<Props> = ({userLogin, handleClickSave, ha
                                         value ={ userLogin!.newUser ? userLogin!.newUser.profile.prfNumber : "Номер"} 
                                         inputProps={{ style: { textAlign: 'center' }}} 
                                         onChange={e=>{
-                                            userLogin!.newUser.profile.prfNumber = parseInt(e.target.value);
+                                            userLogin!.newUser.profile.prfNumber = e.target.value;
                                             handlerEdit({...userLogin})                    
                                         }}/>
                                     </div>          
